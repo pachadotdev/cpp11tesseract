@@ -17,3 +17,5 @@ vignettes/.*\.png$
 ^README\.html$
 ^docs$
 ^pkgdown$
+^CRAN-SUBMISSION$
+^cran-comments\.md$
