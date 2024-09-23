@@ -13,3 +13,7 @@ vignettes/.*\.png$
 ^configure.log$
 ^\.github$
 ^\.vscode$
+^README\.Rmd$
+^README\.html$
+^docs$
+^pkgdown$
