@@ -9,12 +9,12 @@
 > 100 languages. The engine is highly configurable in order to tune the
 > detection algorithms and obtain the best possible results.
 
+[![R-CMD-check](https://github.com/pachadotdev/cpp11tesseract/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/pachadotdev/cpp11tesseract/actions/workflows/R-CMD-check.yaml)
+[![codecov](https://codecov.io/gh/pachadotdev/cpp11tesseract/graph/badge.svg?token=mWfiUCgfNu)](https://app.codecov.io/gh/pachadotdev/cpp11tesseract)
+[![BuyMeACoffee](https://raw.githubusercontent.com/pachadotdev/buymeacoffee-badges/main/bmc-donate-white.svg)](https://buymeacoffee.com/pacha)
 [![Project Status: Active – The project has reached a stable, usable
 state and is being actively
 developed.](https://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/tesseract)](https://cran.r-project.org/package=tesseract)
-[![CRAN RStudio mirror
-downloads](http://cranlogs.r-pkg.org/badges/tesseract)](https://cran.r-project.org/package=tesseract)
 
   - Upstream Tesseract-OCR documentation:
     <https://tesseract-ocr.github.io/tessdoc/>
@@ -54,13 +54,6 @@ cat(text)
 
 ## Installation
 
-On Windows and MacOS the package binary package can be installed from
-CRAN:
-
-``` r
-install.packages("tesseract")
-```
-
 Installation from source on Linux or OSX requires the `Tesseract`
 library (see below).
 
@@ -83,13 +76,13 @@ to get the latest version of Tesseract:
     sudo add-apt-repository ppa:alex-p/tesseract-ocr-devel
     sudo apt-get install -y libtesseract-dev tesseract-ocr-eng
 
-On **Fedora** we need
+On **Fedora** you need
 [tesseract-devel](https://src.fedoraproject.org/rpms/tesseract) and
 [leptonica-devel](https://src.fedoraproject.org/rpms/leptonica)
 
     sudo yum install tesseract-devel leptonica-devel
 
-On **RHEL** and **CentOS** we need
+On **RHEL** and **CentOS** you need
 [tesseract-devel](https://src.fedoraproject.org/rpms/tesseract) and
 [leptonica-devel](https://src.fedoraproject.org/rpms/leptonica) from
 EPEL

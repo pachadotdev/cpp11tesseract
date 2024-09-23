@@ -61,6 +61,9 @@
     </li>
   </ul>
 </li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
@@ -170,7 +173,7 @@
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Now load the dictionary</span></span>
 <span><span class="op">(</span><span class="va">simplified_chinese</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tesseract.html">tesseract</a></span><span class="op">(</span><span class="st">"chi_sim"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## &lt;pointer: 0x5b48ba3c7aa0&gt;</span></span></code></pre>
+<pre><code><span><span class="co">## &lt;pointer: 0x587012bccc80&gt;</span></span></code></pre>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"examples"</span>, <span class="st">"chinese.png"</span>, package <span class="op">=</span> <span class="st">"cpp11tesseract"</span><span class="op">)</span></span>
 <span><span class="va">text</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ocr.html">ocr</a></span><span class="op">(</span><span class="va">file</span>, engine <span class="op">=</span> <span class="va">simplified_chinese</span><span class="op">)</span></span>
@@ -385,7 +388,7 @@
 <div class="section level2">
 <h2 id="contributed-models">Contributed models<a class="anchor" aria-label="anchor" href="#contributed-models"></a>
 </h2>
-<p>The <code>tesseract_contributed_download()</code> function can download contributed models. For example, the <code>grc_hist</code> model is useful for Polytonic Greek. Here is an example from Sophocles’ Ajax (source: <a href="https://github.com/AjaxMultiCommentary" class="external-link">Ajax Multi-Commentary</a>)</p>
+<p>The <code><a href="../reference/tessdata.html">tesseract_contributed_download()</a></code> function can download contributed models. For example, the <code>grc_hist</code> model is useful for Polytonic Greek. Here is an example from Sophocles’ Ajax (source: <a href="https://github.com/AjaxMultiCommentary" class="external-link">Ajax Multi-Commentary</a>)</p>
 <div class="figure">
 <img src="../reference/figures/polytonicgreek.png" alt=""><p class="caption">polytonicgreek</p>
 </div>
@@ -395,7 +398,7 @@
 <span><span class="co"># download the best models</span></span>
 <span><span class="va">dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/tessdata.html">tesseract_download</a></span><span class="op">(</span><span class="st">"grc"</span>, datapath <span class="op">=</span> <span class="va">dir</span>, model <span class="op">=</span> <span class="st">"best"</span><span class="op">)</span></span>
-<span><span class="fu">tesseract_contributed_download</span><span class="op">(</span><span class="st">"grc_hist"</span>, datapath <span class="op">=</span> <span class="va">dir</span>, model <span class="op">=</span> <span class="st">"best"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/tessdata.html">tesseract_contributed_download</a></span><span class="op">(</span><span class="st">"grc_hist"</span>, datapath <span class="op">=</span> <span class="va">dir</span>, model <span class="op">=</span> <span class="st">"best"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># compare the results: grc (text1) vs grc_hist (text2)</span></span>
 <span><span class="va">text1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ocr.html">ocr</a></span><span class="op">(</span><span class="va">file</span>, engine <span class="op">=</span> <span class="fu"><a href="../reference/tesseract.html">tesseract</a></span><span class="op">(</span><span class="st">"grc"</span>, datapath <span class="op">=</span> <span class="va">dir</span><span class="op">)</span><span class="op">)</span></span>
