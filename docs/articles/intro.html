@@ -67,7 +67,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/ropensci/tesseract/" class="external-link">
+  <a href="https://github.com/pachadotdev/cpp11tesseract/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -89,7 +89,7 @@
             
             <h4 data-toc-skip class="date">2024-09-23</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/ropensci/tesseract/blob/HEAD/vignettes/intro.Rmd" class="external-link"><code>vignettes/intro.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/pachadotdev/cpp11tesseract/blob/HEAD/vignettes/intro.Rmd" class="external-link"><code>vignettes/intro.Rmd</code></a></small>
       <div class="hidden name"><code>intro.Rmd</code></div>
 
     </div>
@@ -106,7 +106,7 @@
 <img src="../reference/figures/testocr.png" alt=""><p class="caption">test</p>
 </div>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/tesseract/" class="external-link">cpp11tesseract</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://pacha.dev/cpp11tesseract/" class="external-link">cpp11tesseract</a></span><span class="op">)</span></span>
 <span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"examples"</span>, <span class="st">"testocr.png"</span>, package <span class="op">=</span> <span class="st">"cpp11tesseract"</span><span class="op">)</span></span>
 <span><span class="va">eng</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tesseract.html">tesseract</a></span><span class="op">(</span><span class="st">"eng"</span><span class="op">)</span></span>
 <span><span class="va">text</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ocr.html">ocr</a></span><span class="op">(</span><span class="va">file</span>, engine <span class="op">=</span> <span class="va">eng</span><span class="op">)</span></span>
@@ -173,7 +173,7 @@
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Now load the dictionary</span></span>
 <span><span class="op">(</span><span class="va">simplified_chinese</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tesseract.html">tesseract</a></span><span class="op">(</span><span class="st">"chi_sim"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## &lt;pointer: 0x587012bccc80&gt;</span></span></code></pre>
+<pre><code><span><span class="co">## &lt;pointer: 0x581f73dc2f70&gt;</span></span></code></pre>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"examples"</span>, <span class="st">"chinese.png"</span>, package <span class="op">=</span> <span class="st">"cpp11tesseract"</span><span class="op">)</span></span>
 <span><span class="va">text</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ocr.html">ocr</a></span><span class="op">(</span><span class="va">file</span>, engine <span class="op">=</span> <span class="va">simplified_chinese</span><span class="op">)</span></span>

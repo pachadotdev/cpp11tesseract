@@ -3,11 +3,11 @@ Type: Package
 Title: Open Source OCR Engine
 Version: 5.3.0
 Authors@R: c(person("Jeroen", "Ooms",
-                    role = c("aut", "cre"),
+                    role = c("aut"),
                     email = "jeroen@berkeley.edu",
                     comment = c(ORCID = "0000-0002-4035-0289")),
              person("Mauricio", "Vargas Sepulveda",
-                    role = "aut", 
+                    role = c("aut", "cre"), 
                     email = "m.sepulveda@mail.utoronto.ca", 
                     comment = c(ORCID = "0000-0003-1017-7574")),
              person("Munk School of Global Affairs and Public Policy",
@@ -18,9 +18,9 @@ Description: Bindings to 'Tesseract':
      100 languages. The engine is highly configurable in order to tune the
      detection algorithms and obtain the best possible results.
 License: Apache License 2.0
-URL: https://docs.ropensci.org/tesseract/ (website) 
-    https://github.com/ropensci/tesseract (devel)
-BugReports: https://github.com/ropensci/tesseract/issues
+URL: https://pacha.dev/cpp11tesseract/ (website) 
+    https://github.com/pachadotdev/cpp11tesseract (devel)
+BugReports: https://github.com/pachadotdev/cpp11tesseract/issues
 SystemRequirements: Tesseract >= 4.0.0 (libtesseract-dev / tesseract-devel) and
     Leptonica (libleptonica-dev / leptonica-devel). On Debian you need to
     install the English and other languages training data separately
