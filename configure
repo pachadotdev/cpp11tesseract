@@ -85,6 +85,11 @@ fi
 echo "Using PKG_CFLAGS=$PKG_CFLAGS"
 echo "Using PKG_LIBS=$PKG_LIBS"
 
+# Verify include paths
+echo "Verifying include paths..."
+ls -l $BREWDIR/include/leptonica
+ls -l $BREWDIR/include/tesseract
+
 # Tesseract 4 enforces C++11 in the headers but R does not have CXX11CPP
 CPPFLAGS=`${R_HOME}/bin/R CMD config CPPFLAGS`
 CXX11STD=`${R_HOME}/bin/R CMD config CXX11STD`
