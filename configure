@@ -1,4 +1,4 @@
-# Anticonf (tm) script by Jeroen Ooms (2022)
+# Adapted from the script by Jeroen Ooms (2024)
 # This script will query 'pkg-config' for the required cflags and ldflags.
 # If pkg-config is unavailable or does not find the library, try setting
 # INCLUDE_DIR and LIB_DIR manually via e.g:
@@ -48,10 +48,10 @@ echo "Using PKG_LIBS=$PKG_LIBS"
 CPPFLAGS=`${R_HOME}/bin/R CMD config CPPFLAGS`
 CXX11STD=`${R_HOME}/bin/R CMD config CXX11STD`
 if [ $? -eq 0 ]; then
-CXX11=`${R_HOME}/bin/R CMD config CXX11`
-CXX11CPP="$CXX11 -E $CXX11STD"
+  CXX11=`${R_HOME}/bin/R CMD config CXX11`
+  CXX11CPP="$CXX11 -E $CXX11STD"
 else
-CXX11CPP=`${R_HOME}/bin/R CMD config CXXCPP`
+  CXX11CPP=`${R_HOME}/bin/R CMD config CXXCPP`
 fi
 
 # Test configuration
