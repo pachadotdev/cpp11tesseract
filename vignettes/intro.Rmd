@@ -142,7 +142,7 @@ tesseract_params("colour")
 Do note that some of the control parameters have changed between Tesseract engine 3 and 4.
 
 ```{r}
-tesseract_info()['version']
+tesseract_info()["version"]
 ```
 
 ### Whitelist / Blacklist characters
@@ -270,10 +270,11 @@ for (i in seq_along(text)) {
 
   res <- c(variable, values)
 
-  names(res) <- c("variable", "y1964", "y1965est", "y1965q1",
+  names(res) <- c(
+    "variable", "y1964", "y1965est", "y1965q1",
     "y1965q2", "y1965q3", "y1965q4est", "y1966q1pro"
   )
-  
+
   if (i == 1) {
     df <- as.data.frame(t(res))
   } else {

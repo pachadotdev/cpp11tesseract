@@ -29,20 +29,21 @@
 #' df <- ocr_data(file)
 #' print(df)
 ocr <- function(image, engine = tesseract("eng"), HOCR = FALSE) {
-  if(is.character(engine))
+  if (is.character(engine)) {
     engine <- tesseract(engine)
+  }
   stopifnot(inherits(engine, "externalptr"))
-  if(inherits(image, "magick-image")){
-    vapply(image, function(x){
+  if (inherits(image, "magick-image")) {
+    vapply(image, function(x) {
       tmp <- tempfile(fileext = ".png")
       on.exit(unlink(tmp))
-      magick::image_write(x, tmp, format = 'PNG', density = '300x300')
+      magick::image_write(x, tmp, format = "PNG", density = "300x300")
       ocr(tmp, engine = engine, HOCR = HOCR)
     }, character(1))
-  } else if(is.character(image)){
+  } else if (is.character(image)) {
     image <- download_files(image)
     vapply(image, ocr_file, character(1), ptr = engine, HOCR = HOCR, USE.NAMES = FALSE)
-  } else if(is.raw(image)){
+  } else if (is.raw(image)) {
     ocr_raw(image, engine, HOCR = HOCR)
   } else {
     stop("Argument 'image' must be file-path, url or raw vector")
@@ -52,22 +53,23 @@ ocr <- function(image, engine = tesseract("eng"), HOCR = FALSE) {
 #' @rdname ocr
 #' @export
 ocr_data <- function(image, engine = tesseract("eng")) {
-  if(is.character(engine))
+  if (is.character(engine)) {
     engine <- tesseract(engine)
+  }
   stopifnot(inherits(engine, "externalptr"))
-  df_list <- if(inherits(image, "magick-image")){
-    lapply(image, function(x){
+  df_list <- if (inherits(image, "magick-image")) {
+    lapply(image, function(x) {
       tmp <- tempfile(fileext = ".png")
       on.exit(unlink(tmp))
-      magick::image_write(x, tmp, format = 'PNG', density = '300x300')
+      magick::image_write(x, tmp, format = "PNG", density = "300x300")
       ocr_data(tmp, engine = engine)
     })
-  } else if(is.character(image)){
+  } else if (is.character(image)) {
     image <- download_files(image)
-    lapply(image, function(im){
+    lapply(image, function(im) {
       ocr_file_data(im, ptr = engine)
     })
-  } else if(is.raw(image)){
+  } else if (is.raw(image)) {
     list(ocr_raw_data(image, engine))
   } else {
     stop("Argument 'image' must be file-path, url or raw vector")
