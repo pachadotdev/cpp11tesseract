@@ -42,7 +42,7 @@ jobs:
           http-user-agent: ${{ matrix.config.http-user-agent }}
           use-public-rspm: true
       
-      - name: Install Tesseract and Poppler
+      - name: Install Tesseract and Poppler (Ubuntu)
         if: matrix.config.os == 'ubuntu-20.04' || matrix.config.os == 'ubuntu-latest'
         run: |
           sudo apt-get update
@@ -53,6 +53,11 @@ jobs:
             sudo apt-get update
             sudo apt-get install -y libtesseract-dev tesseract-ocr tesseract-ocr-eng libpoppler-cpp-dev
           fi
+
+      - name: Install Tesseract and Poppler (macOS)
+        if: matrix.config.os == 'macos-13' || matrix.config.os == 'macos-14'
+        run: |
+          brew install tesseract poppler
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
