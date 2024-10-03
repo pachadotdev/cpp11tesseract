@@ -36,8 +36,47 @@ elif [ `uname` = "Darwin" ]; then
     PKG_CFLAGS="-I$BREWDIR/include -I$BREWDIR/include/leptonica"
     PKG_LIBS="-L$BREWDIR/lib $PKG_LIBS"
   else
-    curl -sfL "https://autobrew.github.io/scripts/tesseract" > autobrew
-    . ./autobrew
+    # Autobrew logic
+    if [ "x${OSTYPE:6:1}" = "x1" ]; then
+      bottle="https://github.com/autobrew/bundler/releases/download/tesseract-5.3.1/tesseract-5.0.1-high_sierra.tar.xz"
+      LEPTONICA=lept
+    else
+      bottle="https://github.com/autobrew/bundler/releases/download/tesseract-5.3.2_1/tesseract-5.3.2_1-universal.tar.xz"
+      MORELIBS="-lturbojpeg -lsharpyuv -larchive -lexpat -llzma -lzstd -llz4 -lb2 -lbz2 -liconv -framework Accelerate"
+      LEPTONICA="leptonica"
+    fi
+
+    # Skip if disabled
+    if [ "$DISABLE_AUTOBREW" ]; then return 0; fi
+    echo "Using autobrew bundle: $(basename $bottle)"
+
+    # General setup
+    BREWDIR="$PWD/.deps"
+    mkdir -p $BREWDIR
+    curl -sSL $bottle -o libs.tar.xz
+    tar -xf libs.tar.xz --strip 1 -C $BREWDIR
+    rm -f libs.tar.xz
+
+    # Hardcoded flags
+    PKG_CFLAGS="-DBUILD_AUTOBREW -I${BREWDIR}/include -I${BREWDIR}/include/leptonica"
+    PKG_LIBS="-L${BREWDIR}/lib -ltesseract -l${LEPTONICA} -lopenjp2 -lgif -lwebpmux -lwebp -lpng16 -ljpeg -ltiff -lcurl $MORELIBS -lz -lpthread"
+
+    # Ship tesseract training data
+    mkdir -p inst
+    cp -Rf $BREWDIR/share/tessdata inst/
+    echo "Copying training data"
+
+    # Prevent CRAN builder from linking against old libs in /usr/local/lib
+    for FILE in $BREWDIR/lib/*.a; do
+      BASENAME=$(basename $FILE)
+      LIBNAME=$(echo "${BASENAME%.*}" | cut -c4-)
+      cp -f $FILE $BREWDIR/lib/libbrew$LIBNAME.a
+      PKG_LIBS=$(echo $PKG_LIBS | sed "s/-l$LIBNAME /-lbrew$LIBNAME /g")
+    done
+
+    # Cleanup
+    echo "rm -Rf .deps" >> cleanup
+    chmod +x cleanup
   fi
 fi
 
