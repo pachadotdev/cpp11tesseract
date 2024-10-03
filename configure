@@ -87,8 +87,17 @@ echo "Using PKG_LIBS=$PKG_LIBS"
 
 # Verify include paths
 echo "Verifying include paths..."
-ls -l $BREWDIR/include/leptonica
-ls -l $BREWDIR/include/tesseract
+if [ -d "$BREWDIR/include/leptonica" ]; then
+  ls -l $BREWDIR/include/leptonica
+else
+  echo "Directory $BREWDIR/include/leptonica does not exist"
+fi
+
+if [ -d "$BREWDIR/include/tesseract" ]; then
+  ls -l $BREWDIR/include/tesseract
+else
+  echo "Directory $BREWDIR/include/tesseract does not exist"
+fi
 
 # Tesseract 4 enforces C++11 in the headers but R does not have CXX11CPP
 CPPFLAGS=`${R_HOME}/bin/R CMD config CPPFLAGS`
