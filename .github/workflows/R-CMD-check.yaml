@@ -1,12 +1,10 @@
-# Workflow derived from https://github.com/r-lib/actions/tree/v2/examples
+# Workflow derived from https://github.com/r-lib/actions/tree/master/examples
 # Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
 on:
   push:
   pull_request:
 
 name: R-CMD-check
-
-permissions: read-all
 
 jobs:
   R-CMD-check:
@@ -20,7 +18,8 @@ jobs:
         config:
           - {os: macos-13,        r: 'release'}
           - {os: macos-14,        r: 'release'}
-          - {os: windows-latest , r: 'release'}
+          - {os: windows-latest,  r: 'release'}
+          - {os: windows-latest,  r: '4.1'}
           - {os: ubuntu-latest,   r: 'devel', http-user-agent: 'release'}
           - {os: ubuntu-latest,   r: 'release'}
           - {os: ubuntu-20.04,    r: 'release', tesseract_version: '4'}
@@ -58,19 +57,10 @@ jobs:
         run: |
           brew install tesseract poppler
 
-      - name: Set environment variables for macOS 14
-        if: matrix.config.os == 'macos-14'
-        run: |
-          echo "Setting environment variables for macOS 14"
-          echo "LIBRARY_PATH=/opt/homebrew/lib" >> $GITHUB_ENV
-          echo "CPATH=/opt/homebrew/include" >> $GITHUB_ENV
-
-      - name: Print environment variables
-        run: env
-
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::rcmdcheck
-          needs: check
+          extra-packages: rcmdcheck
 
       - uses: r-lib/actions/check-r-package@v2
+        with:
+          args: 'c("--no-manual", "--as-cran", "--run-donttest")'
