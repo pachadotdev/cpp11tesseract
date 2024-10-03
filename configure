@@ -62,6 +62,13 @@ else
   echo "Directory $BREWDIR/include/tesseract does not exist"
 fi
 
+# Check for the existence of the required header file
+if [ -f "$BREWDIR/include/leptonica/allheaders.h" ]; then
+  echo "Header file $BREWDIR/include/leptonica/allheaders.h exists"
+else
+  echo "Header file $BREWDIR/include/leptonica/allheaders.h does not exist"
+fi
+
 # Tesseract 4 enforces C++11 in the headers but R does not have CXX11CPP
 CPPFLAGS=`${R_HOME}/bin/R CMD config CPPFLAGS`
 CXX11STD=`${R_HOME}/bin/R CMD config CXX11STD`

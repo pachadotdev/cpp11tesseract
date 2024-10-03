@@ -59,6 +59,9 @@ jobs:
         run: |
           brew install tesseract poppler
 
+      - name: Print environment variables
+        run: env
+
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           extra-packages: any::rcmdcheck
