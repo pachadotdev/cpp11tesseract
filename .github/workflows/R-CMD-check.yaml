@@ -60,3 +60,7 @@ jobs:
       - uses: r-lib/actions/check-r-package@v2
         with:
           args: 'c("--no-manual", "--as-cran", "--run-donttest")'
+
+      - name: Test coverage
+        run: covr::codecov(token = "${{secrets.CODECOV_TOKEN}}")
+        shell: Rscript {0}

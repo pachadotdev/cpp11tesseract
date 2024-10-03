@@ -89,6 +89,12 @@ language string which will be passed to <code><a href="tesseract.html">tesseract
 <dd><p>if <code>TRUE</code> return results as HOCR xml instead of plain text</p></dd>
 
 </dl></div>
+    <div id="value">
+    <h2>Value</h2>
+    
+
+<p>character vector of text extracted from the image</p>
+    </div>
     <div id="details">
     <h2>Details</h2>
     <p>The <code>ocr()</code> function returns plain text by default, or hOCR text if hOCR is set to <code>TRUE</code>.
@@ -226,29 +232,6 @@ each word in the text.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> to          97.0 437,93,463,116 FALSE           </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> test        97.0 474,93,526,116 FALSE           </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 50 more rows</span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># \donttest{</span></span></span>
-<span class="r-in"><span><span class="co"># Full roundtrip test: render PDF to image and OCR it back to text</span></span></span>
-<span class="r-in"><span><span class="fu">curl</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/curl/man/curl_download.html" class="external-link">curl_download</a></span><span class="op">(</span><span class="st">"https://cran.r-project.org/doc/manuals/r-release/R-intro.pdf"</span>, <span class="st">"R-intro.pdf"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">orig</span> <span class="op">&lt;-</span> <span class="fu">pdftools</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/pdftools/reference/pdftools.html" class="external-link">pdf_text</a></span><span class="op">(</span><span class="st">"R-intro.pdf"</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Render pdf to png image</span></span></span>
-<span class="r-in"><span><span class="va">img_file</span> <span class="op">&lt;-</span> <span class="fu">pdftools</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/pdftools/reference/pdf_render_page.html" class="external-link">pdf_convert</a></span><span class="op">(</span><span class="st">"R-intro.pdf"</span>, format <span class="op">=</span> <span class="st">"tiff"</span>, pages <span class="op">=</span> <span class="fl">1</span>, dpi <span class="op">=</span> <span class="fl">400</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Converting page 1 to R-intro_1.tiff... done!</span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/unlink.html" class="external-link">unlink</a></span><span class="op">(</span><span class="st">"R-intro.pdf"</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Extract text from png image</span></span></span>
-<span class="r-in"><span><span class="va">text</span> <span class="op">&lt;-</span> <span class="fu">ocr</span><span class="op">(</span><span class="va">img_file</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/unlink.html" class="external-link">unlink</a></span><span class="op">(</span><span class="va">img_file</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> An Introduction to R</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Notes on R: A Programming Environment for Data Analysis and Graphics</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Version 4.4.1 (2024-06-14)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> W.N. Venables, D. M. Smith</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> and the R Core Team</span>
-<span class="r-in"><span><span class="co"># }</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">engine</span> <span class="op">&lt;-</span> <span class="fu"><a href="tesseract.html">tesseract</a></span><span class="op">(</span>options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>tessedit_char_whitelist <span class="op">=</span> <span class="st">"0123456789"</span><span class="op">)</span><span class="op">)</span></span></span>
 </code></pre></div>
     </div>
   </div>

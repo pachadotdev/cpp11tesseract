@@ -10,6 +10,7 @@
 #' of libtesseract, and that invalid parameters can sometimes cause libtesseract to crash.
 #'
 #' @export
+#' @return no return value, called for side effects
 #' @rdname tesseract
 #' @family tesseract
 #' @param language string with language for training data. Usually defaults to `eng`
@@ -41,6 +42,7 @@ tesseract <- local({
 })
 
 #' @export
+#' @return no return value, called for side effects
 #' @rdname tesseract
 #' @param filter only list parameters containing a particular string
 #' @examples tesseract_params("debug")
@@ -53,6 +55,7 @@ tesseract_params <- function(filter = ""){
 }
 
 #' @export
+#' @return list with information about the tesseract engine
 #' @rdname tesseract
 tesseract_info <- function(){
   info <- engine_info_internal(tesseract())
@@ -108,6 +111,7 @@ download_files <- function(urls){
 }
 
 #' @export
+#' @noRd
 "print.tesseract" <- function(x, ...){
   info <- engine_info_internal(x)
   cat("<tesseract engine>\n")

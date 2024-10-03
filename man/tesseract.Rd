@@ -34,6 +34,13 @@ tesseract config files that live in the tessdata directory. See details.}
 
 \item{filter}{only list parameters containing a particular string}
 }
+\value{
+no return value, called for side effects
+
+no return value, called for side effects
+
+list with information about the tesseract engine
+}
 \description{
 Create an OCR engine for a given language and control parameters. This can be used by
 the \link{ocr} and \link{ocr_data} functions to recognize text.

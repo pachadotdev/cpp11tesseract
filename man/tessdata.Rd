@@ -30,6 +30,11 @@ more accurate (but slower) trained models for Tesseract 4.0 or higher}
 
 \item{progress}{print progress while downloading}
 }
+\value{
+no return value, called for side effects
+
+no return value, called for side effects
+}
 \description{
 Helper function to download training data from the official
 \href{https://tesseract-ocr.github.io/tessdoc/Data-Files}{tessdata} repository. On Linux, the fast training data can be installed directly with
@@ -53,23 +58,23 @@ which downloads training data directly from \href{https://github.com/tesseract-o
 and stores it in a the path on disk given by the \code{TESSDATA_PREFIX} variable.
 }
 \examples{
-\dontrun{
-if (is.na(match("fra", tesseract_info()$available))) {
-  tesseract_download("fra", model = "best")
+# download the french training data
+# tesseract_download("fra", model = "best")
+
+if (any("fra" \%in\% tesseract_info()$available)) {
+  french <- tesseract("fra")
+  file <- system.file("examples", "french.png", package = "cpp11tesseract")
+  text <- ocr(file, engine = french)
+  cat(text)
 }
-french <- tesseract("fra")
-file <- system.file("examples", "french.png", package = "cpp11tesseract")
-text <- ocr(file, engine = french)
-cat(text)
-}
-\dontrun{
-if (is.na(match("grc_hist", tesseract_info()$available))) {
- tesseract_contributed_download("grc_hist")
-}
-greek <- tesseract("grc_hist")
-file <- system.file("examples", "polytonicgreek.png", package = "cpp11tesseract")
-text <- ocr(file, engine = greek)
-cat(text)
+# download the polytonic greek training data
+# tesseract_contributed_download("grc_hist")
+
+if (any("grc_hist" \%in\% tesseract_info()$available)) {
+  greek <- tesseract("grc_hist")
+  file <- system.file("examples", "polytonicgreek.png", package = "cpp11tesseract")
+  text <- ocr(file, engine = greek)
+  cat(text)
 }
 }
 \references{

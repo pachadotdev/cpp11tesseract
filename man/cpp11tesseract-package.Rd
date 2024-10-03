@@ -14,7 +14,7 @@ algorithms and obtain the best possible results.
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://pacha.dev/cpp11tesseract/ (website) https://github.com/pachadotdev/cpp11tesseract (devel)}
+  \item \url{https://pacha.dev/cpp11tesseract/}
   \item Report bugs at \url{https://github.com/pachadotdev/cpp11tesseract/issues}
 }
 
