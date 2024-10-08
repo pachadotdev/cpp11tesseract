@@ -36,12 +36,6 @@ each word in the text.
 file <- system.file("examples", "testocr.png", package = "cpp11tesseract")
 text <- ocr(file)
 cat(text)
-
-xml <- ocr(file, HOCR = TRUE)
-cat(xml)
-
-df <- ocr_data(file)
-print(df)
 }
 \references{
 \href{https://github.com/tesseract-ocr/tesseract/wiki/ImproveQuality}{Tesseract: Improving Quality}

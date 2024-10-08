@@ -29,7 +29,9 @@
 #' @references [tesseract wiki: training data](https://tesseract-ocr.github.io/tessdoc/Data-Files)
 #' @examples
 #' # download the french training data
-#' # tesseract_download("fra", model = "best")
+#' \donttest{
+#'   tesseract_download("fra", model = "best")
+#' }
 #'
 #' if (any("fra" %in% tesseract_info()$available)) {
 #'   french <- tesseract("fra")
@@ -77,7 +79,9 @@ tesseract_download <- function(lang, datapath = NULL, model = c("fast", "best"),
 #' @references [tesseract wiki: training data](https://tesseract-ocr.github.io/tessdoc/Data-Files)
 #' @examples
 #' # download the polytonic greek training data
-#' # tesseract_contributed_download("grc_hist")
+#' \donttest{
+#'   tesseract_contributed_download("grc_hist")
+#' }
 #'
 #' if (any("grc_hist" %in% tesseract_info()$available)) {
 #'   greek <- tesseract("grc_hist")

@@ -1,0 +1,192 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs" width="166.03307" height="192.11955"><svg width="166.03307" height="192.11955" viewBox="0 0 166.03307 192.11955" version="1.1" id="SvgjsSvg1759" sodipodi:docname="logo.svg" inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+  <defs id="SvgjsDefs1758">
+    <inkscape:perspective sodipodi:type="inkscape:persp3d" inkscape:vp_x="0 : 574.25595 : 1" inkscape:vp_y="0 : 999.99999 : 0" inkscape:vp_z="1500 : 574.25595 : 1" inkscape:persp3d-origin="750.00002 : 280.21049 : 1" id="SvgjsInkscape:perspective1757"></inkscape:perspective>
+    <clipPath id="SvgjsClipPath1756">
+      <path d="m 45.315,71.927 h 12.92 v 15.867 h -12.92 z" id="SvgjsPath1755" inkscape:connector-curvature="0"></path>
+    </clipPath>
+    <clipPath id="SvgjsClipPath1754">
+      <path d="m 123.91,72.178 h 26.23 v 15.294 h -26.23 z" id="SvgjsPath1753" inkscape:connector-curvature="0"></path>
+    </clipPath>
+    <clipPath id="SvgjsClipPath1752">
+      <path d="m 413.96,49.857 h 31.76 v 8.719 h -31.76 z" id="SvgjsPath1751" inkscape:connector-curvature="0"></path>
+    </clipPath>
+    <marker style="overflow:visible" id="SvgjsMarker1750" orient="auto" refY="0" refX="0">
+      <path style="font-size:12px;fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round" id="SvgjsPath1749" transform="matrix(-1.1,0,0,-1.1,-1.1,0)" d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z" inkscape:connector-curvature="0"></path>
+    </marker>
+    <filter id="SvgjsFilter1748" x="-0.0067710145" y="-0.052691713" width="1.0135421" height="1.1053834">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="0.64393666" result="blur" id="SvgjsFeGaussianBlur1747"></feGaussianBlur>
+      <feMerge id="SvgjsFeMerge1746">
+        <feMergeNode in="blur" id="SvgjsFeMergeNode1745"></feMergeNode>
+        <feMergeNode in="SourceGraphic" id="SvgjsFeMergeNode1744"></feMergeNode>
+      </feMerge>
+    </filter>
+    <filter id="SvgjsFilter1743" x="-0.0691232" y="-0.24681636" width="1.1382464" height="1.4936327">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="3.4338326" result="blur" id="SvgjsFeGaussianBlur1742"></feGaussianBlur>
+      <feMerge id="SvgjsFeMerge1741">
+        <feMergeNode in="blur" id="SvgjsFeMergeNode1740"></feMergeNode>
+        <feMergeNode in="SourceGraphic" id="SvgjsFeMergeNode1739"></feMergeNode>
+      </feMerge>
+    </filter>
+    <filter id="SvgjsFilter1738" x="-0.020388766" y="-0.059" width="1.0407775" height="1.118">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="1.625" result="blur" id="SvgjsFeGaussianBlur1737"></feGaussianBlur>
+      <feMerge id="SvgjsFeMerge1736">
+        <feMergeNode in="blur" id="SvgjsFeMergeNode1735"></feMergeNode>
+        <feMergeNode in="SourceGraphic" id="SvgjsFeMergeNode1734"></feMergeNode>
+      </feMerge>
+    </filter>
+    <filter id="SvgjsFilter1733" x="-0.020388766" y="-0.059" width="1.0407775" height="1.118">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="1.625" result="blur" id="SvgjsFeGaussianBlur1732"></feGaussianBlur>
+      <feMerge id="SvgjsFeMerge1731">
+        <feMergeNode in="blur" id="SvgjsFeMergeNode1730"></feMergeNode>
+        <feMergeNode in="SourceGraphic" id="SvgjsFeMergeNode1729"></feMergeNode>
+      </feMerge>
+    </filter>
+    <filter id="SvgjsFilter1728" x="-0.020388766" y="-0.059" width="1.0407775" height="1.118">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="1.625" result="blur" id="SvgjsFeGaussianBlur1727"></feGaussianBlur>
+      <feMerge id="SvgjsFeMerge1726">
+        <feMergeNode in="blur" id="SvgjsFeMergeNode1725"></feMergeNode>
+        <feMergeNode in="SourceGraphic" id="SvgjsFeMergeNode1724"></feMergeNode>
+      </feMerge>
+    </filter>
+    <filter inkscape:collect="always" style="color-interpolation-filters:sRGB" id="SvgjsFilter1723" x="-0.02038657" y="-0.05899525" width="1.0407731" height="1.1179905">
+      <feGaussianBlur inkscape:collect="always" stdDeviation="1.625" id="SvgjsFeGaussianBlur1722"></feGaussianBlur>
+    </filter>
+    <filter inkscape:collect="always" style="color-interpolation-filters:sRGB" id="SvgjsFilter1721" x="-0.020388766" y="-0.059" width="1.0407775" height="1.118">
+      <feGaussianBlur inkscape:collect="always" stdDeviation="1.625" id="SvgjsFeGaussianBlur1720"></feGaussianBlur>
+    </filter>
+    <filter inkscape:collect="always" style="color-interpolation-filters:sRGB" id="SvgjsFilter1719" x="-0.118" y="-0.014095993" width="1.236" height="1.028192">
+      <feGaussianBlur inkscape:collect="always" stdDeviation="1.625" id="SvgjsFeGaussianBlur1718"></feGaussianBlur>
+    </filter>
+    <filter inkscape:collect="always" style="color-interpolation-filters:sRGB" id="SvgjsFilter1717" x="-0.118" y="-0.014095993" width="1.236" height="1.028192">
+      <feGaussianBlur inkscape:collect="always" stdDeviation="1.625" id="SvgjsFeGaussianBlur1716"></feGaussianBlur>
+    </filter>
+    <filter inkscape:collect="always" style="color-interpolation-filters:sRGB" id="SvgjsFilter1715" x="-0.036154577" y="-0.108" width="1.0723092" height="1.216">
+      <feGaussianBlur inkscape:collect="always" stdDeviation="1.625" id="SvgjsFeGaussianBlur1714"></feGaussianBlur>
+    </filter>
+    <filter inkscape:collect="always" style="color-interpolation-filters:sRGB" id="SvgjsFilter1713" x="-0.036154577" y="-0.108" width="1.0723092" height="1.216">
+      <feGaussianBlur inkscape:collect="always" stdDeviation="1.625" id="SvgjsFeGaussianBlur1712"></feGaussianBlur>
+    </filter>
+    <filter inkscape:collect="always" style="color-interpolation-filters:sRGB" id="SvgjsFilter1711" x="-0.216" y="-0.02764399" width="1.432" height="1.055288">
+      <feGaussianBlur inkscape:collect="always" stdDeviation="1.625" id="SvgjsFeGaussianBlur1710"></feGaussianBlur>
+    </filter>
+    <filter inkscape:collect="always" style="color-interpolation-filters:sRGB" id="SvgjsFilter1709" x="-0.216" y="-0.02764399" width="1.432" height="1.055288">
+      <feGaussianBlur inkscape:collect="always" stdDeviation="1.625" id="SvgjsFeGaussianBlur1708"></feGaussianBlur>
+    </filter>
+    <filter id="SvgjsFilter1707" x="-0.036154577" y="-0.108" width="1.0723092" height="1.216">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="1.625" result="blur" id="SvgjsFeGaussianBlur1706"></feGaussianBlur>
+      <feMerge id="SvgjsFeMerge1705">
+        <feMergeNode in="blur" id="SvgjsFeMergeNode1704"></feMergeNode>
+        <feMergeNode in="SourceGraphic" id="SvgjsFeMergeNode1703"></feMergeNode>
+      </feMerge>
+    </filter>
+    <filter id="SvgjsFilter1702" x="-0.036154577" y="-0.108" width="1.0723092" height="1.216">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="1.625" result="blur" id="SvgjsFeGaussianBlur1701"></feGaussianBlur>
+      <feMerge id="SvgjsFeMerge1700">
+        <feMergeNode in="blur" id="SvgjsFeMergeNode1699"></feMergeNode>
+        <feMergeNode in="SourceGraphic" id="SvgjsFeMergeNode1698"></feMergeNode>
+      </feMerge>
+    </filter>
+    <filter id="SvgjsFilter1697" x="-0.216" y="-0.02764399" width="1.432" height="1.055288">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="1.625" result="blur" id="SvgjsFeGaussianBlur1696"></feGaussianBlur>
+      <feMerge id="SvgjsFeMerge1695">
+        <feMergeNode in="blur" id="SvgjsFeMergeNode1694"></feMergeNode>
+        <feMergeNode in="SourceGraphic" id="SvgjsFeMergeNode1693"></feMergeNode>
+      </feMerge>
+    </filter>
+    <filter id="SvgjsFilter1692" x="-0.216" y="-0.02764399" width="1.432" height="1.055288">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="1.625" result="blur" id="SvgjsFeGaussianBlur1691"></feGaussianBlur>
+      <feMerge id="SvgjsFeMerge1690">
+        <feMergeNode in="blur" id="SvgjsFeMergeNode1689"></feMergeNode>
+        <feMergeNode in="SourceGraphic" id="SvgjsFeMergeNode1688"></feMergeNode>
+      </feMerge>
+    </filter>
+    <filter inkscape:collect="always" style="color-interpolation-filters:sRGB" id="SvgjsFilter1687" x="-0.020388766" y="-0.059" width="1.0407775" height="1.118">
+      <feGaussianBlur inkscape:collect="always" stdDeviation="1.625" id="SvgjsFeGaussianBlur1686"></feGaussianBlur>
+    </filter>
+    <filter id="SvgjsFilter1685" x="-0.036154577" y="-0.108" width="1.0723092" height="1.216">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="1.625" result="blur" id="SvgjsFeGaussianBlur1684"></feGaussianBlur>
+      <feMerge id="SvgjsFeMerge1683">
+        <feMergeNode in="blur" id="SvgjsFeMergeNode1682"></feMergeNode>
+        <feMergeNode in="SourceGraphic" id="SvgjsFeMergeNode1681"></feMergeNode>
+      </feMerge>
+    </filter>
+    <filter id="SvgjsFilter1680" x="-0.118" y="-0.014095993" width="1.236" height="1.028192">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="1.625" result="blur" id="SvgjsFeGaussianBlur1679"></feGaussianBlur>
+      <feMerge id="SvgjsFeMerge1678">
+        <feMergeNode in="blur" id="SvgjsFeMergeNode1677"></feMergeNode>
+        <feMergeNode in="SourceGraphic" id="SvgjsFeMergeNode1676"></feMergeNode>
+      </feMerge>
+    </filter>
+    <filter id="SvgjsFilter1675" x="-0.015284278" y="-0.11564216" width="1.0305686" height="1.2312843">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="1.2209885" result="blur" id="SvgjsFeGaussianBlur1674"></feGaussianBlur>
+      <feMerge id="SvgjsFeMerge1673">
+        <feMergeNode in="blur" id="SvgjsFeMergeNode1672"></feMergeNode>
+        <feMergeNode in="SourceGraphic" id="SvgjsFeMergeNode1671"></feMergeNode>
+      </feMerge>
+    </filter>
+  </defs>
+  <sodipodi:namedview id="SvgjsSodipodi:namedview1670" pagecolor="#ffffff" bordercolor="#000000" borderopacity="0.25" inkscape:pageshadow="2" inkscape:pageopacity="0.0" inkscape:pagecheckerboard="0" showgrid="false" showguides="true" inkscape:guide-bbox="true" inkscape:zoom="0.91709638" inkscape:cx="112.31099" inkscape:cy="335.84256" inkscape:window-width="1920" inkscape:window-height="1131" inkscape:window-x="0" inkscape:window-y="32" inkscape:window-maximized="1" inkscape:current-layer="svg57" fit-margin-top="0" fit-margin-left="0" fit-margin-right="0" fit-margin-bottom="0">
+    <sodipodi:guide position="352.03314,192.91338" orientation="1,0" id="SvgjsSodipodi:guide1669"></sodipodi:guide>
+    <sodipodi:guide position="2.0331429,142.91338" orientation="1,0" id="SvgjsSodipodi:guide1668"></sodipodi:guide>
+    <sodipodi:guide position="2.0331383,49.206182" orientation="0,-1" id="SvgjsSodipodi:guide1667"></sodipodi:guide>
+    <sodipodi:guide position="2.0331429,142.91338" orientation="0,-1" id="SvgjsSodipodi:guide1666"></sodipodi:guide>
+    <sodipodi:guide position="163.99992,142.91337" orientation="1,0" id="SvgjsSodipodi:guide1665"></sodipodi:guide>
+    <sodipodi:guide position="55.770047,143.16535" orientation="1,0" id="SvgjsSodipodi:guide1664"></sodipodi:guide>
+    <sodipodi:guide position="109.75892,142.91338" orientation="1,0" id="SvgjsSodipodi:guide1663"></sodipodi:guide>
+    <sodipodi:guide position="55.518078,111.92962" orientation="0,-1" id="SvgjsSodipodi:guide1662"></sodipodi:guide>
+    <sodipodi:guide position="55.770047,80.693892" orientation="0,-1" id="SvgjsSodipodi:guide1661"></sodipodi:guide>
+  </sodipodi:namedview>
+  <!-- Background -->
+  <!-- Outer Cube in Tron Style -->
+  <!-- Inner Cube in Tron Style -->
+  <!-- Glowing Grid Background -->
+  <!-- Tron Text -->
+  <!-- Glow Effect -->
+  <filter id="SvgjsFilter1660" x="-0.118" y="-0.014095993" width="1.236" height="1.028192">
+    <feGaussianBlur in="SourceGraphic" stdDeviation="1.625" result="blur" id="SvgjsFeGaussianBlur1659"></feGaussianBlur>
+    <feMerge id="SvgjsFeMerge1658">
+      <feMergeNode in="blur" id="SvgjsFeMergeNode1657"></feMergeNode>
+      <feMergeNode in="SourceGraphic" id="SvgjsFeMergeNode1656"></feMergeNode>
+    </feMerge>
+  </filter>
+  <path transform="matrix(0,0.0550697,-0.05495473,0,71.776879,401.76343)" inkscape:transform-center-y="7.9344316e-05" inkscape:transform-center-x="1.5731476e-05" inkscape:randomized="0" inkscape:rounded="0" inkscape:flatsided="true" sodipodi:arg2="1.5707963" sodipodi:arg1="1.0471976" sodipodi:r2="1473.6381" sodipodi:r1="1701.6108" sodipodi:cy="-204.52565" sodipodi:cx="-5551.2134" sodipodi:sides="6" id="SvgjsPath1655" style="fill:#000837;fill-opacity:1;stroke:#00ffcc;stroke-width:73.9932;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" sodipodi:type="star" d="m -4700.408,1269.1126 -1701.6109,-10e-5 -850.8053,-1473.63823 850.8055,-1473.63817 1701.6108,10e-5 850.8054,1473.63823 z"></path>
+  <polygon points="150,200 100,100 400,100 450,200 " fill="none" stroke="#00ffff" stroke-width="4" id="SvgjsPolygon1654" style="mix-blend-mode:normal;filter:url(#filter12038)" transform="matrix(0.23330562,0,0,0.23330562,18.857484,49.591123)"></polygon>
+  <polygon points="100,300 150,200 450,200 400,300 " fill="none" stroke="#00ffff" stroke-width="4" id="SvgjsPolygon1653" style="mix-blend-mode:normal;filter:url(#filter12048)" transform="matrix(0.23330562,0,0,0.23330562,18.857484,49.591123)"></polygon>
+  <polygon points="100,100 400,100 450,200 150,200 " fill="none" stroke="#00ffff" stroke-width="4" id="SvgjsPolygon1652" style="mix-blend-mode:normal;filter:url(#filter12058)" transform="matrix(0.23330562,0,0,0.23330562,18.857484,96.252247)"></polygon>
+  <polygon points="150,200 100,100 400,100 450,200 " fill="none" stroke="#00ffff" stroke-width="4" id="SvgjsPolygon1651" transform="matrix(0.23330562,0,0,0.23330562,18.857484,49.591123)" style="mix-blend-mode:normal;stroke-width:3.99905;stroke-miterlimit:4;stroke-dasharray:none;filter:url(#filter12060)"></polygon>
+  <polygon points="450,200 400,300 100,300 150,200 " fill="none" stroke="#00ffff" stroke-width="4" id="SvgjsPolygon1650" transform="matrix(0.23330562,0,0,0.23330562,18.857484,49.591123)" style="mix-blend-mode:normal;filter:url(#filter12064)"></polygon>
+  <polygon points="100,300 150,200 150,400 100,100 " fill="none" stroke="#00ffff" stroke-width="4" id="SvgjsPolygon1649" transform="matrix(0.23330562,0,0,0.23330562,18.857484,49.591123)" style="mix-blend-mode:normal;filter:url(#filter12068)"></polygon>
+  <polygon points="400,300 450,200 450,400 400,100 " fill="none" stroke="#00ffff" stroke-width="4" id="SvgjsPolygon1648" transform="matrix(0.23330562,0,0,0.23330562,18.857484,49.591123)" style="mix-blend-mode:normal;filter:url(#filter12072)"></polygon>
+  <polygon points="325,175 350,225 200,225 175,175 " fill="none" stroke="#00ffcc" stroke-width="3" id="SvgjsPolygon1647" transform="matrix(0.23330562,0,0,0.23330562,18.857484,49.591123)" style="mix-blend-mode:normal;filter:url(#filter12076)"></polygon>
+  <polygon points="350,225 325,275 175,275 200,225 " fill="none" stroke="#00ffcc" stroke-width="3" id="SvgjsPolygon1646" transform="matrix(0.23330562,0,0,0.23330562,18.857484,49.591123)" style="mix-blend-mode:normal;filter:url(#filter12080)"></polygon>
+  <polygon points="175,275 200,225 200,325 175,175 " fill="none" stroke="#00ffcc" stroke-width="3" id="SvgjsPolygon1645" transform="matrix(0.23330562,0,0,0.23330562,18.857484,49.591123)" style="mix-blend-mode:normal;filter:url(#filter12084)"></polygon>
+  <polygon points="325,275 350,225 350,325 325,175 " fill="none" stroke="#00ffcc" stroke-width="3" id="SvgjsPolygon1644" transform="matrix(0.23330562,0,0,0.23330562,18.857484,49.591123)" style="mix-blend-mode:normal;filter:url(#filter12088)"></polygon>
+  <polygon points="200,225 175,175 325,175 350,225 " fill="none" stroke="#00ffcc" stroke-width="3" id="SvgjsPolygon1643" style="mix-blend-mode:normal;filter:url(#filter12100)" transform="matrix(0.23330562,0,0,0.23330562,18.857484,49.591123)"></polygon>
+  <polygon points="175,275 200,225 350,225 325,275 " fill="none" stroke="#00ffcc" stroke-width="3" id="SvgjsPolygon1642" style="mix-blend-mode:normal;filter:url(#filter12110)" transform="matrix(0.23330562,0,0,0.23330562,18.857484,49.591123)"></polygon>
+  <polygon points="200,325 175,175 175,275 200,225 " fill="none" stroke="#00ffcc" stroke-width="3" id="SvgjsPolygon1641" style="mix-blend-mode:normal;filter:url(#filter12120)" transform="matrix(0.23330562,0,0,0.23330562,18.857484,49.591123)"></polygon>
+  <polygon points="350,325 325,175 325,275 350,225 " fill="none" stroke="#00ffcc" stroke-width="3" id="SvgjsPolygon1640" style="mix-blend-mode:normal;filter:url(#filter12130)" transform="matrix(0.23330562,0,0,0.23330562,18.857484,49.591123)"></polygon>
+  <polygon points="450,200 150,200 100,100 400,100 " fill="none" stroke="#00ffff" stroke-width="4" id="SvgjsPolygon1639" transform="matrix(0.23330562,0,0,0.23330562,18.857484,96.252247)" style="mix-blend-mode:normal;filter:url(#filter12132)"></polygon>
+  <polygon points="175,175 325,175 350,225 200,225 " fill="none" stroke="#00ffcc" stroke-width="3" id="SvgjsPolygon1638" style="mix-blend-mode:normal;filter:url(#filter12144)" transform="matrix(0.23330562,0,0,0.23330562,18.857484,72.921685)"></polygon>
+  <polygon points="150,400 100,100 100,300 150,200 " fill="none" stroke="#00ffff" stroke-width="4" id="SvgjsPolygon1637" style="mix-blend-mode:normal;filter:url(#filter12154)" transform="matrix(0.23330562,0,0,0.23330562,18.857484,49.591123)"></polygon>
+  <polygon points="450,400 400,100 400,300 450,200 " fill="none" stroke="#00ffff" stroke-width="4" id="SvgjsPolygon1636" style="mix-blend-mode:normal;filter:url(#neonGlow)" transform="matrix(0.23330562,0,0,0.23330562,18.857484,49.591123)"></polygon>
+  <g aria-label="Tesseract" transform="matrix(0.39991407,0,0,0.39991407,-97.782339,-218.82243)" id="SvgjsG1635" style="font-size:35px;letter-spacing:5;text-anchor:middle;fill:#00ffff;filter:url(#filter37166)">
+    <path d="m 397.05161,695.68121 h -3.15 v -22.225 h -7.805 v -2.765 h 18.725 v 2.765 h -7.77 z" style="font-family:'Noto Sans';-inkscape-font-specification:'Noto Sans'" id="SvgjsPath1634"></path>
+    <path d="m 417.97654,676.57121 q 2.415,0 4.13,1.05 1.75,1.05 2.66,2.975 0.945,1.89 0.945,4.445 v 1.855 h -12.845 q 0.07,3.185 1.61,4.865 1.575,1.645 4.375,1.645 1.785,0 3.15,-0.315 1.4,-0.35 2.87,-0.98 v 2.695 q -1.435,0.63 -2.835,0.91 -1.4,0.315 -3.325,0.315 -2.66,0 -4.725,-1.085 -2.03,-1.085 -3.185,-3.22 -1.12,-2.17 -1.12,-5.285 0,-3.08 1.015,-5.285 1.05,-2.205 2.905,-3.395 1.89,-1.19 4.375,-1.19 z m -0.035,2.52 q -2.205,0 -3.5,1.435 -1.26,1.4 -1.505,3.92 h 9.555 q -0.035,-2.38 -1.12,-3.85 -1.085,-1.505 -3.43,-1.505 z" style="font-family:'Noto Sans';-inkscape-font-specification:'Noto Sans'" id="SvgjsPath1633"></path>
+    <path d="m 447.68652,690.50121 q 0,2.73 -2.03,4.13 -2.03,1.4 -5.46,1.4 -1.96,0 -3.395,-0.315 -1.4,-0.315 -2.485,-0.875 v -2.8 q 1.12,0.56 2.695,1.05 1.61,0.455 3.255,0.455 2.345,0 3.395,-0.735 1.05,-0.77 1.05,-2.03 0,-0.7 -0.385,-1.26 -0.385,-0.56 -1.4,-1.12 -0.98,-0.56 -2.835,-1.26 -1.82,-0.7 -3.115,-1.4 -1.295,-0.7 -1.995,-1.68 -0.7,-0.98 -0.7,-2.52 0,-2.38 1.925,-3.675 1.96,-1.295 5.11,-1.295 1.715,0 3.185,0.35 1.505,0.315 2.8,0.91 l -1.05,2.45 q -1.19,-0.49 -2.485,-0.84 -1.295,-0.35 -2.66,-0.35 -1.89,0 -2.905,0.63 -0.98,0.595 -0.98,1.645 0,0.77 0.455,1.33 0.455,0.525 1.505,1.05 1.085,0.49 2.87,1.19 1.785,0.665 3.045,1.365 1.26,0.7 1.925,1.715 0.665,0.98 0.665,2.485 z" style="font-family:'Noto Sans';-inkscape-font-specification:'Noto Sans'" id="SvgjsPath1632"></path>
+    <path d="m 469.45145,690.50121 q 0,2.73 -2.03,4.13 -2.03,1.4 -5.46,1.4 -1.96,0 -3.395,-0.315 -1.4,-0.315 -2.485,-0.875 v -2.8 q 1.12,0.56 2.695,1.05 1.61,0.455 3.255,0.455 2.345,0 3.395,-0.735 1.05,-0.77 1.05,-2.03 0,-0.7 -0.385,-1.26 -0.385,-0.56 -1.4,-1.12 -0.98,-0.56 -2.835,-1.26 -1.82,-0.7 -3.115,-1.4 -1.295,-0.7 -1.995,-1.68 -0.7,-0.98 -0.7,-2.52 0,-2.38 1.925,-3.675 1.96,-1.295 5.11,-1.295 1.715,0 3.185,0.35 1.505,0.315 2.8,0.91 l -1.05,2.45 q -1.19,-0.49 -2.485,-0.84 -1.295,-0.35 -2.66,-0.35 -1.89,0 -2.905,0.63 -0.98,0.595 -0.98,1.645 0,0.77 0.455,1.33 0.455,0.525 1.505,1.05 1.085,0.49 2.87,1.19 1.785,0.665 3.045,1.365 1.26,0.7 1.925,1.715 0.665,0.98 0.665,2.485 z" style="font-family:'Noto Sans';-inkscape-font-specification:'Noto Sans'" id="SvgjsPath1631"></path>
+    <path d="m 486.24639,676.57121 q 2.415,0 4.13,1.05 1.75,1.05 2.66,2.975 0.945,1.89 0.945,4.445 v 1.855 h -12.845 q 0.07,3.185 1.61,4.865 1.575,1.645 4.375,1.645 1.785,0 3.15,-0.315 1.4,-0.35 2.87,-0.98 v 2.695 q -1.435,0.63 -2.835,0.91 -1.4,0.315 -3.325,0.315 -2.66,0 -4.725,-1.085 -2.03,-1.085 -3.185,-3.22 -1.12,-2.17 -1.12,-5.285 0,-3.08 1.015,-5.285 1.05,-2.205 2.905,-3.395 1.89,-1.19 4.375,-1.19 z m -0.035,2.52 q -2.205,0 -3.5,1.435 -1.26,1.4 -1.505,3.92 h 9.555 q -0.035,-2.38 -1.12,-3.85 -1.085,-1.505 -3.43,-1.505 z" style="font-family:'Noto Sans';-inkscape-font-specification:'Noto Sans'" id="SvgjsPath1630"></path>
+    <path d="m 512.49136,676.57121 q 0.525,0 1.12,0.07 0.63,0.035 1.085,0.14 l -0.385,2.835 q -0.455,-0.105 -1.015,-0.175 -0.525,-0.07 -1.015,-0.07 -1.435,0 -2.695,0.805 -1.26,0.77 -2.03,2.205 -0.735,1.4 -0.735,3.29 v 10.01 h -3.08 v -18.76 h 2.52 l 0.35,3.43 h 0.14 q 0.91,-1.54 2.345,-2.66 1.435,-1.12 3.395,-1.12 z" style="font-family:'Noto Sans';-inkscape-font-specification:'Noto Sans'" id="SvgjsPath1629"></path>
+    <path d="m 529.60128,676.60621 q 3.43,0 5.075,1.505 1.645,1.505 1.645,4.795 v 12.775 h -2.24 l -0.595,-2.66 h -0.14 q -1.225,1.54 -2.59,2.275 -1.33,0.735 -3.71,0.735 -2.555,0 -4.235,-1.33 -1.68,-1.365 -1.68,-4.235 0,-2.8 2.205,-4.305 2.205,-1.54 6.79,-1.68 l 3.185,-0.105 v -1.12 q 0,-2.345 -1.015,-3.255 -1.015,-0.91 -2.87,-0.91 -1.47,0 -2.8,0.455 -1.33,0.42 -2.485,0.98 l -0.945,-2.31 q 1.225,-0.665 2.905,-1.12 1.68,-0.49 3.5,-0.49 z m 0.91,10.01 q -3.5,0.14 -4.865,1.12 -1.33,0.98 -1.33,2.765 0,1.575 0.945,2.31 0.98,0.735 2.485,0.735 2.38,0 3.955,-1.295 1.575,-1.33 1.575,-4.06 v -1.68 z" style="font-family:'Noto Sans';-inkscape-font-specification:'Noto Sans'" id="SvgjsPath1628"></path>
+    <path d="m 554.65625,696.03121 q -2.485,0 -4.445,-1.015 -1.925,-1.015 -3.045,-3.15 -1.085,-2.135 -1.085,-5.46 0,-3.465 1.155,-5.635 1.155,-2.17 3.115,-3.185 1.995,-1.015 4.515,-1.015 1.435,0 2.765,0.315 1.33,0.28 2.17,0.7 l -0.945,2.555 q -0.84,-0.315 -1.96,-0.595 -1.12,-0.28 -2.1,-0.28 -5.53,0 -5.53,7.105 0,3.395 1.33,5.215 1.365,1.785 4.025,1.785 1.54,0 2.695,-0.315 1.19,-0.315 2.17,-0.77 v 2.73 q -0.945,0.49 -2.1,0.735 -1.12,0.28 -2.73,0.28 z" style="font-family:'Noto Sans';-inkscape-font-specification:'Noto Sans'" id="SvgjsPath1627"></path>
+    <path d="m 575.19623,693.51121 q 0.7,0 1.435,-0.105 0.735,-0.14 1.19,-0.28 v 2.345 q -0.49,0.245 -1.4,0.385 -0.91,0.175 -1.75,0.175 -1.47,0 -2.73,-0.49 -1.225,-0.525 -1.995,-1.785 -0.77,-1.26 -0.77,-3.535 v -10.92 h -2.66 v -1.47 l 2.695,-1.225 1.225,-3.99 h 1.82 v 4.305 h 5.425 v 2.38 h -5.425 v 10.85 q 0,1.715 0.805,2.555 0.84,0.805 2.135,0.805 z" style="font-family:'Noto Sans';-inkscape-font-specification:'Noto Sans'" id="SvgjsPath1626"></path>
+  </g>
+  <g aria-label="cpp11" transform="matrix(0.17503532,0,0,0.17503532,-41.620156,-69.200291)" id="SvgjsG1625" style="font-size:35px;letter-spacing:5;text-anchor:middle;fill:#00ffff;filter:url(#filter12028)">
+    <path d="m 431.49902,696.03121 q -4.13,0 -6.51,-2.24 -2.345,-2.275 -2.345,-7.35 0,-3.605 1.155,-5.775 1.19,-2.17 3.255,-3.115 2.1,-0.98 4.76,-0.98 1.645,0 2.975,0.35 1.365,0.315 2.555,0.945 l -0.945,2.555 q -1.12,-0.595 -2.17,-0.84 -1.05,-0.28 -2.275,-0.28 -3.22,0 -4.655,1.785 -1.435,1.75 -1.435,5.285 0,3.745 1.505,5.355 1.505,1.61 4.48,1.61 1.54,0 2.905,-0.315 1.365,-0.35 2.38,-0.805 v 2.765 q -1.05,0.49 -2.59,0.77 -1.54,0.28 -3.045,0.28 z" style="font-family:'Noto Sans Mono';-inkscape-font-specification:'Noto Sans Mono'" id="SvgjsPath1624"></path>
+    <path d="m 448.46896,704.08121 v -27.16 h 2.59 l 0.385,2.555 h 0.14 q 0.805,-1.365 2.135,-2.135 1.365,-0.77 3.465,-0.77 3.43,0 5.495,2.45 2.065,2.45 2.065,7.245 0,4.795 -2.065,7.28 -2.065,2.485 -5.495,2.485 -2.065,0 -3.43,-0.84 -1.365,-0.84 -2.17,-1.925 h -0.21 q 0.21,1.365 0.21,2.8 v 8.015 z m 8.05,-10.605 q 2.625,0 3.815,-1.785 1.19,-1.82 1.19,-5.495 0,-3.605 -1.19,-5.32 -1.155,-1.75 -3.85,-1.75 -2.555,0 -3.745,1.68 -1.155,1.645 -1.155,4.76 v 0.7 q 0,3.325 1.05,5.285 1.085,1.925 3.885,1.925 z" style="font-family:'Noto Sans Mono';-inkscape-font-specification:'Noto Sans Mono'" id="SvgjsPath1623"></path>
+    <path d="m 474.46891,704.08121 v -27.16 h 2.59 l 0.385,2.555 h 0.14 q 0.805,-1.365 2.135,-2.135 1.365,-0.77 3.465,-0.77 3.43,0 5.495,2.45 2.065,2.45 2.065,7.245 0,4.795 -2.065,7.28 -2.065,2.485 -5.495,2.485 -2.065,0 -3.43,-0.84 -1.365,-0.84 -2.17,-1.925 h -0.21 q 0.21,1.365 0.21,2.8 v 8.015 z m 8.05,-10.605 q 2.625,0 3.815,-1.785 1.19,-1.82 1.19,-5.495 0,-3.605 -1.19,-5.32 -1.155,-1.75 -3.85,-1.75 -2.555,0 -3.745,1.68 -1.155,1.645 -1.155,4.76 v 0.7 q 0,3.325 1.05,5.285 1.085,1.925 3.885,1.925 z" style="font-family:'Noto Sans Mono';-inkscape-font-specification:'Noto Sans Mono'" id="SvgjsPath1622"></path>
+    <path d="m 502.32386,695.68121 v -2.1 l 5.25,-0.35 v -13.16 q 0,-1.47 0.035,-3.22 0.07,-1.785 0.105,-2.94 -0.56,0.315 -1.015,0.525 -0.455,0.21 -1.365,0.665 l -2.905,1.505 -1.365,-2.38 6.965,-3.535 h 2.555 v 22.54 l 5.285,0.35 v 2.1 z" style="font-family:'Noto Sans Mono';-inkscape-font-specification:'Noto Sans Mono'" id="SvgjsPath1621"></path>
+    <path d="m 528.3238,695.68121 v -2.1 l 5.25,-0.35 v -13.16 q 0,-1.47 0.035,-3.22 0.07,-1.785 0.105,-2.94 -0.56,0.315 -1.015,0.525 -0.455,0.21 -1.365,0.665 l -2.905,1.505 -1.365,-2.38 6.965,-3.535 h 2.555 v 22.54 l 5.285,0.35 v 2.1 z" style="font-family:'Noto Sans Mono';-inkscape-font-specification:'Noto Sans Mono'" id="SvgjsPath1620"></path>
+  </g>
+</svg><style>@media (prefers-color-scheme: light) { :root { filter: none; } }
+@media (prefers-color-scheme: dark) { :root { filter: none; } }
+</style></svg>
