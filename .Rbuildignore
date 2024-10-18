@@ -19,3 +19,4 @@ vignettes/.*\.png$
 ^pkgdown$
 ^CRAN-SUBMISSION$
 ^cran-comments\.md$
+^LICENSE\.md$

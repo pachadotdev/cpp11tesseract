@@ -17,7 +17,7 @@ Description: Bindings to 'Tesseract':
      a powerful optical character recognition (OCR) engine that supports over
      100 languages. The engine is highly configurable in order to tune the
      detection algorithms and obtain the best possible results.
-License: Apache License 2.0
+License: Apache License (>= 2)
 URL: https://pacha.dev/cpp11tesseract/
 BugReports: https://github.com/pachadotdev/cpp11tesseract/issues
 SystemRequirements: Tesseract >= 4.0.0 (libtesseract-dev / tesseract-devel) and
