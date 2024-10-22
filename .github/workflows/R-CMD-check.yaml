@@ -26,7 +26,7 @@ jobs:
           - {os: ubuntu-24.04,    r: 'release', name: 'Ubuntu 24.04 (release)'}
           - {os: ubuntu-22.04,    r: 'release', name: 'Ubuntu 22.04 (release)'}
           - {os: ubuntu-20.04,    r: 'release', name: 'Ubuntu 20.04 (release)'}
-          - {os: ubuntu-latest,   r: 'release', name: 'Fedora dockerized latest (release)', tag: 'fedora'}
+          - {os: ubuntu-latest,   r: 'release', name: 'Fedora 40 dockerized (release)', tag: 'fedora'}
 
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -34,19 +34,27 @@ jobs:
 
     steps:
       - name: Checkout code
+        if: matrix.config.tag != 'fedora'
         uses: actions/checkout@v4
 
       - name: Setup Pandoc
+        if: matrix.config.tag != 'fedora'
         uses: r-lib/actions/setup-pandoc@v2
 
       - name: Setup R
+        if: matrix.config.tag != 'fedora'
         uses: r-lib/actions/setup-r@v2
         with:
           r-version: ${{ matrix.config.r }}
           http-user-agent: ${{ matrix.config.http-user-agent }}
           use-public-rspm: true
 
+      - name: Install pak
+        if: matrix.config.tag != 'fedora'
+        run: R -e 'install.packages("pak", repos = "https://cloud.r-project.org")'
+
       - name: Setup R dependencies
+        if: matrix.config.tag != 'fedora'
         uses: r-lib/actions/setup-r-dependencies@v2
         with:
           extra-packages: any::rcmdcheck
@@ -69,7 +77,8 @@ jobs:
       - name: Run on Fedora
         if: env.is_fedora == 'true'
         run: |
-          docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace fedora:latest bash -c "
-            dnf install -y R R-devel libcurl-devel openssl-devel libxml2-devel &&
-            R -e 'install.packages(c(\"remotes\", \"rcmdcheck\"), repos=\"https://cloud.r-project.org\")' &&
-            R CMD check ."
+          docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace fedora:40 bash -c "
+            dnf install -y R R-devel libcurl-devel openssl-devel libxml2-devel tesseract-devel leptonica-devel &&
+            R -e 'install.packages(c(\"remotes\", \"devtools\"), repos=\"https://cloud.r-project.org\")' &&
+            R -e 'devtools::check()'"
+            
