@@ -70,7 +70,7 @@ jobs:
 
       - name: Check if Rocky Linux (Windows)
         if: runner.os == 'Windows'
-        id: check_rocky
+        id: check_rocky_win
         run: echo "is_rocky=%[[$(if [ '${{ matrix.config.tag }}' == 'rocky' ]; then echo 'true'; else echo 'false'; fi)]%" >> $GITHUB_ENV
         shell: cmd
 
