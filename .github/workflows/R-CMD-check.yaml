@@ -12,8 +12,6 @@ jobs:
   R-CMD-check:
     runs-on: ${{ matrix.config.os }}
 
-    name: ${{ matrix.config.os }} (${{ matrix.config.r }})
-
     strategy:
       fail-fast: false
       matrix:
@@ -33,6 +31,9 @@ jobs:
       R_KEEP_PKG_SOURCE: yes
 
     steps:
+      - name: Set job name
+        run: echo "::set-output name=job_name::${{ matrix.config.name }}"
+
       - uses: actions/checkout@v4
 
       - uses: r-lib/actions/setup-pandoc@v2
