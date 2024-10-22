@@ -18,14 +18,14 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {os: macos-13,        r: 'release'}
-          - {os: macos-14,        r: 'release'}
-          - {os: windows-latest , r: 'release'}
-          - {os: windows-latest,  r: '4.1'}
-          - {os: ubuntu-latest,   r: 'devel', http-user-agent: 'release'}
-          - {os: ubuntu-24.04,    r: 'release'}
-          - {os: ubuntu-22.04,    r: 'release'}
-          - {os: ubuntu-20.04,    r: 'release'}
+          - {os: macos-13,        r: 'release', name: 'macos-13 (release)'}
+          - {os: macos-14,        r: 'release', name: 'macos-14 (release)'}
+          - {os: windows-latest , r: 'release', name: 'windows-latest (release)'}
+          - {os: windows-latest,  r: '4.1',     name: 'windows-latest (4.1)'}
+          - {os: ubuntu-latest,   r: 'devel',   name: 'ubuntu-latest (devel)', http-user-agent: 'release'}
+          - {os: ubuntu-24.04,    r: 'release', name: 'ubuntu-24.04 (release)'}
+          - {os: ubuntu-22.04,    r: 'release', name: 'ubuntu-22.04 (release)'}
+          - {os: ubuntu-20.04,    r: 'release', name: 'ubuntu-20.04 (release)'}
           - {os: ubuntu-latest,   r: 'release', name: 'rocky-dockerized', tag: 'rocky'}
 
     env:
