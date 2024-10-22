@@ -12,19 +12,21 @@ jobs:
   R-CMD-check:
     runs-on: ${{ matrix.config.os }}
 
+    name: ${{ matrix.config.name }}
+
     strategy:
       fail-fast: false
       matrix:
         config:
-          - {os: macos-13,        r: 'release', name: 'macos-13 (release)'}
-          - {os: macos-14,        r: 'release', name: 'macos-14 (release)'}
-          - {os: windows-latest , r: 'release', name: 'windows-latest (release)'}
-          - {os: windows-latest,  r: '4.1',     name: 'windows-latest (4.1)'}
-          - {os: ubuntu-latest,   r: 'devel',   name: 'ubuntu-latest (devel)', http-user-agent: 'release'}
-          - {os: ubuntu-24.04,    r: 'release', name: 'ubuntu-24.04 (release)'}
-          - {os: ubuntu-22.04,    r: 'release', name: 'ubuntu-22.04 (release)'}
-          - {os: ubuntu-20.04,    r: 'release', name: 'ubuntu-20.04 (release)'}
-          - {os: ubuntu-latest,   r: 'release', name: 'rocky-dockerized', tag: 'rocky'}
+          - {os: macos-13,        r: 'release', name: 'MacOS 13 (release)'}
+          - {os: macos-14,        r: 'release', name: 'MacOS 14 (release)'}
+          - {os: windows-latest , r: 'release', name: 'Windows latest (release)'}
+          - {os: windows-latest,  r: '4.1',     name: 'Windows latest (4.1)'}
+          - {os: ubuntu-latest,   r: 'devel',   name: 'Ubuntu latest (devel)', http-user-agent: 'release'}
+          - {os: ubuntu-24.04,    r: 'release', name: 'Ubuntu 24.04 (release)'}
+          - {os: ubuntu-22.04,    r: 'release', name: 'Ubuntu 22.04 (release)'}
+          - {os: ubuntu-20.04,    r: 'release', name: 'Ubuntu 20.04 (release)'}
+          - {os: ubuntu-latest,   r: 'release', name: 'Rocky dockerized (release)', tag: 'rocky'}
 
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -32,25 +34,45 @@ jobs:
 
     steps:
       - name: Set job name
-        run: echo "::set-output name=job_name::${{ matrix.config.name }}"
+        if: matrix.config.tag == 'rocky'
+        run: echo "JOB_NAME=Rocky dockerized (release)" >> $GITHUB_ENV
 
-      - uses: actions/checkout@v4
+      - name: Set job name
+        if: matrix.config.tag != 'rocky'
+        run: echo "JOB_NAME=${{ matrix.config.name }}" >> $GITHUB_ENV
 
-      - uses: r-lib/actions/setup-pandoc@v2
+      - name: Checkout code
+        if: matrix.config.tag != 'rocky'
+        uses: actions/checkout@v4
 
-      - uses: r-lib/actions/setup-r@v2
+      - name: Setup Pandoc
+        if: matrix.config.tag != 'rocky'
+        uses: r-lib/actions/setup-pandoc@v2
+
+      - name: Setup R
+        if: matrix.config.tag != 'rocky'
+        uses: r-lib/actions/setup-r@v2
         with:
           r-version: ${{ matrix.config.r }}
           http-user-agent: ${{ matrix.config.http-user-agent }}
           use-public-rspm: true
 
-      - uses: r-lib/actions/setup-r-dependencies@v2
+      - name: Setup R dependencies
+        if: matrix.config.tag != 'rocky'
+        uses: r-lib/actions/setup-r-dependencies@v2
         with:
           extra-packages: any::rcmdcheck
 
-      - name: Check if Rocky Linux
+      - name: Check if Rocky Linux (Linux/Mac)
+        if: runner.os != 'Windows'
         id: check_rocky
         run: echo "is_rocky=$([[ '${{ matrix.config.tag }}' == 'rocky' ]] && echo 'true' || echo 'false')" >> $GITHUB_ENV
+
+      - name: Check if Rocky Linux (Windows)
+        if: runner.os == 'Windows'
+        id: check_rocky
+        run: echo "is_rocky=%[[$(if [ '${{ matrix.config.tag }}' == 'rocky' ]; then echo 'true'; else echo 'false'; fi)]%" >> $GITHUB_ENV
+        shell: cmd
 
       - name: Run on Ubuntu/Mac/Windows
         if: env.is_rocky != 'true'
@@ -59,8 +81,8 @@ jobs:
       - name: Run on Rocky Linux
         if: env.is_rocky == 'true'
         run: |
-          docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace rocker/r-ver:4.1.0 bash -c "
+          docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace rockylinux:9 bash -c "
             yum install -y epel-release &&
-            yum install -y libcurl-devel openssl-devel libxml2-devel &&
+            yum install -y R R-devel libcurl-devel openssl-devel libxml2-devel &&
             R -e 'install.packages(c(\"remotes\", \"rcmdcheck\"), repos=\"https://cloud.r-project.org\")' &&
             R CMD check ."
