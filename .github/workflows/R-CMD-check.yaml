@@ -26,31 +26,20 @@ jobs:
           - {os: ubuntu-24.04,    r: 'release', name: 'Ubuntu 24.04 (release)'}
           - {os: ubuntu-22.04,    r: 'release', name: 'Ubuntu 22.04 (release)'}
           - {os: ubuntu-20.04,    r: 'release', name: 'Ubuntu 20.04 (release)'}
-          - {os: ubuntu-latest,   r: 'release', name: 'Rocky dockerized (release)', tag: 'rocky'}
+          - {os: ubuntu-latest,   r: 'release', name: 'Fedora dockerized latest (release)', tag: 'fedora'}
 
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       R_KEEP_PKG_SOURCE: yes
 
     steps:
-      - name: Set job name
-        if: matrix.config.tag == 'rocky'
-        run: echo "JOB_NAME=Rocky dockerized (release)" >> $GITHUB_ENV
-
-      - name: Set job name
-        if: matrix.config.tag != 'rocky'
-        run: echo "JOB_NAME=${{ matrix.config.name }}" >> $GITHUB_ENV
-
       - name: Checkout code
-        if: matrix.config.tag != 'rocky'
         uses: actions/checkout@v4
 
       - name: Setup Pandoc
-        if: matrix.config.tag != 'rocky'
         uses: r-lib/actions/setup-pandoc@v2
 
       - name: Setup R
-        if: matrix.config.tag != 'rocky'
         uses: r-lib/actions/setup-r@v2
         with:
           r-version: ${{ matrix.config.r }}
@@ -58,31 +47,29 @@ jobs:
           use-public-rspm: true
 
       - name: Setup R dependencies
-        if: matrix.config.tag != 'rocky'
         uses: r-lib/actions/setup-r-dependencies@v2
         with:
           extra-packages: any::rcmdcheck
 
-      - name: Check if Rocky Linux (Linux/Mac)
+      - name: Check if Fedora (Linux/Mac)
         if: runner.os != 'Windows'
-        id: check_rocky
-        run: echo "is_rocky=$([[ '${{ matrix.config.tag }}' == 'rocky' ]] && echo 'true' || echo 'false')" >> $GITHUB_ENV
+        id: check_fedora
+        run: echo "is_fedora=$([[ '${{ matrix.config.tag }}' == 'fedora' ]] && echo 'true' || echo 'false')" >> $GITHUB_ENV
 
-      - name: Check if Rocky Linux (Windows)
+      - name: Check if Fedora (Windows)
         if: runner.os == 'Windows'
-        id: check_rocky_win
-        run: echo "is_rocky=%[[$(if [ '${{ matrix.config.tag }}' == 'rocky' ]; then echo 'true'; else echo 'false'; fi)]%" >> $GITHUB_ENV
+        id: check_fedora_win
+        run: echo "is_fedora=%[[$(if [ '${{ matrix.config.tag }}' == 'fedora' ]; then echo 'true'; else echo 'false'; fi)]%" >> $GITHUB_ENV
         shell: cmd
 
       - name: Run on Ubuntu/Mac/Windows
-        if: env.is_rocky != 'true'
+        if: env.is_fedora != 'true'
         uses: r-lib/actions/check-r-package@v2
 
-      - name: Run on Rocky Linux
-        if: env.is_rocky == 'true'
+      - name: Run on Fedora
+        if: env.is_fedora == 'true'
         run: |
-          docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace rockylinux:8 bash -c "
-            yum install -y epel-release &&
-            yum install -y R R-devel libcurl-devel openssl-devel libxml2-devel &&
+          docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace fedora:latest bash -c "
+            dnf install -y R R-devel libcurl-devel openssl-devel libxml2-devel &&
             R -e 'install.packages(c(\"remotes\", \"rcmdcheck\"), repos=\"https://cloud.r-project.org\")' &&
             R CMD check ."
