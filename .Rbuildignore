@@ -20,3 +20,5 @@ vignettes/.*\.png$
 ^CRAN-SUBMISSION$
 ^cran-comments\.md$
 ^LICENSE\.md$
+^inst/paper$
+^_pkgdown\.yml$

@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Using the Tesseract OCR engine in R • cpp11tesseract</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
@@ -12,84 +12,60 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
-<script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Using the Tesseract OCR engine in R">
-<!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
-<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]-->
+<script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Using the Tesseract OCR engine in R">
 </head>
-<body data-spy="scroll" data-target="#toc">
+<body>
+    <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
-    <div class="container template-article">
-      <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">cpp11tesseract</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">5.3.0</span>
-      </span>
-    </div>
+    <nav class="navbar navbar-expand-lg fixed-top bg-light" data-bs-theme="light" aria-label="Site navigation"><div class="container">
 
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-<li>
-  <a href="../reference/index.html">Reference</a>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Articles
+    <a class="navbar-brand me-2" href="../index.html">cpp11tesseract</a>
 
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-<li>
-      <a href="../articles/intro.html">Using the Tesseract OCR engine in R</a>
-    </li>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">5.3.2</small>
+
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar" class="collapse navbar-collapse ms-3">
+      <ul class="navbar-nav me-auto">
+<li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
+<li class="active nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
+<li><a class="dropdown-item" href="../articles/intro.html">Using the Tesseract OCR engine in R</a></li>
   </ul>
 </li>
-<li>
-  <a href="../news/index.html">Changelog</a>
-</li>
+<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul>
-<ul class="nav navbar-nav navbar-right">
-<li>
-  <a href="https://github.com/pachadotdev/cpp11tesseract/" class="external-link">
-    <span class="fab fa-github fa-lg"></span>
-
-  </a>
-</li>
+<ul class="navbar-nav">
+<li class="nav-item"><form class="form-inline" role="search">
+ <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
+</form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/pachadotdev/cpp11tesseract/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
-<!--/.nav-collapse -->
+
+
   </div>
-<!--/.container -->
-</div>
-<!--/.navbar -->
+</nav><div class="container template-article">
 
 
 
-      </header><script src="intro_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
-  <div class="col-md-9 contents">
-    <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Using the Tesseract OCR engine in R</h1>
+<script src="intro_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+  <main id="main" class="col-md-9"><div class="page-header">
+      <img src="../logo.svg" class="logo" alt=""><h1>Using the Tesseract OCR engine in R</h1>
             
-            <h4 data-toc-skip class="date">2024-10-08</h4>
+            <h4 data-toc-skip class="date">2024-10-22</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/pachadotdev/cpp11tesseract/blob/HEAD/vignettes/intro.Rmd" class="external-link"><code>vignettes/intro.Rmd</code></a></small>
-      <div class="hidden name"><code>intro.Rmd</code></div>
-
+      <div class="d-none name"><code>intro.Rmd</code></div>
     </div>
 
     
@@ -101,8 +77,9 @@
 </h2>
 <p>OCR is the process of finding and recognizing text inside images, for example from a screenshot, scanned paper. The image below has some example text:</p>
 <div class="figure">
-<img src="../reference/figures/testocr.png" alt=""><p class="caption">test</p>
+<img src="../reference/figures/testocr.png" alt=""><p class="caption">Image with eight lines of English text</p>
 </div>
+<p>The <code><a href="../reference/ocr.html">ocr()</a></code> function extracts text from an image file. After indicating the engine for the language, it will return the text found in the image:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://pacha.dev/cpp11tesseract/" class="external-link">cpp11tesseract</a></span><span class="op">)</span></span>
 <span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"examples"</span>, <span class="st">"testocr.png"</span>, package <span class="op">=</span> <span class="st">"cpp11tesseract"</span><span class="op">)</span></span>
@@ -118,7 +95,7 @@
 <span><span class="co">## over the lazy fox. The quick brown dog</span></span>
 <span><span class="co">## jumped over the lazy fox. The quick</span></span>
 <span><span class="co">## brown dog jumped over the lazy fox.</span></span></code></pre>
-<p>Not bad! The <code><a href="../reference/ocr.html">ocr_data()</a></code> function returns all words in the image along with a bounding box and confidence rate.</p>
+<p>The <code><a href="../reference/ocr.html">ocr_data()</a></code> function returns all words in the image along with a bounding box and confidence rate.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ocr.html">ocr_data</a></span><span class="op">(</span><span class="va">file</span>, engine <span class="op">=</span> <span class="va">eng</span><span class="op">)</span></span>
 <span><span class="va">results</span></span></code></pre></div>
@@ -148,7 +125,7 @@
 <span><span class="co">## [1] "/usr/share/tesseract-ocr/5/tessdata/"</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $available</span></span>
-<span><span class="co">## [1] "chi_sim" "eng"    </span></span>
+<span><span class="co">## [1] "chi_sim" "eng"     "osd"    </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $version</span></span>
 <span><span class="co">## [1] "5.4.1"</span></span>
@@ -163,7 +140,7 @@
 <span><span class="co">## [25] "unlv"             "wordstrbox"</span></span></code></pre>
 <p>By default the R package only includes English training data. Windows and Mac users can install additional training data using <code><a href="../reference/tessdata.html">tesseract_download()</a></code>. Let’s OCR a screenshot from Wikipedia in Simplified Chinese.</p>
 <div class="figure">
-<img src="../reference/figures/chinese.png" alt=""><p class="caption">chinese</p>
+<img src="../reference/figures/chinese.jpg" alt=""><p class="caption">Image with thirteen lines of Chinese text</p>
 </div>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Only need to do download once:</span></span>
@@ -171,24 +148,24 @@
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Now load the dictionary</span></span>
 <span><span class="op">(</span><span class="va">simplified_chinese</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tesseract.html">tesseract</a></span><span class="op">(</span><span class="st">"chi_sim"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## &lt;pointer: 0x589a6525f220&gt;</span></span></code></pre>
+<pre><code><span><span class="co">## &lt;pointer: 0x6229f0bdf060&gt;</span></span></code></pre>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"examples"</span>, <span class="st">"chinese.png"</span>, package <span class="op">=</span> <span class="st">"cpp11tesseract"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"examples"</span>, <span class="st">"chinese.jpg"</span>, package <span class="op">=</span> <span class="st">"cpp11tesseract"</span><span class="op">)</span></span>
 <span><span class="va">text</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ocr.html">ocr</a></span><span class="op">(</span><span class="va">file</span>, engine <span class="op">=</span> <span class="va">simplified_chinese</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## 奥林匹克运动会 (希腊语: OAuhruakof AYwWvsc; 法语: Jeux olympiques; 英语:</span></span>
-<span><span class="co">## Olympic Games) ，简称奥运会、奥运，是世界最高等级的国陈综合体育赛事，由国陈</span></span>
-<span><span class="co">## 奥林匹克委员会主办，每4年学行一次。冬季欧技项目创立冬季奥林匹克运动会后，之前</span></span>
-<span><span class="co">## 的奥林匹克运动会则是又称为 夏季奥林匹克运动会 以示区分。从1994年起，冬季奥</span></span>
-<span><span class="co">## 运会和夏季奥运会分并，相隔2年交共举行。奥林匹克运动会最早起源於古希腊，是当时</span></span>
-<span><span class="co">## 各城邦之间的公开较量，因为举办地在奥林匹亚而得名。信幸基督教的中马皇帝狄奥多西</span></span>
-<span><span class="co">## 一世以奥林匹克运动会崇拜耶稣以外神只为由，禁止奥运将技，於是奥运在举办超过</span></span>
-<span><span class="co">## 1,000年后於4世纪未停办，奥运这次停办持续了1,503年，直到19世纪示才由和后人发现</span></span>
-<span><span class="co">## 遗距。之后，法国的顾和拜旦男吉皮子:德.古柏坦创立了有真正奥运精神的现代奥林匹克运</span></span>
-<span><span class="co">## 动会，自1896年开始每4年举办一次，更确立了会期不超过18日的传统。现代奥运会只</span></span>
-<span><span class="co">## 在两次世界大战期间合共中断过5次 (分别是191 6年夏季奥运会、1940年夏季奥运会</span></span>
-<span><span class="co">## [、1940年冬季奥运会(1]、1944年夏季奥运会和1944年冬季奥运会) [广 1]]，以及在</span></span>
-<span><span class="co">## 2020年因全球防疫延期过一次 (2020年夏季奥运会[2][广2]) 。</span></span></code></pre>
+<pre><code><span><span class="co">## 奥林匹克运动会 (希腊语;: OMXohrtakot AYWvsc; 法语: Jeux olympiques; 英语:</span></span>
+<span><span class="co">## Olympic Games) ，简称奥运会、奥运，是世界最高等级的国际综合体育蹇事，由国际</span></span>
+<span><span class="co">## 奥林匹克委员会主办，每4年举行一次。冬季训技项目创立冬季奥林匹克运动会后，之前</span></span>
+<span><span class="co">## 的奥林匹克运动会则是又称为【夏季奥林匹克还动会」 以示区分。从1994年起，冬季奥</span></span>
+<span><span class="co">## 还会和夏季奥运会分并，相隔2年交蔡举行。奥林匹克运动会最早起源於古希腊，是当时</span></span>
+<span><span class="co">## 各城邦之间的公开较量，因为皋闪地在奥林匹亚而得名。信幸基晴教的办天皇帝狄奥多西</span></span>
+<span><span class="co">## 一世以奥林匹克运动会崇拜耶稣以外神只为由，禁止奥运项技，於是奥运在举办超过</span></span>
+<span><span class="co">## 1,000年后於4世纪末停办，奥运这次停办持续了1,503年，直到19世纪未才由和后人发现</span></span>
+<span><span class="co">## 遗距。之后，法辆的顾拜旦男超皮耶,德:古柏坦创立了有真正奥运精神的现代奥林匹克运</span></span>
+<span><span class="co">## 动会，自1896年开始每4年学办一次，更确立了会期不超过18日的传统。现代奥运会只</span></span>
+<span><span class="co">## 在两次世界大战期间合共中断过5次(分别是191 6年夏季奥运会、1940年夏季奥运会</span></span>
+<span><span class="co">## D、1940年冬季奥运会(1]、1944年夏季奥运会和1944年冬季奥运会) [广 ]]，以及在</span></span>
+<span><span class="co">## 2020年因全球防疫延期过一次 (2020年夏季奥运会2][广习) 。</span></span></code></pre>
 <p>Compare with the copy and paste from the Wikipedia.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">text2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readLines.html" class="external-link">readLines</a></span><span class="op">(</span></span>
@@ -196,7 +173,7 @@
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="va">text2</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## 奧林匹克運動會（希臘語：Ολυμπιακοί Αγώνες；法語：Jeux olympiques；英語：Olympic Games），簡稱奧運會、奧運，是世界最高等級的國際綜合體育賽事，由國際奧林匹克委員會主辦，每4年舉行一次。冬季競技項目創立冬季奧林匹克運動會後，之前的奧林匹克運動會則是又稱為「夏季奧林匹克運動會」以示區分。從1994年起，冬季奧運會和夏季奧運會分開，相隔2年交替舉行。奥林匹克運動會最早起源於古希腊，是當時各城邦之間的公開較量，因為舉辦地在奧林匹亚而得名。信奉基督教的羅馬皇帝狄奧多西一世以奧林匹克運動會崇拜耶穌以外神衹為由，禁止奧運競技，於是奧運在舉辦超過1,000年後於4世紀末停辦，奧運這次停辦持續了1,503年，直到19世纪末才由後人發現遺蹟。之後，法國的顾拜旦男爵皮耶·德·古柏坦創立了有真正奧運精神的現代奧林匹克運動會，自1896年開始每4年舉辦一次，更確立了會期不超過18日的傳統。現代奧運會只在兩次世界大戰期間合共中斷過5次（分別是1916年夏季奧運會、1940年夏季奧運會[1]、1940年冬季奧運會[1]、1944年夏季奧運會和1944年冬季奧運會）[註 1]，以及在2020年因全球防疫延期過一次（2020年夏季奧運會[2][註 2]）。</span></span></code></pre>
+<pre><code><span><span class="co">## 奧林匹克運動會（希臘語：Ολυμπιακοί Αγώνες；法語 Jeux olympiques；英語：Olympic Games）簡稱奧運會、奧運，是世界最高等級的國際綜合體育賽事，由國際 奧林匹克委員會主辦，每4年舉行一次。冬季競技項目創立冬季奧林匹克運動會後，之前 的奧林匹克運動會則是又稱為「夏季奧林匹克運動會」以示區分。從1994年起，冬季奧 運會和夏季奧運會分開，相隔2年交替舉行。奥林匹克運動會最早起源於古希腊，是當時 各城邦之間的公開較量，因為舉辦地在奧林匹亚而得名。信奉基督教的羅馬皇帝狄奧多西 一世以奧林匹克運動會崇拜耶穌以外神衹為由，禁止奧運競技，於是奧運在舉辦超過 1,000年後於4世紀末停辦，奧運這次停辦持續了1,503年，直到19世纪末才由後人發現 遺蹟。之後，法國的顾拜旦男爵皮耶·德·古柏坦創立了有真正奧運精神的現代奧林匹克運 動會，自1896年開始每4年舉辦一次，更確立了會期不超過18日的傳統。現代奧運會只 在兩次世界大戰期間合共中斷過5次（分別是1916年夏季奧運會、1940年夏季奧運會 [1]、1940年冬季奧運會[1]、1944年夏季奧運會和1944年冬季奧運會）[註 1]，以及在 2020年因全球防疫延期過一次（2020年夏季奧運會[2][註 2]）。</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="preprocessing-with-magick">Preprocessing with Magick<a class="anchor" aria-label="anchor" href="#preprocessing-with-magick"></a>
@@ -216,7 +193,7 @@
 </ul>
 <p>Below is an example OCR scan. The code converts it to black-and-white and resizes + crops the image before feeding it to tesseract to get more accurate OCR results.</p>
 <div class="figure">
-<img src="../reference/figures/bowers.jpg" alt=""><p class="caption">bowers</p>
+<img src="../reference/figures/wilde.jpg" alt=""><p class="caption">The first page of ‘The Importance of Being Earnest’ by Oscar Wilde</p>
 </div>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/magick/" class="external-link">magick</a></span><span class="op">)</span></span></code></pre></div>
@@ -225,7 +202,7 @@
 <span><span class="co">## Disabled features: cairo, ghostscript, raw, rsvg</span></span></code></pre>
 <pre><code><span><span class="co">## Using 8 threads</span></span></code></pre>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"examples"</span>, <span class="st">"bowers.jpg"</span>, package <span class="op">=</span> <span class="st">"cpp11tesseract"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"examples"</span>, <span class="st">"wilde.jpg"</span>, package <span class="op">=</span> <span class="st">"cpp11tesseract"</span><span class="op">)</span></span>
 <span><span class="va">input</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://docs.ropensci.org/magick/reference/editing.html" class="external-link">image_read</a></span><span class="op">(</span><span class="va">file</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">text</span> <span class="op">&lt;-</span> <span class="va">input</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -236,43 +213,50 @@
 <span>  <span class="fu"><a href="../reference/ocr.html">ocr</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## The Life and Work of</span></span>
-<span><span class="co">## Fredson Bowers</span></span>
-<span><span class="co">## by</span></span>
-<span><span class="co">## G. THOMAS TANSELLE</span></span>
+<pre><code><span><span class="co">## Act One</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## N EVERY FIELD OF ENDEAVOR THERE ARE A FEW FIGURES WHOSE ACCOM-</span></span>
-<span><span class="co">## plishment and influence cause them to be the symbols of their age;</span></span>
-<span><span class="co">## their careers and oeuvres become the touchstones by which the</span></span>
-<span><span class="co">## field is measured and its history told. In the related pursuits of</span></span>
-<span><span class="co">## analytical and descriptive bibliography, textual criticism, and scholarly</span></span>
-<span><span class="co">## editing, Fredson Bowers was such a figure, dominating the four decades</span></span>
-<span><span class="co">## after 1949, when his Principles of Bibliographical Description was pub-</span></span>
-<span><span class="co">## lished. By 1973 the period was already being called “the age of Bowers”:</span></span>
-<span><span class="co">## in that year Norman Sanders, writing the chapter on textual scholarship</span></span>
-<span><span class="co">## for Stanley Wells’s Shakespeare: Select Bibliographies, gave this title to</span></span>
-<span><span class="co">## a section of his essay. For most people, it would be achievement enough</span></span>
-<span><span class="co">## to rise to such a position in a field as complex as Shakespearean textual</span></span>
-<span><span class="co">## studies; but Bowers played an equally important role in other areas.</span></span>
-<span><span class="co">## Editors of nineteenth-century American authors, for example, would</span></span>
-<span><span class="co">## also have to call the recent past “the age of Bowers,” as would the writers</span></span>
-<span><span class="co">## of descriptive bibliographies of authors and presses. His ubiquity in</span></span>
-<span><span class="co">## the broad field of bibliographical and textual study, his seemingly com-</span></span>
-<span><span class="co">## plete possession of it, distinguished him from his illustrious predeces-</span></span>
-<span><span class="co">## sors and made him the personification of bibliographical scholarship in</span></span>
+<span><span class="co">## [The living room of Algernon Moncrieff's flat in Mayfair, London.</span></span>
+<span><span class="co">## Lane is arranging afternoon tea on a table. Algernon enters]</span></span>
+<span><span class="co">## Algernon: Lane, have you made the cucumber sandwiches for</span></span>
+<span><span class="co">## Lady Bracknell’s tea?</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## his time.</span></span>
+<span><span class="co">## Lane: Yes, sir. [Handing them to Algernon on a silver tray]</span></span>
+<span><span class="co">## Algernon: [Looking carefully at them, taking two and sitting down</span></span>
+<span><span class="co">## on the sofa] Oh, by the way", Lane, I looked at your notebook. |</span></span>
+<span><span class="co">## toticed that when Lord Shoreman and Mr Worthing dined with</span></span>
+<span><span class="co">## me on Thursday night, eight bottles of champagne were drunk,</span></span>
+<span><span class="co">## Lane: Yes, sir; eight bottles.</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## When in 1969 Bowers was awarded the Gold Medal of the Biblio-</span></span>
-<span><span class="co">## graphical Society in London, John Carter’s citation referred to the</span></span>
-<span><span class="co">## Principles as “majestic,” called Bowers’s current projects “formidable,”</span></span>
-<span><span class="co">## said that he had “imposed critical discipline” on the texts of several</span></span>
-<span><span class="co">## authors, described Studies in Bibliography as a “great and continuing</span></span>
-<span><span class="co">## achievement,” and included among his characteristics “uncompromising</span></span>
-<span><span class="co">## seriousness of purpose” and “professional intensity.” Bowers was not</span></span>
-<span><span class="co">## unaccustomed to such encomia, but he had also experienced his share of</span></span>
-<span><span class="co">## attacks: his scholarly positions were not universally popular, and he</span></span>
-<span><span class="co">## expressed them with an ageressiveness that almost seemed calculated to</span></span></code></pre>
+<span><span class="co">## Algernon: Why is it that, in a bachelor’s home, the servants</span></span>
+<span><span class="co">## always drink the champagne? | just ask because I am interested,</span></span>
+<span><span class="co">## Lane.</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Lane: | think that it is because the champagne is better in a</span></span>
+<span><span class="co">## lachelor’s home. | have noticed that the champagne in married</span></span>
+<span><span class="co">## people’s homes is rarely very good.</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Algernon: Good heavens’! Is marriage so depressing?</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Lane: | believe marriage is very pleasant, sir. | haven't had much</span></span>
+<span><span class="co">## experience of it myself. I have only been married once, and that</span></span>
+<span><span class="co">## was because of a misunderstanding*® between myself and a young</span></span>
+<span><span class="co">## person.</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Algernon: [Lazily, without interest] 1 am not very interested in</span></span>
+<span><span class="co">## your family life, Lane.</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Lane: No, sir; it is not a very interesting subject. | never think</span></span>
+<span><span class="co">## of it myself.</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Algernon: That is very understandable. Well, thank you, Lane.</span></span>
+<span><span class="co">## [Lane goes off]</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Algernon: [To himself] Lane’s views on marriage seem very casual.</span></span>
+<span><span class="co">## Really, if the servants don’t set us a good example, what on earth</span></span>
+<span><span class="co">## is the use of them? They seem to have no morals",</span></span>
+<span><span class="co">## {Lane enters]</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Lane: Mr Ernest Worthing is here, sir.</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="read-from-pdf-files">Read from PDF files<a class="anchor" aria-label="anchor" href="#read-from-pdf-files"></a>
@@ -343,33 +327,94 @@
 <p>One powerful parameter is <code>tessedit_char_whitelist</code> which restricts the output to a limited set of characters. This may be useful for reading for example numbers such as a bank account, zip code, or gas meter.</p>
 <p>The whitelist parameter works for all versions of Tesseract engine 3 and also engine versions 4.1 and higher, but unfortunately it did not work in Tesseract 4.0.</p>
 <div class="figure">
-<img src="../reference/figures/receipt.png" alt=""><p class="caption">receipt</p>
+<img src="../reference/figures/receipt.jpg" alt=""><p class="caption">A receipt in English with food and toys for Mr. Duke</p>
 </div>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"examples"</span>, <span class="st">"receipt.png"</span>, package <span class="op">=</span> <span class="st">"cpp11tesseract"</span><span class="op">)</span></span>
-<span><span class="va">numbers</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tesseract.html">tesseract</a></span><span class="op">(</span>options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>tessedit_char_whitelist <span class="op">=</span> <span class="st">"$.0123456789"</span><span class="op">)</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"examples"</span>, <span class="st">"receipt.jpg"</span>, package <span class="op">=</span> <span class="st">"cpp11tesseract"</span><span class="op">)</span></span>
+<span><span class="va">numbers</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tesseract.html">tesseract</a></span><span class="op">(</span>options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>tessedit_char_whitelist <span class="op">=</span> <span class="st">"-$.0123456789"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu"><a href="../reference/ocr.html">ocr</a></span><span class="op">(</span><span class="va">file</span>, engine <span class="op">=</span> <span class="va">numbers</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## $90.52</span></span>
-<span><span class="co">## $81.52</span></span>
-<span><span class="co">## $9.00</span></span>
-<span><span class="co">## $90.52</span></span></code></pre>
-<p>To test if this actually works, look what happens if we remove the <code>$</code> from <code>tessedit_char_whitelist</code>:</p>
+<pre><code><span><span class="co">## 0</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## 00068354712539</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## 01.8$31.998</span></span>
+<span><span class="co">## 25 -$8.00</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## 00084019961505</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## 03966$44.99</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## 00003558543582</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## 8 $8.93</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## $</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## 00000002000414</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## $0.50</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## $$60$10 -$10.00</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## $ $68.47</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## $8.84</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## $77.31</span></span></code></pre>
+<p>To test if this actually works, look at the output without the whitelist:</p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Do not allow any dollar sign</span></span>
-<span><span class="va">numbers2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tesseract.html">tesseract</a></span><span class="op">(</span>options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>tessedit_char_whitelist <span class="op">=</span> <span class="st">".0123456789"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu"><a href="../reference/ocr.html">ocr</a></span><span class="op">(</span><span class="va">file</span>, engine <span class="op">=</span> <span class="va">numbers2</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## 90.52</span></span>
-<span><span class="co">## 81.52</span></span>
-<span><span class="co">## 9.00</span></span>
-<span><span class="co">## 90.52</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu"><a href="../reference/ocr.html">ocr</a></span><span class="op">(</span><span class="va">file</span>, engine <span class="op">=</span> <span class="va">eng</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## DOG</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## 000683547 12539</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## OPEN FARM DOG AG SALMON 1.8KG $31.99 HST</span></span>
+<span><span class="co">## Item discount 25% -$8.00 HST</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## 00084019961505</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## VE FO GOOG BF NIB 396G LRG KONG $44.99 HST</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## ACCESSORIES</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## 00003558543582</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## KONG BRUSH $8.93 HST</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## STORE USE ITEMS</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## 000000020004 14</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## GPF CLOTH BAG LARGE $0.50</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## FPS SPEND $60 SAVE $10 -$10.00</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## SUB TOTAL $68.47</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## HST $8.84</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## TOTAL $77.31</span></span></code></pre>
+<p>As an Easter egg, this is Mr. Duke:</p>
+<div class="figure">
+<img src="../reference/figures/mrduke.jpg" alt=""><p class="caption">Mr. Duke, a dog of the Australian Sheppard kind</p>
+</div>
+<p>Here is the extracted text:</p>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"examples"</span>, <span class="st">"mrduke.jpg"</span>, package <span class="op">=</span> <span class="st">"cpp11tesseract"</span><span class="op">)</span></span>
+<span><span class="va">text</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ocr.html">ocr</a></span><span class="op">(</span><span class="va">file</span>, engine <span class="op">=</span> <span class="va">eng</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## ee</span></span>
+<span><span class="co">## oe e</span></span>
+<span><span class="co">## Ze. &lt;n BR ee</span></span>
+<span><span class="co">## Mr. Duke, 4 years old (2024) 2</span></span></code></pre>
 </div>
 </div>
 <div class="section level2">
 <h2 id="best-versus-fast-models">Best versus Fast models<a class="anchor" aria-label="anchor" href="#best-versus-fast-models"></a>
 </h2>
 <p>In order to improve the OCR results, Tesseract has two variants of models that can be used. The <code><a href="../reference/tessdata.html">tesseract_download()</a></code> can download the ‘best’ (but slower) model, which increases the accuracy. The ‘fast’ (but less accurate) model is the default.</p>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"examples"</span>, <span class="st">"chinese.png"</span>, package <span class="op">=</span> <span class="st">"cpp11tesseract"</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"examples"</span>, <span class="st">"chinese.jpg"</span>, package <span class="op">=</span> <span class="st">"cpp11tesseract"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># download the best model (vertical script download is to avoid a warning)</span></span>
 <span><span class="va">dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -390,7 +435,7 @@
 <div class="figure">
 <img src="../reference/figures/polytonicgreek.png" alt=""><p class="caption">polytonicgreek</p>
 </div>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"examples"</span>, <span class="st">"polytonicgreek.png"</span>, package <span class="op">=</span> <span class="st">"cpp11tesseract"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># download the best models</span></span>
@@ -414,7 +459,7 @@
 <img src="../reference/figures/tealbook.png" alt=""><p class="caption">tealbook</p>
 </div>
 <p>Here is the first element of the list returned by Textract:</p>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># List of 13</span></span>
 <span><span class="co"># $ BlockType      : chr "TABLE"</span></span>
 <span><span class="co"># $ Confidence     : num 100</span></span>
@@ -434,7 +479,7 @@
 <span><span class="co"># $ SelectionStatus: chr(0)</span></span>
 <span><span class="co"># $ Page           : int 3</span></span></code></pre></div>
 <p>Here is Tesseract’s output:</p>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"examples"</span>, <span class="st">"tealbook.png"</span>, package <span class="op">=</span> <span class="st">"cpp11tesseract"</span><span class="op">)</span></span>
 <span><span class="va">text</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ocr.html">ocr</a></span><span class="op">(</span><span class="va">file</span><span class="op">)</span></span>
 <span></span>
@@ -477,7 +522,7 @@
 <span><span class="co">## Unemployed " 3.9 3.5 3.6 3.6 3.4 3.2 3.1</span></span>
 <span><span class="co">## Unemployment rate (per cent) 5.2 4.6 4.8 4.7 4.4 4.2 4.0</span></span></code></pre>
 <p>One way to organize the output is to split the text before the first digit on each line.</p>
-<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">text</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/strsplit.html" class="external-link">strsplit</a></span><span class="op">(</span><span class="va">text</span>, <span class="st">"\n"</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
 <span><span class="va">text</span> <span class="op">&lt;-</span> <span class="va">text</span><span class="op">[</span><span class="fl">6</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span><span class="op">]</span></span>
 <span></span>
@@ -525,29 +570,22 @@
 <span><span class="co">## 6        107      109.1</span></span></code></pre>
 <p>The result is not perfect (e.g. I still need to change “Gross National Product in Constant” to add the “(1958) Dollars”), but neither is Textract’s and it requires to write a more complex loop to organize the data. Certainly, this can be simplified by using the Tidyverse.</p>
 </div>
-  </div>
-
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-
-      </div>
-
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 
 
-      <footer><div class="copyright">
-  <p></p>
-<p>Developed by Jeroen Ooms, Mauricio Vargas Sepulveda, Munk School of Global Affairs and Public Policy.</p>
+    <footer><div class="pkgdown-footer-left">
+  <p>Developed by Jeroen Ooms, Mauricio Vargas Sepulveda, Munk School of Global Affairs and Public Policy.</p>
 </div>
 
-<div class="pkgdown">
-  <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.9000.</p>
+<div class="pkgdown-footer-right">
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.9000.</p>
 </div>
 
-      </footer>
+    </footer>
 </div>
-
 
 
 

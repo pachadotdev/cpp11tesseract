@@ -7,5 +7,6 @@
 #' algorithms and obtain the best possible results.
 #'
 #' @name cpp11tesseract-package
+#' @importFrom tools R_user_dir
 #' @useDynLib cpp11tesseract, .registration = TRUE
 "_PACKAGE"

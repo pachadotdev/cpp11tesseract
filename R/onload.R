@@ -2,7 +2,7 @@
   pkgdir <- file.path(lib, pkg)
   version <- tesseract_version_major()
   appname <- ifelse(version < 4, "tesseract", paste0("tesseract", version))
-  sysdir <- rappdirs::user_data_dir(appname)
+  sysdir <- tools::R_user_dir(appname, which = "data")
   pkgdata <- normalizePath(file.path(pkgdir, "tessdata"), mustWork = FALSE)
   sysdata <- normalizePath(file.path(sysdir, "tessdata"), mustWork = FALSE)
   if (!is_testload() && file.exists(pkgdata) && !file.exists(file.path(sysdata, "eng.traineddata"))) {

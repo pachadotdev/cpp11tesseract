@@ -1,7 +1,7 @@
 Package: cpp11tesseract
 Type: Package
 Title: Open Source OCR Engine
-Version: 5.3.0
+Version: 5.3.2
 Authors@R: c(person("Jeroen", "Ooms",
                     role = c("aut"),
                     email = "jeroen@berkeley.edu",
@@ -27,7 +27,6 @@ SystemRequirements: Tesseract >= 4.0.0 (libtesseract-dev / tesseract-devel) and
 Imports:
     pdftools (>= 1.5),    
     curl,
-    rappdirs,
     digest
 LinkingTo: 
     cpp11

@@ -11,10 +11,12 @@
 
 [![R-CMD-check](https://github.com/pachadotdev/cpp11tesseract/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/pachadotdev/cpp11tesseract/actions/workflows/R-CMD-check.yaml)
 [![codecov](https://codecov.io/gh/pachadotdev/cpp11tesseract/graph/badge.svg?token=mWfiUCgfNu)](https://app.codecov.io/gh/pachadotdev/cpp11tesseract)
-[![BuyMeACoffee](https://raw.githubusercontent.com/pachadotdev/buymeacoffee-badges/main/bmc-donate-white.svg)](https://buymeacoffee.com/pacha)
 [![Project Status: Active – The project has reached a stable, usable
 state and is being actively
 developed.](https://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/cpp11tesseract)](https://CRAN.R-project.org/package=cpp11tesseract)
+[![BuyMeACoffee](https://raw.githubusercontent.com/pachadotdev/buymeacoffee-badges/main/bmc-donate-white.svg)](https://buymeacoffee.com/pacha)
 
   - Upstream Tesseract-OCR documentation:
     <https://tesseract-ocr.github.io/tessdoc/>
@@ -22,35 +24,33 @@ developed.](https://www.repostatus.org/badges/latest/active.svg)](http://www.rep
     <https://docs.ropensci.org/tesseract/articles/intro.html>
   - Reference: <https://docs.ropensci.org/tesseract/reference/ocr.html>
 
-## Hello World
+## Simple example
 
-Simple example
+How to extract text from an image:
 
 ``` r
 # Simple example
-text <- ocr("https://jeroen.github.io/images/testocr.png")
-cat(text)
-
-# Get XML HOCR output
-xml <- ocr("https://jeroen.github.io/images/testocr.png", HOCR = TRUE)
-cat(xml)
-```
-
-Roundtrip test: render PDF to image and OCR it back to text
-
-``` r
-# Full roundtrip test: render PDF to image and OCR it back to text
-curl::curl_download("https://cran.r-project.org/doc/manuals/r-release/R-intro.pdf", "R-intro.pdf")
-orig <- pdftools::pdf_text("R-intro.pdf")[1]
-
-# Render pdf to png image
-img_file <- pdftools::pdf_convert("R-intro.pdf", format = 'tiff', pages = 1, dpi = 400)
-
-# Extract text from png image
-text <- ocr(img_file)
-unlink(img_file)
+text <- ocr("inst/examples/figures/testocr.png")
 cat(text)
 ```
+
+## Differences with the original tesseract R package
+
+This package initially started as a series of modifications to the
+original `tesseract` package to improve performance and add new
+features. Some of the changes contributed to the original included the
+functions to choose between the “best” and “fast” models.
+
+However, some changes were not integrated, such as using the `cpp11`
+package, which I need to comply with the Munk School IT standards. Using
+`cpp11` allows me to vendor the C++ headers into the package, and then I
+can conduct an offline installation in the Niagara Cluster.
+
+The documentation changes a bit. I tried to expand the documentation and
+compare with Amazon Textract output.
+
+This package includes some changes requested by CRAN, and these are
+mostly about the package internals.
 
 ## Installation
 
@@ -59,7 +59,7 @@ library (see below).
 
 ### Install from source
 
-On **Debian** or **Ubuntu** install
+On Debian or Ubuntu install
 [libtesseract-dev](https://packages.debian.org/testing/libtesseract-dev)
 and
 [libleptonica-dev](https://packages.debian.org/testing/libleptonica-dev).
@@ -69,20 +69,20 @@ to run examples.
 
     sudo apt-get install -y libtesseract-dev libleptonica-dev tesseract-ocr-eng
 
-On **Ubuntu** you can optionally use [this
+On Ubuntu you can optionally use [this
 PPA](https://launchpad.net/~alex-p/+archive/ubuntu/tesseract-ocr-devel)
 to get the latest version of Tesseract:
 
     sudo add-apt-repository ppa:alex-p/tesseract-ocr-devel
     sudo apt-get install -y libtesseract-dev tesseract-ocr-eng
 
-On **Fedora** you need
+On Fedora you need
 [tesseract-devel](https://src.fedoraproject.org/rpms/tesseract) and
 [leptonica-devel](https://src.fedoraproject.org/rpms/leptonica)
 
     sudo yum install tesseract-devel leptonica-devel
 
-On **RHEL** and **CentOS** you need
+On RHEL and CentOS you need
 [tesseract-devel](https://src.fedoraproject.org/rpms/tesseract) and
 [leptonica-devel](https://src.fedoraproject.org/rpms/leptonica) from
 EPEL
@@ -90,7 +90,7 @@ EPEL
     sudo yum install epel-release
     sudo yum install tesseract-devel leptonica-devel
 
-On **OS-X** use
+On OS-X use
 [tesseract](https://github.com/Homebrew/homebrew-core/blob/master/Formula/tesseract.rb)
 from Homebrew:
 
