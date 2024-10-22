@@ -1,3 +1,5 @@
+#!/bin/sh
+
 # Anticonf (tm) script by Pacha (2024)
 # This script will query 'pkg-config' for the required cflags and ldflags.
 # If pkg-config is unavailable or does not find the library, try setting
@@ -35,8 +37,9 @@ elif [ `uname` = "Darwin" ]; then
     PKG_CFLAGS="-I$BREWDIR/include/tesseract -I$BREWDIR/include/leptonica"
     PKG_LIBS="-L$BREWDIR/lib $PKG_LIBS"
   else
-    curl -sfL "https://autobrew.github.io/scripts/tesseract" > autobrew
-    . ./autobrew
+    echo "Homebrew is not installed. Visit https://brew.sh/ for information on how to install it."
+    echo "Tesseract can be installed with 'brew install tesseract'."
+    exit 1
   fi
 fi
 

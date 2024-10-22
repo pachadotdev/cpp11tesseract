@@ -2,7 +2,9 @@
 
 - Tests that the installed Tesseract version is compatible with the C++ compiler
   (requested by Prof. Brian Ripley, CRAN).
-  
+- Adds Tesseract as a MacOS requirement and does not use autobrew to install it
+  (i.e., to adhere to CRAN policies).
+
 # 5.3.2
 
 - Includes changes requested by CRAN (internal changes and reduced size images).
