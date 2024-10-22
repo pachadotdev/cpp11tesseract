@@ -81,7 +81,7 @@ jobs:
       - name: Run on Rocky Linux
         if: env.is_rocky == 'true'
         run: |
-          docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace rockylinux:9 bash -c "
+          docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace rockylinux:8 bash -c "
             yum install -y epel-release &&
             yum install -y R R-devel libcurl-devel openssl-devel libxml2-devel &&
             R -e 'install.packages(c(\"remotes\", \"rcmdcheck\"), repos=\"https://cloud.r-project.org\")' &&
