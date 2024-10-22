@@ -26,6 +26,7 @@ jobs:
           - {os: ubuntu-24.04,    r: 'release'}
           - {os: ubuntu-22.04,    r: 'release'}
           - {os: ubuntu-20.04,    r: 'release'}
+          - {os: ubuntu-latest,   r: 'release', tag: 'rocky'}
 
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -45,6 +46,23 @@ jobs:
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           extra-packages: any::rcmdcheck
-          needs: check
 
-      - uses: r-lib/actions/check-r-package@v2
+      - name: Check if Rocky Linux
+        id: check_rocky
+        run: echo "is_rocky=$([[ '${{ matrix.config.tag }}' == 'rocky' ]] && echo 'true' || echo 'false')" >> $GITHUB_ENV
+
+      - name: Run on Ubuntu/Mac/Windows
+        if: env.is_rocky != 'true'
+        uses: r-lib/actions/check-r-package@v2
+
+      - name: Run on Rocky Linux
+        if: env.is_rocky == 'true'
+        uses: addnab/docker-run-action@v3
+        with:
+          image: rockylinux:8
+          options: --rm -v /var/run/docker.sock:/var/run/docker.sock
+          run: |
+            yum install -y epel-release
+            yum install -y R R-devel libcurl-devel openssl-devel libxml2-devel
+            R -e 'install.packages(c("remotes", "rcmdcheck"), repos="https://cloud.r-project.org")'
+            R CMD check .
