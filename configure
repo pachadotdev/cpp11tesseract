@@ -1,4 +1,4 @@
-# Anticonf (tm) script by Jeroen Ooms (2022)
+# Anticonf (tm) script by Pacha (2024)
 # This script will query 'pkg-config' for the required cflags and ldflags.
 # If pkg-config is unavailable or does not find the library, try setting
 # INCLUDE_DIR and LIB_DIR manually via e.g:
@@ -74,6 +74,26 @@ if [ $? -ne 0 ]; then
   echo "--------------------------------------------------------------------"
   exit 1
 fi
+
+# Create a temporary C++ file to test the compatibility
+cat <<EOF > conftest.cpp
+#include <tesseract/baseapi.h>
+int main() {
+    tesseract::TessBaseAPI api;
+    return 0;
+}
+EOF
+
+# Compile the temporary C++ file
+if ! ${CXX} conftest.cpp -o conftest ${PKG_CFLAGS} ${PKG_LIBS}
+then
+    echo "Tesseract is not compatible with the C++ compiler used by R."
+    rm -f conftest.cpp conftest
+    exit 1
+fi
+
+# Clean up
+rm -f conftest.cpp conftest
 
 # Write to Makevars
 sed -e "s|@cflags@|$PKG_CFLAGS|" -e "s|@libs@|$PKG_LIBS|" src/Makevars.in > src/Makevars

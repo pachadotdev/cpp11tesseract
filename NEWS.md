@@ -1,3 +1,8 @@
+# 5.3.3
+
+- Tests that the installed Tesseract version is compatible with the C++ compiler
+  (requested by Prof. Brian Ripley, CRAN).
+  
 # 5.3.2
 
 - Includes changes requested by CRAN (internal changes and reduced size images).
