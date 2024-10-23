@@ -8,7 +8,7 @@
 
 # Library settings
 PKG_CONFIG_NAME="tesseract"
-PKG_DEB_NAME="libtesseract-dev libleptonica-dev"
+PKG_DEB_NAME="tesseract-ocr libtesseract-dev libleptonica-dev"
 PKG_RPM_NAME="tesseract-devel leptonica-devel"
 PKG_BREW_NAME="tesseract"
 PKG_TEST_HEADER="<baseapi.h>"
