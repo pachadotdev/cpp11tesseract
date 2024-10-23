@@ -1,9 +1,6 @@
 #include <tesseract/baseapi.h> // tesseract
 #include <allheaders.h> // leptonica
 
-#define R_NO_REMAP
-#define STRICT_R_HEADERS
-
 #include <cpp11.hpp>
 
 inline void tess_finalizer(tesseract::TessBaseAPI* engine) {
