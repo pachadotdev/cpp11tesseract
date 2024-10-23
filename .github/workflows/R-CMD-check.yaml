@@ -26,7 +26,6 @@ jobs:
           - {os: ubuntu-24.04,    r: 'release', name: 'Ubuntu 24.04 (release)'}
           - {os: ubuntu-22.04,    r: 'release', name: 'Ubuntu 22.04 (release)'}
           - {os: ubuntu-20.04,    r: 'release', name: 'Ubuntu 20.04 (release)'}
-          - {os: ubuntu-latest,   r: 'release', name: 'Fedora 40 dockerized (release)', tag: 'fedora'}
 
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -34,15 +33,12 @@ jobs:
 
     steps:
       - name: Checkout code
-        if: matrix.config.tag != 'fedora'
         uses: actions/checkout@v4
 
       - name: Setup Pandoc
-        if: matrix.config.tag != 'fedora'
         uses: r-lib/actions/setup-pandoc@v2
 
       - name: Setup R
-        if: matrix.config.tag != 'fedora'
         uses: r-lib/actions/setup-r@v2
         with:
           r-version: ${{ matrix.config.r }}
@@ -50,35 +46,31 @@ jobs:
           use-public-rspm: true
 
       - name: Install pak
-        if: matrix.config.tag != 'fedora'
+        if: matrix.config.os != "windows-latest"
         run: R -e 'install.packages("pak", repos = "https://cloud.r-project.org")'
 
       - name: Setup R dependencies
-        if: matrix.config.tag != 'fedora'
         uses: r-lib/actions/setup-r-dependencies@v2
         with:
           extra-packages: any::rcmdcheck
 
-      - name: Check if Fedora (Linux/Mac)
-        if: runner.os != 'Windows'
-        id: check_fedora
-        run: echo "is_fedora=$([[ '${{ matrix.config.tag }}' == 'fedora' ]] && echo 'true' || echo 'false')" >> $GITHUB_ENV
-
-      - name: Check if Fedora (Windows)
-        if: runner.os == 'Windows'
-        id: check_fedora_win
-        run: echo "is_fedora=%[[$(if [ '${{ matrix.config.tag }}' == 'fedora' ]; then echo 'true'; else echo 'false'; fi)]%" >> $GITHUB_ENV
-        shell: cmd
-
-      - name: Run on Ubuntu/Mac/Windows
-        if: env.is_fedora != 'true'
+      - name: Run on Ubuntu
+        if: matrix.config.os == 'ubuntu-latest' || matrix.config.os == 'ubuntu-24.04' || matrix.config.os == 'ubuntu-22.04' || matrix.config.os == 'ubuntu-20.04'
         uses: r-lib/actions/check-r-package@v2
 
-      - name: Run on Fedora
-        if: env.is_fedora == 'true'
+      - name: Run on MacOS
+        if: matrix.config.os == 'macos-13' || matrix.config.os == 'macos-14'
+        uses: r-lib/actions/check-r-package@v2
+
+      - name: Run on Windows
+        if: matrix.config.os == 'windows-latest'
+        uses: r-lib/actions/check-r-package@v2
+
+      - name: Run on Fedora 40 (dockerized)
+        if: matrix.config.os == 'ubuntu-latest'
         run: |
           docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace fedora:40 bash -c "
-            dnf install -y R R-devel libcurl-devel openssl-devel libxml2-devel tesseract-devel leptonica-devel &&
-            R -e 'install.packages(c(\"remotes\", \"devtools\"), repos=\"https://cloud.r-project.org\")' &&
-            R -e 'devtools::check()'"
-            
+            dnf install -y R tesseract-devel leptonica-devel libcurl-devel poppler-cpp-devel &&
+            Rscript -e 'install.packages(\"remotes\", repos = \"https://cloud.r-project.org\")' &&
+            Rscript -e 'remotes::install_github(\"pachadotdev/cpp11tesseract\")' &&
+            Rscript -e 'cat(cpp11tesseract::ocr(system.file(\"examples\", \"testocr.png\", package = \"cpp11tesseract\")))'"
