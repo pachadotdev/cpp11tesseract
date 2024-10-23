@@ -21,9 +21,7 @@ License: Apache License (>= 2)
 URL: https://pacha.dev/cpp11tesseract/
 BugReports: https://github.com/pachadotdev/cpp11tesseract/issues
 SystemRequirements: Tesseract OCR (deb: tesseract-ocr libtesseract-dev
-    libleptonica-dev libpoppler-cpp-dev, rpm: tesseract-devel leptonica-devel
-    poppler-cpp-devel,
-    brew: tesseract).
+    libleptonica-dev, rpm: tesseract-devel leptonica-devel, brew: tesseract).
 Imports:
     pdftools (>= 1.5),    
     curl,
