@@ -1,7 +1,7 @@
 Package: cpp11tesseract
 Type: Package
 Title: Open Source OCR Engine
-Version: 5.3.2
+Version: 5.3.3
 Authors@R: c(person("Jeroen", "Ooms",
                     role = c("aut"),
                     email = "jeroen@berkeley.edu",

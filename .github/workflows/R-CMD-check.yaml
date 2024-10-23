@@ -45,8 +45,8 @@ jobs:
           http-user-agent: ${{ matrix.config.http-user-agent }}
           use-public-rspm: true
 
-      - name: Install pak
-        if: matrix.config.os != 'windows-latest'
+      - name: Install pak (MacOS)
+        if: matrix.config.os == 'macos-13' || matrix.config.os == 'macos-14'
         run: R -e 'install.packages("pak", repos = "https://cloud.r-project.org")'
 
       - name: Setup R dependencies

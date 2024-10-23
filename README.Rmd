@@ -50,10 +50,11 @@ However, some changes were not integrated, such as using the `cpp11` package, wh
 Munk School IT standards. Using `cpp11` allows me to vendor the C++ headers into the package, and then I can
 conduct an offline installation in the Niagara Cluster.
 
-The documentation changes a bit. I tried to expand the documentation and compare with Amazon Textract output.
+The documentation changed a bit. I tried to expand the documentation and compare with Amazon Textract output.
 
 This package includes some changes requested by CRAN, and these are mostly about the package
-internals.
+internals. For example, this version lists the dependencies to install in Linux and Mac, that you can install
+using apt/yum/brew, while the original package uses autobrew to install the Mac dependencies as binaries.
 
 ## Installation
 
