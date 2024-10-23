@@ -46,7 +46,7 @@ jobs:
           use-public-rspm: true
 
       - name: Install pak
-        if: matrix.config.os != "windows-latest"
+        if: matrix.config.os != 'windows-latest'
         run: R -e 'install.packages("pak", repos = "https://cloud.r-project.org")'
 
       - name: Setup R dependencies
