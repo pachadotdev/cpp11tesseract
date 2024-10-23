@@ -87,21 +87,16 @@ int main() {
 }
 EOF
 
-# Debugging: Check if the file was created
-echo "Current directory: $(pwd)"
-echo "Listing files in current directory:"
-ls -l
-
 # Compile the temporary C++ file
-if ! ${CXX} conftest.cpp -o conftest ${PKG_CFLAGS} ${PKG_LIBS}
+if ! ${CXX11CPP} conftest.cpp -o conftest ${PKG_CFLAGS} ${PKG_LIBS}
 then
     echo "Tesseract is not compatible with the C++ compiler used by R."
-    rm -f conftest.cpp conftest
+    rm -rf conftest.cpp conftest
     exit 1
+else
+    echo "Tesseract is compatible with the C++ compiler used by R."
+    rm -rf conftest.cpp conftest
 fi
-
-# Clean up
-rm -f conftest.cpp conftest
 
 # Write to Makevars
 sed -e "s|@cflags@|$PKG_CFLAGS|" -e "s|@libs@|$PKG_LIBS|" src/Makevars.in > src/Makevars
