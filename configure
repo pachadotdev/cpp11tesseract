@@ -87,6 +87,11 @@ int main() {
 }
 EOF
 
+# Debugging: Check if the file was created
+echo "Current directory: $(pwd)"
+echo "Listing files in current directory:"
+ls -l
+
 # Compile the temporary C++ file
 if ! ${CXX} conftest.cpp -o conftest ${PKG_CFLAGS} ${PKG_LIBS}
 then
