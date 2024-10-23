@@ -88,7 +88,8 @@ int main() {
 EOF
 
 # Compile the temporary C++ file to an object file
-if ! ${CXX11} -c conftest.cpp -o conftest.o ${PKG_CFLAGS}
+# Tesseract enforces C++11
+if ! ${CXX11} -std=gnu++11 -c conftest.cpp -o conftest.o ${PKG_CFLAGS}
 then
     echo "Tesseract is not compatible with the C++ compiler used by R."
     rm -rf conftest.cpp conftest.o
