@@ -87,15 +87,15 @@ int main() {
 }
 EOF
 
-# Compile the temporary C++ file
-if ! ${CXX11CPP} conftest.cpp -o conftest ${PKG_CFLAGS} ${PKG_LIBS}
+# Compile the temporary C++ file to an object file
+if ! ${CXX11} -c conftest.cpp -o conftest.o ${PKG_CFLAGS}
 then
     echo "Tesseract is not compatible with the C++ compiler used by R."
-    rm -rf conftest.cpp conftest
+    rm -rf conftest.cpp conftest.o
     exit 1
 else
     echo "Tesseract is compatible with the C++ compiler used by R."
-    rm -rf conftest.cpp conftest
+    rm -rf conftest.cpp conftest.o
 fi
 
 # Write to Makevars

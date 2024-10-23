@@ -1,6 +1,5 @@
 library(gh)
 
-# Function to delete workflow runs
 delete_old_workflow_runs <- function(owner, repo, keep = 1) {
   # List workflow runs
   workflows <- gh::gh("GET /repos/{owner}/{repo}/actions/runs", owner = owner, repo = repo, per_page = 100)
@@ -15,5 +14,4 @@ delete_old_workflow_runs <- function(owner, repo, keep = 1) {
   }
 }
 
-# Call the function to delete old workflow runs, keeping only the latest 1 run
-delete_old_workflow_runs("pachadotdev", "cpp11tesseract", keep = 1)
+delete_old_workflow_runs("pachadotdev", "cpp11tesseract", keep = 0)
