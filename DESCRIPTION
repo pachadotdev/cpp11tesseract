@@ -23,12 +23,8 @@ BugReports: https://github.com/pachadotdev/cpp11tesseract/issues
 SystemRequirements:
     Tesseract OCR (
         deb: tesseract-ocr libtesseract-dev libleptonica-dev,
-        rpm: tesseract-devel leptonica-devel, brew: tesseract
-    ),
-    Poppler (
-        deb: libpoppler-cpp-dev,
-        rpm: poppler-cpp-devel,
-        brew: poppler
+        rpm: tesseract-devel leptonica-devel,
+        brew: tesseract
     )
 Imports:
     curl,
@@ -38,13 +34,13 @@ LinkingTo:
 RoxygenNote: 7.3.2
 Roxygen: list(markdown = TRUE)
 Suggests:
-    pdftools (>= 1.5),    
-    magick (>= 1.7),
+    magick (>= 2.7),
     spelling,
     knitr,
     tibble,
     rmarkdown,
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    pdftools
 Encoding: UTF-8
 VignetteBuilder: knitr
 Language: en-US
