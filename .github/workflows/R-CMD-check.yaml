@@ -71,6 +71,7 @@ jobs:
         run: |
           chmod 777 -R $(pwd)/
           docker run -v ${{ github.workspace }}:/workspace -w /workspace pachadotdev/r-stable-ubuntu-clang:latest bash -c "
+            sudo apt install -y tesseract-ocr libtesseract-dev libleptonica-dev libpoppler-cpp-dev libmagick++-dev && \
             Rscript -e 'pkgbuild::check_build_tools(debug = TRUE)' && \
             Rscript -e 'devtools::install_dev_deps(dependencies = TRUE)' && \
             Rscript -e 'devtools::check(args = c(\"--no-manual\", \"--as-cran\"))' && \
