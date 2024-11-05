@@ -1,6 +1,6 @@
 test_that("ocr works", {
   file <- system.file("examples", "receipt.jpg", package = "cpp11tesseract")
-  
+
   # test engine options
 
   numbers <- tesseract(options = list(tessedit_char_whitelist = "-$.0123456789"))

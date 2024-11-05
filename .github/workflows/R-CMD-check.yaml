@@ -66,11 +66,14 @@ jobs:
         if: matrix.config.os == 'windows-latest'
         uses: r-lib/actions/check-r-package@v2
 
-      - name: Run on Fedora 40 (dockerized)
+      - name: Check with Ubuntu 22 and Clang 19
         if: matrix.config.os == 'ubuntu-latest'
         run: |
-          docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace fedora:40 bash -c "
-            dnf install -y R tesseract-devel leptonica-devel libcurl-devel poppler-cpp-devel &&
-            Rscript -e 'install.packages(\"remotes\", repos = \"https://cloud.r-project.org\")' &&
-            Rscript -e 'remotes::install_github(\"pachadotdev/cpp11tesseract\")' &&
-            Rscript -e 'cat(cpp11tesseract::ocr(system.file(\"examples\", \"testocr.png\", package = \"cpp11tesseract\")))'"
+          chmod 777 -R $(pwd)/
+          docker run -v ${{ github.workspace }}:/workspace -w /workspace pachadotdev/r-stable-ubuntu-clang:latest bash -c "
+            Rscript -e 'pkgbuild::check_build_tools(debug = TRUE)' && \
+            Rscript -e 'devtools::install_dev_deps(dependencies = TRUE)' && \
+            Rscript -e 'devtools::check(args = c(\"--no-manual\", \"--as-cran\"))' && \
+            cd .. && \
+            rm -rf check-docker
+          "

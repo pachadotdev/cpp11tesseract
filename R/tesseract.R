@@ -109,6 +109,11 @@ download_files <- function(urls) {
     normalizePath(path, mustWork = TRUE)
   }, character(1))
   is_pdf <- grepl(".pdf$", files)
+  if (any(isTRUE(is_pdf))) {
+    if (!requireNamespace("magick", quietly = TRUE)) {
+      stop("magick package is required to read PDF files")
+    }
+  }
   out <- unlist(lapply(files[is_pdf], function(path) {
     pdftools::pdf_convert(path, dpi = 600)
   }))

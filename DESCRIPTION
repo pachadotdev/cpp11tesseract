@@ -20,17 +20,25 @@ Description: Bindings to 'Tesseract':
 License: Apache License (>= 2)
 URL: https://pacha.dev/cpp11tesseract/
 BugReports: https://github.com/pachadotdev/cpp11tesseract/issues
-SystemRequirements: Tesseract OCR (deb: tesseract-ocr libtesseract-dev
-    libleptonica-dev, rpm: tesseract-devel leptonica-devel, brew: tesseract).
+SystemRequirements:
+    Tesseract OCR (
+        deb: tesseract-ocr libtesseract-dev libleptonica-dev,
+        rpm: tesseract-devel leptonica-devel, brew: tesseract
+    ),
+    Poppler (
+        deb: libpoppler-cpp-dev,
+        rpm: poppler-cpp-devel,
+        brew: poppler
+    )
 Imports:
-    pdftools (>= 1.5),    
     curl,
     digest
 LinkingTo: 
     cpp11
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2
 Roxygen: list(markdown = TRUE)
 Suggests:
+    pdftools (>= 1.5),    
     magick (>= 1.7),
     spelling,
     knitr,

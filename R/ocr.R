@@ -18,7 +18,7 @@
 #' @param HOCR if `TRUE` return results as HOCR xml instead of plain text
 #' @rdname ocr
 #' @references [Tesseract: Improving Quality](https://github.com/tesseract-ocr/tesseract/wiki/ImproveQuality)
-#' @examples 
+#' @examples
 #' # Simple example
 #' file <- system.file("examples", "testocr.png", package = "cpp11tesseract")
 #' text <- ocr(file)
