@@ -1,4 +1,5 @@
 # Tesseract configuration
+
 TESSERACT_RWINLIB = ../windows/tesseract
 PKG_CPPFLAGS += -I${TESSERACT_RWINLIB}/include -I${TESSERACT_RWINLIB}/include/leptonica
 
@@ -10,6 +11,7 @@ PKG_LIBS += \
     -lws2_32
 
 # Poppler configuration
+
 POPPLERDATA = share/poppler
 POPPLER_RWINLIB = ../windows/poppler
 PKG_CXXFLAGS += -Dpoppler_cpp_EXPORTS -DBUNDLE_POPPLER_DATA
@@ -23,10 +25,11 @@ PKG_LIBS += \
     -lpoppler-cpp -lpoppler -llcms2 -ljpeg -lpng16 -ltiff -lopenjp2 \
     -lfreetype -lfreetype -lbz2 -liconv -lz
 
+# Compile
+
 all: clean winlibs
 
-clean:
-    rm -f $(OBJECTS) $(SHLIB)
+clean: rm -f $(OBJECTS) $(SHLIB)
 
 winlibs:
     "${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe" "../tools/winlibs.R"
