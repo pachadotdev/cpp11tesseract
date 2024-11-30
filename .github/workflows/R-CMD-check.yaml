@@ -26,6 +26,7 @@ jobs:
           - {os: ubuntu-24.04,    r: 'release', name: 'Ubuntu 24.04 (release)'}
           - {os: ubuntu-22.04,    r: 'release', name: 'Ubuntu 22.04 (release)'}
           - {os: ubuntu-20.04,    r: 'release', name: 'Ubuntu 20.04 (release)'}
+          - {os: ubuntu-latest, container: { image: 'ghcr.io/r-hub/containers/ubuntu-clang:latest' }, name: 'r-devel-linux-x86_64-debian-clang'}
 
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -54,6 +55,18 @@ jobs:
         with:
           extra-packages: any::rcmdcheck
 
+      - name: Install system dependencies (Ubuntu)
+        if: matrix.config.os == 'ubuntu-latest' || matrix.config.os == 'ubuntu-24.04' || matrix.config.os == 'ubuntu-22.04' || matrix.config.os == 'ubuntu-20.04'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libtesseract-dev libleptonica-dev libpoppler-cpp-dev
+
+      - name: Install system dependencies (Windows)
+        if: matrix.config.os == 'windows-latest'
+        run: |
+          choco install tesseract
+          choco install poppler
+
       - name: Run on Ubuntu
         if: matrix.config.os == 'ubuntu-latest' || matrix.config.os == 'ubuntu-24.04' || matrix.config.os == 'ubuntu-22.04' || matrix.config.os == 'ubuntu-20.04'
         uses: r-lib/actions/check-r-package@v2
@@ -65,16 +78,3 @@ jobs:
       - name: Run on Windows
         if: matrix.config.os == 'windows-latest'
         uses: r-lib/actions/check-r-package@v2
-
-      - name: Check with Ubuntu 22 and Clang 19
-        if: matrix.config.os == 'ubuntu-latest'
-        run: |
-          chmod 777 -R $(pwd)/
-          docker run -v ${{ github.workspace }}:/workspace -w /workspace pachadotdev/r-stable-ubuntu-clang:latest bash -c "
-            sudo apt install -y tesseract-ocr libtesseract-dev libleptonica-dev libpoppler-cpp-dev libmagick++-dev && \
-            Rscript -e 'pkgbuild::check_build_tools(debug = TRUE)' && \
-            Rscript -e 'devtools::install_dev_deps(dependencies = TRUE)' && \
-            Rscript -e 'devtools::check(args = c(\"--no-manual\", \"--as-cran\"))' && \
-            cd .. && \
-            rm -rf check-docker
-          "
