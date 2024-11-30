@@ -5,26 +5,34 @@
 \alias{ocr_data}
 \title{Tesseract OCR}
 \usage{
-ocr(image, engine = tesseract("eng"), HOCR = FALSE)
+ocr(file, engine = tesseract("eng"), HOCR = FALSE, opw = "", upw = "")
 
-ocr_data(image, engine = tesseract("eng"))
+ocr_data(file, engine = tesseract("eng"))
 }
 \arguments{
-\item{image}{file path, url, or raw vector to image (png, tiff, jpeg, etc)}
+\item{file}{file path or raw vector (png, tiff, jpeg, etc).}
 
 \item{engine}{a tesseract engine created with \code{\link[=tesseract]{tesseract()}}. Alternatively a
 language string which will be passed to \code{\link[=tesseract]{tesseract()}}.}
 
 \item{HOCR}{if \code{TRUE} return results as HOCR xml instead of plain text}
+
+\item{opw}{owner password to open pdf (please pass it as an environment
+variable to avoid leaking sensitive information)}
+
+\item{upw}{user password to open pdf (please pass it as an environment
+variable to avoid leaking sensitive information)}
 }
 \value{
-character vector of text extracted from the image
+character vector of text extracted from the file. If the file
+is has TIFF or PDF extension, it will be a vector of length equal to the
+number of pages.
 }
 \description{
 Extract text from an image. Requires that you have training data for the language you
 are reading. Works best for images with high contrast, little noise and horizontal text.
 See \href{https://github.com/tesseract-ocr/tessdoc}{tesseract wiki} and
-our package vignette for image preprocessing tips.
+the package vignette for image preprocessing tips.
 }
 \details{
 The \code{ocr()} function returns plain text by default, or hOCR text if hOCR is set to \code{TRUE}.

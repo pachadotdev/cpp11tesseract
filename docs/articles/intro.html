@@ -26,7 +26,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">cpp11tesseract</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">5.3.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">5.3.4</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -62,7 +62,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.svg" class="logo" alt=""><h1>Using the Tesseract OCR engine in R</h1>
             
-            <h4 data-toc-skip class="date">2024-11-04</h4>
+            <h4 data-toc-skip class="date">2024-11-30</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/pachadotdev/cpp11tesseract/blob/HEAD/vignettes/intro.Rmd" class="external-link"><code>vignettes/intro.Rmd</code></a></small>
       <div class="d-none name"><code>intro.Rmd</code></div>
@@ -148,7 +148,7 @@
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Now load the dictionary</span></span>
 <span><span class="op">(</span><span class="va">simplified_chinese</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tesseract.html">tesseract</a></span><span class="op">(</span><span class="st">"chi_sim"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## &lt;pointer: 0x5cb540771f80&gt;</span></span></code></pre>
+<pre><code><span><span class="co">## &lt;pointer: 0x631f8e4fe9a0&gt;</span></span></code></pre>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"examples"</span>, <span class="st">"chinese.jpg"</span>, package <span class="op">=</span> <span class="st">"cpp11tesseract"</span><span class="op">)</span></span>
 <span><span class="va">text</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ocr.html">ocr</a></span><span class="op">(</span><span class="va">file</span>, engine <span class="op">=</span> <span class="va">simplified_chinese</span><span class="op">)</span></span>
@@ -196,13 +196,8 @@
 <img src="../reference/figures/wilde.jpg" alt=""><p class="caption">The first page of ‘The Importance of Being Earnest’ by Oscar Wilde</p>
 </div>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/magick/" class="external-link">magick</a></span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Linking to ImageMagick 6.9.11.60</span></span>
-<span><span class="co">## Enabled features: fontconfig, freetype, fftw, heic, lcms, pango, webp, x11</span></span>
-<span><span class="co">## Disabled features: cairo, ghostscript, raw, rsvg</span></span></code></pre>
-<pre><code><span><span class="co">## Using 8 threads</span></span></code></pre>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"examples"</span>, <span class="st">"wilde.jpg"</span>, package <span class="op">=</span> <span class="st">"cpp11tesseract"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/magick/" class="external-link">magick</a></span><span class="op">)</span></span>
+<span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"examples"</span>, <span class="st">"wilde.jpg"</span>, package <span class="op">=</span> <span class="st">"cpp11tesseract"</span><span class="op">)</span></span>
 <span><span class="va">input</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://docs.ropensci.org/magick/reference/editing.html" class="external-link">image_read</a></span><span class="op">(</span><span class="va">file</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">text</span> <span class="op">&lt;-</span> <span class="va">input</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -259,56 +254,118 @@
 <span><span class="co">## Lane: Mr Ernest Worthing is here, sir.</span></span></code></pre>
 </div>
 <div class="section level2">
-<h2 id="read-from-pdf-files">Read from PDF files<a class="anchor" aria-label="anchor" href="#read-from-pdf-files"></a>
+<h2 id="read-from-scanned-pdf-files-and-multipage-tiff-files">Read from scanned PDF files and multipage TIFF files<a class="anchor" aria-label="anchor" href="#read-from-scanned-pdf-files-and-multipage-tiff-files"></a>
 </h2>
-<p>If your images are stored in PDF files they first need to be converted to a proper image format. We can do this in R using the <code>pdf_convert</code> function from the pdftools package. Use a high DPI to keep quality of the image.</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<p>If your images are stored in PDF files they first need to be converted to a proper image format. Use a high DPI to keep quality of the image.</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"examples"</span>, <span class="st">"ocrscan.pdf"</span>, package <span class="op">=</span> <span class="st">"cpp11tesseract"</span><span class="op">)</span></span>
-<span><span class="va">pngfile</span> <span class="op">&lt;-</span> <span class="fu">pdftools</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/pdftools/reference/pdf_render_page.html" class="external-link">pdf_convert</a></span><span class="op">(</span><span class="va">file</span>, dpi <span class="op">=</span> <span class="fl">600</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Converting page 1 to ocrscan_1.png... done!</span></span></code></pre>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">text</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ocr.html">ocr</a></span><span class="op">(</span><span class="va">pngfile</span><span class="op">)</span></span>
+<span><span class="va">text</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ocr.html">ocr</a></span><span class="op">(</span><span class="va">file</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## | SAPORS LANE - BOOLE - DORSET - BH 25 8 ER</span></span>
-<span><span class="co">## TELEPHONE BOOLE (945 13) 51617 - TELEX 123456</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## Our Ref. 350/PJC/EAC 18th January, 1972.</span></span>
-<span><span class="co">## Dr. P.N. Cundall,</span></span>
+<pre><code><span><span class="co">## THE SLEREXE COMPANY LIMITED</span></span>
+<span><span class="co">## SAPORS LANE . BOOLE - DORSET . BH25 8ER</span></span>
+<span><span class="co">## ‘aur noun (945 18) 51617 - rus 123486</span></span>
+<span><span class="co">## Our Ref. 350/PIC/EAC 18eh January, 1972.</span></span>
+<span><span class="co">## De. P.M. Cundall,</span></span>
 <span><span class="co">## Mining Surveys Ltd.,</span></span>
 <span><span class="co">## Holroyd Road,</span></span>
 <span><span class="co">## Reading,</span></span>
 <span><span class="co">## Berks.</span></span>
 <span><span class="co">## Dear Pete,</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Permit me to introduce you to the facility of facsimile</span></span>
+<span><span class="co">## Permit ne to introduce you to the facility of facsinile</span></span>
 <span><span class="co">## transmission.</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## In facsimile a photocell is caused to perform a raster scan over</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## the subject copy. The variations of print density on the document</span></span>
+<span><span class="co">## In facsimile @ photocell is caused to perform a raster scan over</span></span>
+<span><span class="co">## the subject copy, The variations of print density on the docunent</span></span>
 <span><span class="co">## cause the photocell to generate an analogous electrical video signal.</span></span>
-<span><span class="co">## This signal is used to modulate a carrier, which is transmitted to a</span></span>
-<span><span class="co">## remote destination over a radio or cable communications link.</span></span>
+<span><span class="co">## ‘This signal is used co modulate a carrier, which is transmitted to a</span></span>
+<span><span class="co">## remote destination over a radio or cable Communications Link.</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## At the remote terminal, demodulation reconstructs the video</span></span>
-<span><span class="co">## signal, which is used to modulate the density of print produced by a</span></span>
-<span><span class="co">## printing device. This device is scanning in a raster scan synchronised</span></span>
-<span><span class="co">## with that at the transmitting terminal. As a result, a facsimile</span></span>
-<span><span class="co">## copy of the subject document is produced.</span></span>
+<span><span class="co">## At che remote tersinal, demodulation reconstructs the video</span></span>
+<span><span class="co">## signal, which is used to modulate the density of print produced by</span></span>
+<span><span class="co">## printing device. This device is scanning in raster scan synchronised</span></span>
+<span><span class="co">## ith chac at the transmitting terminal. As a result, a facsimile</span></span>
+<span><span class="co">## copy of the subject docusent is produced.</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Probably you have uses for this facility in your organisation.</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Yours sincerely,</span></span>
-<span><span class="co">## P.J. CROSS</span></span>
-<span><span class="co">## Group Leader - Facsimile Research</span></span>
-<span><span class="co">## Registered in England: No. 2038</span></span>
-<span><span class="co">## No. 1 Registered Office: GO Vicara Lane, Ilford. Essex.</span></span></code></pre>
+<span><span class="co">## PJ. CROSS</span></span>
+<span><span class="co">## Group Leader ~ Facsimile Research</span></span></code></pre>
+<p>The <code><a href="../reference/ocr.html">ocr()</a></code> function can also extract text from multipage scanned PDF and TIFF files. The function will return a vector with the text found in each page. This is a good example that OCR is not perfect.</p>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">file1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"examples"</span>, <span class="st">"bondargentina.pdf"</span>, package <span class="op">=</span> <span class="st">"cpp11tesseract"</span><span class="op">)</span></span>
+<span><span class="va">ocr1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ocr.html">ocr</a></span><span class="op">(</span><span class="va">file1</span>, engine <span class="op">=</span> <span class="va">eng</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="va">ocr1</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## LISTING PARTICULARS CONSISTING OF</span></span>
+<span><span class="co">## Vricing Supplement, Supplemental Information Memorandum and</span></span>
+<span><span class="co">## Supplementat Information Memorandum Addendum dated May 26,1998,</span></span>
+<span><span class="co">## intrmaon Memorandum Addendum ded Qetaber 17,197</span></span>
+<span><span class="co">## THE REPUBLIC OF ARGENTINA.</span></span>
+<span><span class="co">## Euro 750,000,000 Interest Strip Notes due 2028</span></span>
+<span><span class="co">## issued under its</span></span>
+<span><span class="co">## U.S.$11,000,000,000</span></span>
+<span><span class="co">## EURO MEDIUM-TERM NOTE PROGRAMME</span></span>
+<span><span class="co">## Issue Price: 100.835 per cent.</span></span>
+<span><span class="co">## Series No.: 61</span></span>
+<span><span class="co">## ‘Tranche No.: 01</span></span>
+<span><span class="co">## Dealer</span></span>
+<span><span class="co">## ABN AMRO-</span></span>
+<span><span class="co">## ‘The dato hese Listing Prices is May 25, 198,</span></span>
+<span><span class="co">##  ‘The Republic has warranted to the Dealer that, inter alia, these Listing Particulars are true and</span></span>
+<span><span class="co">## accurate in ll material respects, do not contain any usr salement of material fact nr oto state any</span></span>
+<span><span class="co">## material fact known tothe Republic necessary to make statements hercia not misleading and all reasonable</span></span>
+<span><span class="co">## ‘enquires have been made to ascerain such facts and to verify the accuracy ofall such satements. The</span></span>
+<span><span class="co">## Republic accepts responsibilty accordingly.</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## [No person has been authorised to give any information orto make any representations, other than</span></span>
+<span><span class="co">## ‘hose contained in the Listing Particulars in connection wih the offering or sle ofthe Notes a if ven</span></span>
+<span><span class="co">## ‘or made, such information or representations must not be relied upon as having been authorised By the</span></span>
+<span><span class="co">## Republic or the Dealer. Neither the delivery ofthese Listing Particulars nor any sale made hereunder shall,</span></span>
+<span><span class="co">## under any circumstances, constitute a representation that there as been no change in the financial position</span></span>
+<span><span class="co">## oc prospects ofthe Republic since the date hereof or the information contained herein ie correcta of any</span></span>
+<span><span class="co">## time subsequent othe date eco.</span></span></code></pre>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">file2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"examples"</span>, <span class="st">"bondargentina.tiff"</span>, package <span class="op">=</span> <span class="st">"cpp11tesseract"</span><span class="op">)</span></span>
+<span><span class="va">ocr2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ocr.html">ocr</a></span><span class="op">(</span><span class="va">file2</span>, engine <span class="op">=</span> <span class="va">eng</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="va">ocr2</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## LISTING PARTICULARS CONSISTING OF</span></span>
+<span><span class="co">## Pricing Supplement, Supplemental Information Memorandum and</span></span>
+<span><span class="co">## Supplemental Information Memorandum Addendum dated May 26, 1998</span></span>
+<span><span class="co">## AND</span></span>
+<span><span class="co">## Information Memorandum Addendum dated October 17, 1997</span></span>
+<span><span class="co">## wetis</span></span>
+<span><span class="co">## |</span></span>
+<span><span class="co">## THE REPUBLIC OF ARGENTINA</span></span>
+<span><span class="co">## Euro 750,000,000 Interest Strip Notes due 2028</span></span>
+<span><span class="co">## issued under its</span></span>
+<span><span class="co">## U.S.$11,000,000,000</span></span>
+<span><span class="co">## EURO MEDIUM-TERM NOTE PROGRAMME |</span></span>
+<span><span class="co">## Issue Price: 100.835 per cent.</span></span>
+<span><span class="co">## Series No.: 61</span></span>
+<span><span class="co">## Tranche No.: 01</span></span>
+<span><span class="co">## Dealer</span></span>
+<span><span class="co">## ABN AMRO</span></span>
+<span><span class="co">## The date of these Listing Particulars is May 26, 1998.</span></span>
+<span><span class="co">##  The Republic has warranted to the Dealer that, inter alia, these Listing Particulars are true and</span></span>
+<span><span class="co">## accurate in all material respects, do not contain any untrue statement of material fact nor omit to state any</span></span>
+<span><span class="co">## material fact known to the Republic necessary to make statements herein not misleading and all reasonable</span></span>
+<span><span class="co">## enquiries have been made to ascertain such facts and to verify the accuracy of all such statements. The</span></span>
+<span><span class="co">## Republic accepts responsibility accordingly.</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## No person has been authorised to give any information or to make any representations, other than</span></span>
+<span><span class="co">## those contained in the Listing Particulars, in connection with the offering or sale of the Notes and, if given</span></span>
+<span><span class="co">## or made, such information or representations must not be relied upon as having been authorised by the .</span></span>
+<span><span class="co">## Republic or the Dealer. Neither the delivery of these Listing Particulars nor any sale made hereunder shall,</span></span>
+<span><span class="co">## under any circumstances, constitute a representation that there has been no change in the financial position</span></span>
+<span><span class="co">## or prospects of the Republic since the date hereof or the information contained herein is correct as of any</span></span>
+<span><span class="co">## time subsequent to the date hereof.</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="tesseract-control-parameters">Tesseract Control Parameters<a class="anchor" aria-label="anchor" href="#tesseract-control-parameters"></a>
 </h2>
 <p>Tesseract supports hundreds of “control parameters” which alter the OCR engine. Use <code><a href="../reference/tesseract.html">tesseract_params()</a></code> to list all parameters with their default value and a brief description. It also has a handy <code>filter</code> argument to quickly find parameters that match a particular string.</p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># List all parameters with *colour* in name or description</span></span>
 <span><span class="fu"><a href="../reference/tesseract.html">tesseract_params</a></span><span class="op">(</span><span class="st">"colour"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 2 × 3</span></span></span>
@@ -317,7 +374,7 @@
 <span><span class="co">## <span style="color: #BCBCBC;">1</span> editor_image_word_bb_color 7       Word bounding box colour</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">2</span> editor_image_blob_bb_color 4       Blob bounding box colour</span></span></code></pre>
 <p>Do note that some of the control parameters have changed between Tesseract engine 3 and 4.</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/tesseract.html">tesseract_info</a></span><span class="op">(</span><span class="op">)</span><span class="op">[</span><span class="st">"version"</span><span class="op">]</span></span></code></pre></div>
 <pre><code><span><span class="co">## $version</span></span>
 <span><span class="co">## [1] "5.4.1"</span></span></code></pre>
@@ -329,7 +386,7 @@
 <div class="figure">
 <img src="../reference/figures/receipt.jpg" alt=""><p class="caption">A receipt in English with food and toys for Mr. Duke</p>
 </div>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"examples"</span>, <span class="st">"receipt.jpg"</span>, package <span class="op">=</span> <span class="st">"cpp11tesseract"</span><span class="op">)</span></span>
 <span><span class="va">numbers</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tesseract.html">tesseract</a></span><span class="op">(</span>options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>tessedit_char_whitelist <span class="op">=</span> <span class="st">"-$.0123456789"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu"><a href="../reference/ocr.html">ocr</a></span><span class="op">(</span><span class="va">file</span>, engine <span class="op">=</span> <span class="va">numbers</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -362,7 +419,7 @@
 <span><span class="co">## </span></span>
 <span><span class="co">## $77.31</span></span></code></pre>
 <p>To test if this actually works, look at the output without the whitelist:</p>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu"><a href="../reference/ocr.html">ocr</a></span><span class="op">(</span><span class="va">file</span>, engine <span class="op">=</span> <span class="va">eng</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## DOG</span></span>
 <span><span class="co">## </span></span>
@@ -399,7 +456,7 @@
 <img src="../reference/figures/mrduke.jpg" alt=""><p class="caption">Mr. Duke, a dog of the Australian Sheppard kind</p>
 </div>
 <p>Here is the extracted text:</p>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"examples"</span>, <span class="st">"mrduke.jpg"</span>, package <span class="op">=</span> <span class="st">"cpp11tesseract"</span><span class="op">)</span></span>
 <span><span class="va">text</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ocr.html">ocr</a></span><span class="op">(</span><span class="va">file</span>, engine <span class="op">=</span> <span class="va">eng</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span></span></code></pre></div>
@@ -413,7 +470,7 @@
 <h2 id="best-versus-fast-models">Best versus Fast models<a class="anchor" aria-label="anchor" href="#best-versus-fast-models"></a>
 </h2>
 <p>In order to improve the OCR results, Tesseract has two variants of models that can be used. The <code><a href="../reference/tessdata.html">tesseract_download()</a></code> can download the ‘best’ (but slower) model, which increases the accuracy. The ‘fast’ (but less accurate) model is the default.</p>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"examples"</span>, <span class="st">"chinese.jpg"</span>, package <span class="op">=</span> <span class="st">"cpp11tesseract"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># download the best model (vertical script download is to avoid a warning)</span></span>
@@ -435,7 +492,7 @@
 <div class="figure">
 <img src="../reference/figures/polytonicgreek.png" alt=""><p class="caption">polytonicgreek</p>
 </div>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"examples"</span>, <span class="st">"polytonicgreek.png"</span>, package <span class="op">=</span> <span class="st">"cpp11tesseract"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># download the best models</span></span>
@@ -459,7 +516,7 @@
 <img src="../reference/figures/tealbook.png" alt=""><p class="caption">tealbook</p>
 </div>
 <p>Here is the first element of the list returned by Textract:</p>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># List of 13</span></span>
 <span><span class="co"># $ BlockType      : chr "TABLE"</span></span>
 <span><span class="co"># $ Confidence     : num 100</span></span>
@@ -479,7 +536,7 @@
 <span><span class="co"># $ SelectionStatus: chr(0)</span></span>
 <span><span class="co"># $ Page           : int 3</span></span></code></pre></div>
 <p>Here is Tesseract’s output:</p>
-<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"examples"</span>, <span class="st">"tealbook.png"</span>, package <span class="op">=</span> <span class="st">"cpp11tesseract"</span><span class="op">)</span></span>
 <span><span class="va">text</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ocr.html">ocr</a></span><span class="op">(</span><span class="va">file</span><span class="op">)</span></span>
 <span></span>
@@ -522,7 +579,7 @@
 <span><span class="co">## Unemployed " 3.9 3.5 3.6 3.6 3.4 3.2 3.1</span></span>
 <span><span class="co">## Unemployment rate (per cent) 5.2 4.6 4.8 4.7 4.4 4.2 4.0</span></span></code></pre>
 <p>One way to organize the output is to split the text before the first digit on each line.</p>
-<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">text</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/strsplit.html" class="external-link">strsplit</a></span><span class="op">(</span><span class="va">text</span>, <span class="st">"\n"</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
 <span><span class="va">text</span> <span class="op">&lt;-</span> <span class="va">text</span><span class="op">[</span><span class="fl">6</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span><span class="op">]</span></span>
 <span></span>

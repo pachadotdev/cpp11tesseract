@@ -89,15 +89,39 @@ extern "C" SEXP _cpp11tesseract_ocr_file_data(SEXP file, SEXP ptr) {
     return cpp11::as_sexp(ocr_file_data(cpp11::as_cpp<cpp11::decay_t<const std::string &>>(file), cpp11::as_cpp<cpp11::decay_t<TessPtr>>(ptr)));
   END_CPP11
 }
+// cpp11tesseract.cpp
+int n_pages(const std::string & file_path, const std::string & opw, const std::string & upw);
+extern "C" SEXP _cpp11tesseract_n_pages(SEXP file_path, SEXP opw, SEXP upw) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(n_pages(cpp11::as_cpp<cpp11::decay_t<const std::string &>>(file_path), cpp11::as_cpp<cpp11::decay_t<const std::string &>>(opw), cpp11::as_cpp<cpp11::decay_t<const std::string &>>(upw)));
+  END_CPP11
+}
+// cpp11tesseract.cpp
+list get_poppler_config();
+extern "C" SEXP _cpp11tesseract_get_poppler_config() {
+  BEGIN_CPP11
+    return cpp11::as_sexp(get_poppler_config());
+  END_CPP11
+}
+// cpp11tesseract.cpp
+std::vector<std::string> poppler_convert(const std::string & file_path, const std::string & format, const std::vector<int> & pages, const std::vector<std::string> & names, const double & dpi, const std::string & opw, const std::string & upw, const bool & antialiasing, const bool & text_antialiasing);
+extern "C" SEXP _cpp11tesseract_poppler_convert(SEXP file_path, SEXP format, SEXP pages, SEXP names, SEXP dpi, SEXP opw, SEXP upw, SEXP antialiasing, SEXP text_antialiasing) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(poppler_convert(cpp11::as_cpp<cpp11::decay_t<const std::string &>>(file_path), cpp11::as_cpp<cpp11::decay_t<const std::string &>>(format), cpp11::as_cpp<cpp11::decay_t<const std::vector<int> &>>(pages), cpp11::as_cpp<cpp11::decay_t<const std::vector<std::string> &>>(names), cpp11::as_cpp<cpp11::decay_t<const double &>>(dpi), cpp11::as_cpp<cpp11::decay_t<const std::string &>>(opw), cpp11::as_cpp<cpp11::decay_t<const std::string &>>(upw), cpp11::as_cpp<cpp11::decay_t<const bool &>>(antialiasing), cpp11::as_cpp<cpp11::decay_t<const bool &>>(text_antialiasing)));
+  END_CPP11
+}
 
 extern "C" {
 static const R_CallMethodDef CallEntries[] = {
     {"_cpp11tesseract_engine_info_internal",          (DL_FUNC) &_cpp11tesseract_engine_info_internal,          1},
     {"_cpp11tesseract_get_param_values",              (DL_FUNC) &_cpp11tesseract_get_param_values,              2},
+    {"_cpp11tesseract_get_poppler_config",            (DL_FUNC) &_cpp11tesseract_get_poppler_config,            0},
+    {"_cpp11tesseract_n_pages",                       (DL_FUNC) &_cpp11tesseract_n_pages,                       3},
     {"_cpp11tesseract_ocr_file",                      (DL_FUNC) &_cpp11tesseract_ocr_file,                      3},
     {"_cpp11tesseract_ocr_file_data",                 (DL_FUNC) &_cpp11tesseract_ocr_file_data,                 2},
     {"_cpp11tesseract_ocr_raw",                       (DL_FUNC) &_cpp11tesseract_ocr_raw,                       3},
     {"_cpp11tesseract_ocr_raw_data",                  (DL_FUNC) &_cpp11tesseract_ocr_raw_data,                  2},
+    {"_cpp11tesseract_poppler_convert",               (DL_FUNC) &_cpp11tesseract_poppler_convert,               9},
     {"_cpp11tesseract_print_params",                  (DL_FUNC) &_cpp11tesseract_print_params,                  1},
     {"_cpp11tesseract_tesseract_config",              (DL_FUNC) &_cpp11tesseract_tesseract_config,              0},
     {"_cpp11tesseract_tesseract_engine_internal",     (DL_FUNC) &_cpp11tesseract_tesseract_engine_internal,     5},

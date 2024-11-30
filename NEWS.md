@@ -1,3 +1,9 @@
+# 5.3.4
+
+- The function to download images from the web was removed to comply with Munk
+  security policies. The images should be downloaded locally, and once verified,
+  these should be uploaded to the server.
+
 # 5.3.3
 
 - Tests that the installed Tesseract version is compatible with the C++ compiler

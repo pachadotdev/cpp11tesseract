@@ -99,38 +99,6 @@ tesseract_engine <- function(datapath, language, configs, options) {
   tesseract_engine_internal(datapath, language, configs, opt_names, opt_values)
 }
 
-#' Export a PDF file to PNG files
-#' @param path path to the PDF file
-#' @param dpi resolution in DPI
-#' @return a "magick-image" object
-#' @examples
-#' if (requireNamespace("magick", quietly = TRUE)) {
-#'  file <- system.file("examples", "ocrscan.pdf", package = "cpp11tesseract")
-#'  pdf_to_png(file)
-#' }
-#' @export
-pdf_to_png <- function(path, dpi = 600) {
-  if (!requireNamespace("magick", quietly = TRUE)) {
-    stop("magick package is required to read PDF files")
-  } else {
-    magick::image_read_pdf(path, density = dpi)
-  }
-}
-
-download_files <- function(urls) {
-  files <- vapply(urls, function(path) {
-    if (grepl("^https?://", path)) {
-      tmp <- tempfile(fileext = basename(path))
-      curl::curl_download(path, tmp)
-      path <- tmp
-    }
-    normalizePath(path, mustWork = TRUE)
-  }, character(1))
-  is_pdf <- grepl(".pdf$", files)
-  out <- unlist(lapply(files[is_pdf], pdf_to_png))
-  c(files[!is_pdf], out)
-}
-
 #' @export
 #' @noRd
 "print.tesseract" <- function(x, ...) {

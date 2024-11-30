@@ -1,7 +1,7 @@
 Package: cpp11tesseract
 Type: Package
 Title: Open Source OCR Engine
-Version: 5.3.3
+Version: 5.3.4
 Authors@R: c(person("Jeroen", "Ooms",
                     role = c("aut"),
                     email = "jeroen@berkeley.edu",
@@ -25,6 +25,11 @@ SystemRequirements:
         deb: tesseract-ocr libtesseract-dev libleptonica-dev,
         rpm: tesseract-devel leptonica-devel,
         brew: tesseract
+    ),
+    Poppler (
+        deb: libpoppler-cpp-dev,
+        rpm: poppler-cpp-devel,
+        brew: poppler-data
     )
 Imports:
     curl,
@@ -39,8 +44,7 @@ Suggests:
     knitr,
     tibble,
     rmarkdown,
-    testthat (>= 3.0.0),
-    pdftools
+    testthat (>= 3.0.0)
 Encoding: UTF-8
 VignetteBuilder: knitr
 Language: en-US
