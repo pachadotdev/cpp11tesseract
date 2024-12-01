@@ -217,15 +217,6 @@ strings ocr_pix(tesseract::TessBaseAPI *api, Pix *image, bool HOCR) {
   return y;
 }
 
-[[cpp11::register]] strings ocr_raw(raws input, TessPtr ptr,
-                                    bool HOCR = false) {
-  tesseract::TessBaseAPI *api = get_engine(ptr);
-  const l_uint8 *data = reinterpret_cast<const l_uint8 *>(RAW(input));
-  Pix *image = pixReadMem(data, Rf_xlength(input));
-  if (!image) throw std::runtime_error("Failed to read image");
-  return ocr_pix(api, image, HOCR);
-}
-
 [[cpp11::register]] strings ocr_file(std::string file, TessPtr ptr,
                                      bool HOCR = false) {
   tesseract::TessBaseAPI *api = get_engine(ptr);
@@ -280,22 +271,6 @@ data_frame ocr_data_internal(tesseract::TessBaseAPI *api, Pix *image) {
   return writable::data_frame({"word"_nm = rwords, "confidence"_nm = rconf,
                                "bbox"_nm = rbbox,
                                "stringsAsFactors"_nm = false});
-}
-
-[[cpp11::register]] data_frame ocr_raw_data(raws input, TessPtr ptr) {
-  tesseract::TessBaseAPI *api = get_engine(ptr);
-  const l_uint8 *data = reinterpret_cast<const l_uint8 *>(RAW(input));
-  Pix *image = pixReadMem(data, Rf_xlength(input));
-  if (!image) throw std::runtime_error("Failed to read image");
-  return ocr_data_internal(api, image);
-}
-
-[[cpp11::register]] data_frame ocr_file_data(const std::string &file,
-                                             TessPtr ptr) {
-  tesseract::TessBaseAPI *api = get_engine(ptr);
-  Pix *image = pixRead(file.c_str());
-  if (!image) throw std::runtime_error("Failed to read image");
-  return ocr_data_internal(api, image);
 }
 
 [[cpp11::register]] int n_pages(const std::string &file_path,

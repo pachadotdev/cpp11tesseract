@@ -43,7 +43,7 @@ list with information about the tesseract engine
 }
 \description{
 Create an OCR engine for a given language and control parameters. This can be used by
-the \link{ocr} and \link{ocr_data} functions to recognize text.
+the \link{ocr} function to recognize text.
 }
 \details{
 Tesseract control parameters can be set either via a named list in the

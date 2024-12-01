@@ -1,5 +1,7 @@
 test_that("ocr works", {
-  file <- system.file("examples", "receipt.jpg", package = "cpp11tesseract")
+  file <- system.file("examples", "mrdukeexpenditure.pdf", package = "cpp11tesseract")
+  expect_output(cat(ocr(file, engine = "eng")))
+  expect_error(ocr(file, engine = "enochian"))
 
   # test engine options
 
@@ -9,20 +11,21 @@ test_that("ocr works", {
   numbers <- tesseract()
   expect_output(cat(ocr(file)))
 
-  numbers <- tesseract()
-  expect_output(cat(ocr(file, engine = "eng")))
+  expect_type(engine_info_internal(tesseract("eng")), "list")
+  expect_equal(get_param_values(tesseract("eng"), ""), "")
 
-  # pass a magick-image
+  # multi-page pdf
+  
+  file <- system.file("examples", "bondargentina.pdf", package = "cpp11tesseract")
 
-  img <- magick::image_read(file)
-  expect_output(cat(ocr(img)))
+  n <- n_pages(file, "", "")
+  expect_equal(n, 2L)
+  parsed_text <- ocr(file, engine = "eng")
+  expect_equal(length(parsed_text), 2L)
+  expect_equal(length(ocr(file, engine = "eng", pages = 1)), 1L)
+  expect_equal(length(ocr(file, engine = "eng", pages = 2)), 1L)
 
-  # convert image to raw bytes
-
-  raw_bytes <- magick::image_write(img, format = "png")
-  expect_output(cat(ocr(raw_bytes)))
-
-  # pass nul
+  # pass null
 
   expect_error(ocr(NULL))
 })

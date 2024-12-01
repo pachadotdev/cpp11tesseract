@@ -62,31 +62,10 @@ extern "C" SEXP _cpp11tesseract_get_param_values(SEXP api, SEXP params) {
   END_CPP11
 }
 // cpp11tesseract.cpp
-strings ocr_raw(raws input, TessPtr ptr, bool HOCR);
-extern "C" SEXP _cpp11tesseract_ocr_raw(SEXP input, SEXP ptr, SEXP HOCR) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(ocr_raw(cpp11::as_cpp<cpp11::decay_t<raws>>(input), cpp11::as_cpp<cpp11::decay_t<TessPtr>>(ptr), cpp11::as_cpp<cpp11::decay_t<bool>>(HOCR)));
-  END_CPP11
-}
-// cpp11tesseract.cpp
 strings ocr_file(std::string file, TessPtr ptr, bool HOCR);
 extern "C" SEXP _cpp11tesseract_ocr_file(SEXP file, SEXP ptr, SEXP HOCR) {
   BEGIN_CPP11
     return cpp11::as_sexp(ocr_file(cpp11::as_cpp<cpp11::decay_t<std::string>>(file), cpp11::as_cpp<cpp11::decay_t<TessPtr>>(ptr), cpp11::as_cpp<cpp11::decay_t<bool>>(HOCR)));
-  END_CPP11
-}
-// cpp11tesseract.cpp
-data_frame ocr_raw_data(raws input, TessPtr ptr);
-extern "C" SEXP _cpp11tesseract_ocr_raw_data(SEXP input, SEXP ptr) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(ocr_raw_data(cpp11::as_cpp<cpp11::decay_t<raws>>(input), cpp11::as_cpp<cpp11::decay_t<TessPtr>>(ptr)));
-  END_CPP11
-}
-// cpp11tesseract.cpp
-data_frame ocr_file_data(const std::string & file, TessPtr ptr);
-extern "C" SEXP _cpp11tesseract_ocr_file_data(SEXP file, SEXP ptr) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(ocr_file_data(cpp11::as_cpp<cpp11::decay_t<const std::string &>>(file), cpp11::as_cpp<cpp11::decay_t<TessPtr>>(ptr)));
   END_CPP11
 }
 // cpp11tesseract.cpp
@@ -118,9 +97,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_cpp11tesseract_get_poppler_config",            (DL_FUNC) &_cpp11tesseract_get_poppler_config,            0},
     {"_cpp11tesseract_n_pages",                       (DL_FUNC) &_cpp11tesseract_n_pages,                       3},
     {"_cpp11tesseract_ocr_file",                      (DL_FUNC) &_cpp11tesseract_ocr_file,                      3},
-    {"_cpp11tesseract_ocr_file_data",                 (DL_FUNC) &_cpp11tesseract_ocr_file_data,                 2},
-    {"_cpp11tesseract_ocr_raw",                       (DL_FUNC) &_cpp11tesseract_ocr_raw,                       3},
-    {"_cpp11tesseract_ocr_raw_data",                  (DL_FUNC) &_cpp11tesseract_ocr_raw_data,                  2},
     {"_cpp11tesseract_poppler_convert",               (DL_FUNC) &_cpp11tesseract_poppler_convert,               9},
     {"_cpp11tesseract_print_params",                  (DL_FUNC) &_cpp11tesseract_print_params,                  1},
     {"_cpp11tesseract_tesseract_config",              (DL_FUNC) &_cpp11tesseract_tesseract_config,              0},

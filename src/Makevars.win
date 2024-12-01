@@ -32,8 +32,8 @@ all: clean winlibs
 clean: rm -f $(OBJECTS) $(SHLIB)
 
 winlibs:
-    "${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe" "../tools/winlibs.R"
-    rm -Rf ../inst/share && mkdir -p ../inst/share
+    "${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe" "../tools/winlibs.R" \
+    rm -Rf ../inst/share && mkdir -p ../inst/share \
     cp -Rf $(POPPLER_RWINLIB)/$(POPPLERDATA) ../inst/share/poppler
 
 .PHONY: all winlibs clean

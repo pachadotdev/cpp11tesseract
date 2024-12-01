@@ -32,20 +32,8 @@ get_param_values <- function(api, params) {
   .Call(`_cpp11tesseract_get_param_values`, api, params)
 }
 
-ocr_raw <- function(input, ptr, HOCR) {
-  .Call(`_cpp11tesseract_ocr_raw`, input, ptr, HOCR)
-}
-
 ocr_file <- function(file, ptr, HOCR) {
   .Call(`_cpp11tesseract_ocr_file`, file, ptr, HOCR)
-}
-
-ocr_raw_data <- function(input, ptr) {
-  .Call(`_cpp11tesseract_ocr_raw_data`, input, ptr)
-}
-
-ocr_file_data <- function(file, ptr) {
-  .Call(`_cpp11tesseract_ocr_file_data`, file, ptr)
 }
 
 n_pages <- function(file_path, opw, upw) {

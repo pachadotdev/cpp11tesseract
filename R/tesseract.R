@@ -1,7 +1,7 @@
 #' Tesseract Engine
 #'
 #' Create an OCR engine for a given language and control parameters. This can be used by
-#' the [ocr] and [ocr_data] functions to recognize text.
+#' the [ocr] function to recognize text.
 #'
 #' Tesseract control parameters can be set either via a named list in the
 #' `options` parameter, or in a `config` file text file which contains the parameter name
@@ -97,16 +97,6 @@ tesseract_engine <- function(datapath, language, configs, options) {
   }
 
   tesseract_engine_internal(datapath, language, configs, opt_names, opt_values)
-}
-
-#' @export
-#' @noRd
-"print.tesseract" <- function(x, ...) {
-  info <- engine_info_internal(x)
-  cat("<tesseract engine>\n")
-  cat(" loaded:", info$loaded, "\n")
-  cat(" datapath:", info$datapath, "\n")
-  cat(" available:", info$available, "\n")
 }
 
 bail <- function(...) {
