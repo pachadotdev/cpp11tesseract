@@ -1,5 +1,4 @@
 # Tesseract configuration
-
 TESSERACT_RWINLIB = ../windows/tesseract
 PKG_CPPFLAGS += -I${TESSERACT_RWINLIB}/include -I${TESSERACT_RWINLIB}/include/leptonica
 
@@ -11,7 +10,6 @@ PKG_LIBS += \
     -lws2_32
 
 # Poppler configuration
-
 POPPLERDATA = share/poppler
 POPPLER_RWINLIB = ../windows/poppler
 PKG_CXXFLAGS += -Dpoppler_cpp_EXPORTS -DBUNDLE_POPPLER_DATA
@@ -27,11 +25,12 @@ PKG_LIBS += \
 
 all: clean winlibs
 
-clean: del /Q $(OBJECTS) $(SHLIB)
+clean:
+    cmd /C "del /Q $(OBJECTS) $(SHLIB)"
 
 winlibs:
-    "${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe" "../tools/winlibs.R" \
-    rmdir /S /Q "../inst/share" && mkdir "../inst/share" \
-    xcopy /E /I $(POPPLER_RWINLIB)\$(POPPLERDATA) "../inst/share/poppler"
+    "${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe" "../tools/winlibs.R"
+    cmd /C "rmdir /S /Q ../inst/share && mkdir ../inst/share"
+    cmd /C "xcopy /E /I $(POPPLER_RWINLIB)\$(POPPLERDATA) ../inst/share/poppler"
 
 .PHONY: all winlibs clean
