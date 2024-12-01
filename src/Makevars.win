@@ -30,8 +30,8 @@ all: clean winlibs
 clean: del /Q $(OBJECTS) $(SHLIB)
 
 winlibs:
-    "${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe" "../tools/winlibs.R"
-    rmdir /S /Q "../inst/share" && mkdir "../inst/share"
+    "${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe" "../tools/winlibs.R" \
+    rmdir /S /Q "../inst/share" && mkdir "../inst/share" \
     xcopy /E /I $(POPPLER_RWINLIB)\$(POPPLERDATA) "../inst/share/poppler"
 
 .PHONY: all winlibs clean
