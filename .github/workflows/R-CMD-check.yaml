@@ -62,12 +62,6 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y libtesseract-dev libleptonica-dev libpoppler-cpp-dev
 
-      - name: Install system dependencies (Windows)
-        if: matrix.config.os == 'windows-latest'
-        run: |
-          choco install tesseract
-          choco install poppler
-
       - name: Install system dependencies (MacOS)
         if: matrix.config.os == 'macos-13' || matrix.config.os == 'macos-14'
         run: |
@@ -85,4 +79,3 @@ jobs:
       - name: Run on Windows
         if: matrix.config.os == 'windows-latest'
         uses: r-lib/actions/check-r-package@v2
-        
