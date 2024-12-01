@@ -27,3 +27,4 @@ vignettes/.*\.png$
 ^poppler\.sh$
 ^tesseract\.sh$
 ^lib$
+^pacman\.conf$
