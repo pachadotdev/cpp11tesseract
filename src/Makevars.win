@@ -27,8 +27,7 @@ PKG_LIBS += \
 
 all: clean winlibs
 
-clean:
-    del /Q $(OBJECTS) $(SHLIB)
+clean: del /Q $(OBJECTS) $(SHLIB)
 
 winlibs:
     "${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe" "../tools/winlibs.R"
