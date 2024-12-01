@@ -12,70 +12,39 @@ jobs:
   R-CMD-check:
     runs-on: ${{ matrix.config.os }}
 
-    name: ${{ matrix.config.name }}
+    name: ${{ matrix.config.os }} (${{ matrix.config.r }})
 
     strategy:
       fail-fast: false
       matrix:
         config:
-          - {os: macos-13,        r: 'release', name: 'MacOS 13 (release)'}
-          - {os: macos-14,        r: 'release', name: 'MacOS 14 (release)'}
-          - {os: windows-latest , r: 'release', name: 'Windows latest (release)'}
-          - {os: windows-latest,  r: '4.1',     name: 'Windows latest (4.1)'}
-          - {os: ubuntu-latest,   r: 'devel',   name: 'Ubuntu latest (devel)', http-user-agent: 'release'}
-          - {os: ubuntu-24.04,    r: 'release', name: 'Ubuntu 24.04 (release)'}
-          - {os: ubuntu-22.04,    r: 'release', name: 'Ubuntu 22.04 (release)'}
-          - {os: ubuntu-20.04,    r: 'release', name: 'Ubuntu 20.04 (release)'}
-          - {os: ubuntu-latest, container: { image: 'ghcr.io/r-hub/containers/ubuntu-clang:latest' }, name: 'r-devel-linux-x86_64-debian-clang'}
+          - {os: macos-13,        r: 'release'}
+          - {os: macos-14,        r: 'release'}
+          - {os: windows-latest, r: 'release'}
+          - {os: windows-latest, r: '4.1'}
+          - {os: ubuntu-latest,   r: 'devel', http-user-agent: 'release'}
+          - {os: ubuntu-24.04,    r: 'release'}
+          - {os: ubuntu-22.04,    r: 'release'}
+          - {os: ubuntu-20.04,    r: 'release'}
 
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       R_KEEP_PKG_SOURCE: yes
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Pandoc
-        uses: r-lib/actions/setup-pandoc@v2
+      - uses: r-lib/actions/setup-pandoc@v2
 
-      - name: Setup R
-        if: matrix.config.name != 'r-devel-linux-x86_64-debian-clang'
-        uses: r-lib/actions/setup-r@v2
+      - uses: r-lib/actions/setup-r@v2
         with:
           r-version: ${{ matrix.config.r }}
           http-user-agent: ${{ matrix.config.http-user-agent }}
           use-public-rspm: true
 
-      - name: Install pak (MacOS)
-        if: matrix.config.os == 'macos-13' || matrix.config.os == 'macos-14'
-        run: R -e 'install.packages("pak", repos = "https://cloud.r-project.org")'
-
-      - name: Setup R dependencies
-        uses: r-lib/actions/setup-r-dependencies@v2
+      - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           extra-packages: any::rcmdcheck
+          needs: check
 
-      - name: Install system dependencies (Ubuntu)
-        if: matrix.config.os == 'ubuntu-latest' || matrix.config.os == 'ubuntu-24.04' || matrix.config.os == 'ubuntu-22.04' || matrix.config.os == 'ubuntu-20.04'
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y libtesseract-dev libleptonica-dev libpoppler-cpp-dev
-
-      - name: Install system dependencies (MacOS)
-        if: matrix.config.os == 'macos-13' || matrix.config.os == 'macos-14'
-        run: |
-          brew install tesseract
-          brew install poppler
-
-      - name: Run on Ubuntu
-        if: matrix.config.os == 'ubuntu-latest' || matrix.config.os == 'ubuntu-24.04' || matrix.config.os == 'ubuntu-22.04' || matrix.config.os == 'ubuntu-20.04'
-        uses: r-lib/actions/check-r-package@v2
-
-      - name: Run on MacOS
-        if: matrix.config.os == 'macos-13' || matrix.config.os == 'macos-14'
-        uses: r-lib/actions/check-r-package@v2
-
-      - name: Run on Windows
-        if: matrix.config.os == 'windows-latest'
-        uses: r-lib/actions/check-r-package@v2
+      - uses: r-lib/actions/check-r-package@v2
