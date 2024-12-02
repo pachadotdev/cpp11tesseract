@@ -28,3 +28,4 @@ vignettes/.*\.png$
 ^tesseract\.sh$
 ^lib$
 ^pacman\.conf$
+^harfbuzz\.sh$

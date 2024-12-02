@@ -1,37 +1,33 @@
-# Tesseract configuration
-TESSERACT_RWINLIB = ../windows/tesseract
-PKG_CPPFLAGS += -I${TESSERACT_RWINLIB}/include -I${TESSERACT_RWINLIB}/include/leptonica
+RWINLIB_TESSERACT=../windows/tesseract
+RWINLIB_POPPLER=../windows/poppler
+POPPLERDATA=share/poppler
 
-PKG_LIBS += \
-	-L${TESSERACT_RWINLIB}/lib${subst gcc,,${COMPILED_BY}}${R_ARCH} \
-	-L${TESSERACT_RWINLIB}/lib \
+PKG_CPPFLAGS = -I${RWINLIB_TESSERACT}/include -I${RWINLIB_TESSERACT}/include/leptonica -I${RWINLIB_POPPLER}/include/poppler/cpp -I${RWINLIB_POPPLER}/include/poppler
+
+PKG_CXXFLAGS = -Dpoppler_cpp_EXPORTS -DBUNDLE_POPPLER_DATA
+
+PKG_LIBS = \
+	-L${RWINLIB_TESSERACT}/lib${subst gcc,,${COMPILED_BY}}${R_ARCH} \
+	-L${RWINLIB_TESSERACT}/lib \
+	-L${RWINLIB_POPPLER}/lib${subst gcc,,${COMPILED_BY}}${R_ARCH} \
+	-L${RWINLIB_POPPLER}/lib \
 	-ltesseract -lleptonica \
 	-ltiff -lopenjp2 -lwebp -lsharpyuv -ljpeg -lgif -lpng16 -lz \
-	-lws2_32
-
-# Poppler configuration
-POPPLERDATA = share/poppler
-POPPLER_RWINLIB = ../windows/poppler
-PKG_CXXFLAGS += -Dpoppler_cpp_EXPORTS -DBUNDLE_POPPLER_DATA
-PKG_CPPFLAGS += -I$(POPPLER_RWINLIB)/include/poppler/cpp \
-	-I$(POPPLER_RWINLIB)/include/poppler \
-	-DSTRICT_R_HEADERS -DR_NO_REMAP
-
-PKG_LIBS += \
-	-L$(POPPLER_RWINLIB)/lib${subst gcc,,${COMPILED_BY}}${R_ARCH} \
-	-L$(POPPLER_RWINLIB)/lib \
+	-lws2_32 \
 	-lpoppler-cpp -lpoppler -llcms2 -ljpeg -lpng16 -ltiff -lopenjp2 \
 	-lfreetype -lfreetype -lbz2 -liconv -lz
 
 all: clean winlibs
 
 clean:
-	cmd /C "del /Q $(OBJECTS) $(SHLIB)"
+	rm -f $(OBJECTS) $(SHLIB)
 
 winlibs:
 	"${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe" "../tools/winlibs.R"
-	cmd /C "rmdir /S /Q ..\\inst\\share && mkdir ..\\inst\\share"
-	cmd /C "xcopy /E /I $(POPPLER_RWINLIB)\\$(POPPLERDATA) ..\\inst\\share\\poppler"
+	cp -Rf ../windows/tessdata ../inst/
+	cp -Rf ${RWINLIB_TESSERACT}/share/tessdata ../inst/
+	rm -Rf ../inst/share && mkdir -p ../inst/share
+	cp -Rf $(RWINLIB_POPPLER)/$(POPPLERDATA) ../inst/share/poppler
 
 .PHONY: all winlibs clean
 

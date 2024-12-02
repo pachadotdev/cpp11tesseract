@@ -8,12 +8,10 @@ if (!file.exists("../windows/tesseract/include/tesseract/baseapi.h")) {
     "https://github.com/pachadotdev/cpp11tesseract/releases/download/tesseract-5.3.2/tesseract-ocr-5.3.2-clang-x86_64.tar.xz"
   } else if (getRversion() >= "4.3") {
     "https://github.com/pachadotdev/cpp11tesseract/releases/download/tesseract-5.3.2/tesseract-ocr-5.3.2-ucrt-x86_64.tar.xz"
-  } else {
-    "https://github.com/rwinlib/tesseract/archive/v5.3.2.tar.gz"
   }
   download.file(url, basename(url), quiet = TRUE)
-  dir.create("../windows/tesseract", showWarnings = FALSE)
-  untar(basename(url), exdir = "../windows/tesseract", tar = "internal")
+  untar(basename(url), exdir = "../windows/", tar = "internal")
+  file.rename(file.path("../windows", dir("../windows", pattern = "tesseract-ocr-")), "../windows/tesseract")
   unlink(basename(url))
 }
 
@@ -44,11 +42,9 @@ if (!file.exists("../windows/poppler/include/poppler/cpp/poppler-document.h")) {
     "https://github.com/pachadotdev/cpp11tesseract/releases/download/poppler-23.08.0/poppler-23.08.0-clang-x86_64.tar.xz"
   } else if (getRversion() >= "4.3") {
     "https://github.com/pachadotdev/cpp11tesseract/releases/download/poppler-23.08.0/poppler-23.08.0-ucrt-x86_64.tar.xz"
-  } else {
-    "https://github.com/rwinlib/poppler/archive/v22.04.0-2.tar.gz"
   }
   download.file(url, basename(url), quiet = TRUE)
-  dir.create("../windows/poppler", showWarnings = FALSE)
-  untar(basename(url), exdir = "../windows/poppler", tar = "internal")
+  untar(basename(url), exdir = "../windows/", tar = "internal")
+  file.rename(file.path("../windows", dir("../windows", pattern = "poppler-")), "../windows/poppler")
   unlink(basename(url))
 }
