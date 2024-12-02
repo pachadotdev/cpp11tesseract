@@ -14,4 +14,4 @@ delete_old_workflow_runs <- function(owner, repo, keep = 1) {
   }
 }
 
-delete_old_workflow_runs("pachadotdev", "cpp11tesseract", keep = 0)
+delete_old_workflow_runs("pachadotdev", "readpdf", keep = 0)

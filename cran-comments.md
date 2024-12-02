@@ -23,5 +23,5 @@
   ‘/home/hornik/tmp/R.check/r-devel-gcc/Work/build/Packages’"
 * The warnings with clang19 (and clang-asan) were solved by sending a pull
   request to Posit (https://github.com/r-lib/cpp11/pull/404/files). This
-  fix required to patch a package used by cpp11tesseract and add a conditional
+  fix required to patch a package used by readpdf and add a conditional
   to avoid redeclaring STRICT_R_HEADERS.

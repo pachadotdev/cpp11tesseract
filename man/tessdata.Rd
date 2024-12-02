@@ -65,7 +65,7 @@ tesseract_download("fra", model = "best", datapath = tempdir())
 
 if (any("fra" \%in\% tesseract_info()$available)) {
   french <- tesseract("fra")
-  file <- system.file("examples", "french.pdf", package = "cpp11tesseract")
+  file <- system.file("examples", "french.pdf", package = "readpdf")
   text <- ocr(file, engine = french)
   cat(text)
 }
@@ -76,7 +76,7 @@ tesseract_contributed_download("grc_hist", model = "best", datapath = tempdir())
 
 if (any("grc_hist" \%in\% tesseract_info()$available)) {
   greek <- tesseract("grc_hist")
-  file <- system.file("examples", "polytonicgreek.pdf", package = "cpp11tesseract")
+  file <- system.file("examples", "polytonicgreek.pdf", package = "readpdf")
   text <- ocr(file, engine = greek)
   cat(text)
 }

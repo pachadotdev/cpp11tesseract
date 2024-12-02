@@ -46,7 +46,7 @@ The \code{ocr()} function returns plain text by default, or hOCR text if hOCR is
 }
 \examples{
 # Simple example
-file <- system.file("examples", "oscarwilde.pdf", package = "cpp11tesseract")
+file <- system.file("examples", "oscarwilde.pdf", package = "readpdf")
 text <- ocr(file)
 cat(text)
 }

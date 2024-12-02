@@ -26,7 +26,7 @@
 #' @references [Tesseract: Improving Quality](https://github.com/tesseract-ocr/tesseract/wiki/ImproveQuality)
 #' @examples
 #' # Simple example
-#' file <- system.file("examples", "oscarwilde.pdf", package = "cpp11tesseract")
+#' file <- system.file("examples", "oscarwilde.pdf", package = "readpdf")
 #' text <- ocr(file)
 #' cat(text)
 ocr <- function(file, pages = NULL, engine = tesseract("eng"), HOCR = FALSE, opw = "", upw = "") {

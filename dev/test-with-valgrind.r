@@ -1,3 +1,3 @@
-library(cpp11tesseract)
-file <- system.file("examples", "bondargentina.pdf", package = "cpp11tesseract")
+library(readpdf)
+file <- system.file("examples", "bondargentina.pdf", package = "readpdf")
 d <- pdf_to_png(file)

@@ -1,5 +1,5 @@
 test_that("ocr works", {
-  file <- system.file("examples", "mrdukeexpenditure.pdf", package = "cpp11tesseract")
+  file <- system.file("examples", "mrdukeexpenditure.pdf", package = "readpdf")
   expect_output(cat(ocr(file, engine = "eng")))
   expect_error(ocr(file, engine = "enochian"))
 
@@ -16,7 +16,7 @@ test_that("ocr works", {
 
   # multi-page pdf
   
-  file <- system.file("examples", "bondargentina.pdf", package = "cpp11tesseract")
+  file <- system.file("examples", "bondargentina.pdf", package = "readpdf")
 
   n <- n_pages(file, "", "")
   expect_equal(n, 2L)

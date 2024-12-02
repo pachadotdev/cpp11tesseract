@@ -7,6 +7,6 @@
 # * https://testthat.r-lib.org/articles/special-files.html
 
 library(testthat)
-library(cpp11tesseract)
+library(readpdf)
 
-test_check("cpp11tesseract")
+test_check("readpdf")
