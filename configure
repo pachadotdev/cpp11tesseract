@@ -8,44 +8,38 @@
 
 # Library settings
 PKG_CONFIG_NAME_TESSERACT="tesseract"
-PKG_CONFIG_NAME_POPPLER="poppler-cpp"
-PKG_DEB_NAME="tesseract-ocr libtesseract-dev libleptonica-dev libpoppler-cpp-dev"
-PKG_RPM_NAME="tesseract-devel leptonica-devel poppler-cpp-devel"
-PKG_BREW_NAME="tesseract poppler-data"
+PKG_DEB_NAME="tesseract-ocr libtesseract-dev libleptonica-dev"
+PKG_RPM_NAME="tesseract-devel leptonica-devel"
+PKG_BREW_NAME="tesseract"
 PKG_TEST_HEADER_TESSERACT="<tesseract/baseapi.h>"
-PKG_TEST_HEADER_POPPLER="<poppler-document.h>"
-PKG_CFLAGS="-I/usr/include/tesseract -I/usr/include/leptonica -I/usr/include/poppler"
-PKG_LIBS="-ltesseract -lpoppler-cpp"
+PKG_CFLAGS="-I/usr/include/tesseract -I/usr/include/leptonica"
+PKG_LIBS="-ltesseract"
 
 # Use pkg-config if available
 pkg-config --version >/dev/null 2>&1
 if [ $? -eq 0 ]; then
   PKGCONFIG_CFLAGS_TESSERACT=`pkg-config --cflags ${PKG_CONFIG_NAME_TESSERACT}`
   PKGCONFIG_LIBS_TESSERACT=`pkg-config --libs ${PKG_CONFIG_NAME_TESSERACT}`
-  PKGCONFIG_CFLAGS_POPPLER=`pkg-config --cflags ${PKG_CONFIG_NAME_POPPLER}`
-  PKGCONFIG_LIBS_POPPLER=`pkg-config --libs ${PKG_CONFIG_NAME_POPPLER}`
 fi
 
 # Debugging information
 echo "PKGCONFIG_CFLAGS_TESSERACT: $PKGCONFIG_CFLAGS_TESSERACT"
 echo "PKGCONFIG_LIBS_TESSERACT: $PKGCONFIG_LIBS_TESSERACT"
-echo "PKGCONFIG_CFLAGS_POPPLER: $PKGCONFIG_CFLAGS_POPPLER"
-echo "PKGCONFIG_LIBS_POPPLER: $PKGCONFIG_LIBS_POPPLER"
 
 # Note that cflags may be empty in case of success
 if [ "$INCLUDE_DIR" ] || [ "$LIB_DIR" ]; then
   echo "Found INCLUDE_DIR and/or LIB_DIR!"
   PKG_CFLAGS="-I$INCLUDE_DIR $PKG_CFLAGS"
   PKG_LIBS="-L$LIB_DIR $PKG_LIBS"
-elif [ "$PKGCONFIG_CFLAGS_TESSERACT" ] || [ "$PKGCONFIG_LIBS_TESSERACT" ] || [ "$PKGCONFIG_CFLAGS_POPPLER" ] || [ "$PKGCONFIG_LIBS_POPPLER" ]; then
+elif [ "$PKGCONFIG_CFLAGS_TESSERACT" ] || [ "$PKGCONFIG_LIBS_TESSERACT" ]; then
   echo "Found pkg-config cflags and libs!"
-  PKG_CFLAGS="${PKGCONFIG_CFLAGS_TESSERACT} ${PKGCONFIG_CFLAGS_POPPLER}"
-  PKG_LIBS="${PKGCONFIG_LIBS_TESSERACT} ${PKGCONFIG_LIBS_POPPLER}"
+  PKG_CFLAGS="${PKGCONFIG_CFLAGS_TESSERACT}"
+  PKG_LIBS="${PKGCONFIG_LIBS_TESSERACT}"
 elif [ `uname` = "Darwin" ]; then
   test ! "$CI" && brew --version 2>/dev/null
   if [ $? -eq 0 ]; then
     BREWDIR=`brew --prefix`
-    PKG_CFLAGS="-I$BREWDIR/include/tesseract -I$BREWDIR/include/leptonica -I$BREWDIR/include/poppler"
+    PKG_CFLAGS="-I$BREWDIR/include/tesseract -I$BREWDIR/include/leptonica"
     PKG_LIBS="-L$BREWDIR/lib $PKG_LIBS"
   else
     echo "Homebrew is not installed. Visit https://brew.sh/ for information on how to install it."
@@ -108,27 +102,6 @@ then
 else
     echo "Tesseract is compatible with the C++ compiler used by R."
     rm -rf conftest.cpp conftest.o
-fi
-
-# Create a temporary C++ file to test the compatibility with Poppler
-cat <<EOF > conftest2.cpp
-#include <poppler-version.h>
-
-int main() {
-    poppler::version_string();
-    return 0;
-}
-EOF
-
-# Compile the temporary C++ file to an object file
-if ! ${CXX11} -std=gnu++11 -c conftest2.cpp -o conftest2.o ${PKG_CFLAGS}
-then
-    echo "Poppler is not compatible with the C++ compiler used by R."
-    rm -rf conftest2.cpp conftest2.o
-    exit 1
-else
-    echo "Poppler is compatible with the C++ compiler used by R."
-    rm -rf conftest2.cpp conftest2.o
 fi
 
 # Write to Makevars
