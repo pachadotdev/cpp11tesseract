@@ -23,10 +23,5 @@ vignettes/.*\.png$
 ^inst/paper$
 ^_pkgdown\.yml$
 ^dev$
-^build\.sh$
-^poppler\.sh$
-^tesseract\.sh$
 ^lib$
-^pacman\.conf$
-^harfbuzz\.sh$
 ^\.covrignore$
