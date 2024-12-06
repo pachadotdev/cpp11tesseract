@@ -121,28 +121,16 @@ text <- input %>%
 cat(text)
 ```
 
-## Read from scanned PDF files and multipage TIFF files
+## Read from PDF files
 
-If your images are stored in PDF files they first need to be converted to a proper image format. Use a high DPI to keep quality of the image.
+If your images are stored in PDF files they first need to be converted to a proper image format. We can do this in R using the `pdf_convert` function from the pdftools package. Use a high DPI to keep quality of the image.
 
-```{r, eval=require(magick)}
+```{r, eval=require(cpp11poppler)}
+library(cpp11poppler)
 file <- system.file("examples", "ocrscan.pdf", package = "cpp11tesseract")
-text <- ocr(file)
+pngfile <- pdf_convert(file, dpi = 600)
+text <- ocr(pngfile)
 cat(text)
-```
-
-The `ocr()` function can also extract text from multipage scanned PDF and TIFF files.
-The function will return a vector with the text found in each page. This is a good example
-that OCR is not perfect.
-
-```{r}
-file1 <- system.file("examples", "bondargentina.pdf", package = "cpp11tesseract")
-ocr1 <- ocr(file1, engine = eng)
-cat(ocr1)
-
-file2 <- system.file("examples", "bondargentina.tiff", package = "cpp11tesseract")
-ocr2 <- ocr(file2, engine = eng)
-cat(ocr2)
 ```
 
 ## Tesseract Control Parameters

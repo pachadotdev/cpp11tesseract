@@ -47,15 +47,3 @@ ocr_raw_data <- function(input, ptr) {
 ocr_file_data <- function(file, ptr) {
   .Call(`_cpp11tesseract_ocr_file_data`, file, ptr)
 }
-
-n_pages <- function(file_path, opw, upw) {
-  .Call(`_cpp11tesseract_n_pages`, file_path, opw, upw)
-}
-
-get_poppler_config <- function() {
-  .Call(`_cpp11tesseract_get_poppler_config`)
-}
-
-poppler_convert <- function(file_path, format, pages, names, dpi, opw, upw, antialiasing, text_antialiasing) {
-  .Call(`_cpp11tesseract_poppler_convert`, file_path, format, pages, names, dpi, opw, upw, antialiasing, text_antialiasing)
-}

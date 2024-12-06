@@ -7,11 +7,6 @@
 #define GenericVector std::vector
 #endif
 
-#include <poppler-document.h>
-#include <poppler-page.h>
-#include <poppler-image.h>
-#include <poppler-page-renderer.h>
-
 #include <memory>
 #include <list>
 #include <string>
@@ -296,59 +291,4 @@ data_frame ocr_data_internal(tesseract::TessBaseAPI *api, Pix *image) {
   Pix *image = pixRead(file.c_str());
   if (!image) throw std::runtime_error("Failed to read image");
   return ocr_data_internal(api, image);
-}
-
-[[cpp11::register]] int n_pages(const std::string &file_path,
-                                const std::string &opw,
-                                const std::string &upw) {
-  auto doc = poppler::document::load_from_file(file_path, opw, upw);
-
-  if (!doc) {
-    throw std::runtime_error("PDF parsing failure.");
-  }
-
-  if (doc->is_locked()) {
-    throw std::runtime_error("PDF file is locked. Invalid password?");
-  }
-
-  return doc->pages();
-}
-
-[[cpp11::register]] list get_poppler_config() {
-  bool render_feature = poppler::page_renderer::can_render();
-  std::vector<std::string> formats = poppler::image::supported_image_formats();
-  writable::strings formats2(formats.size());
-  for (size_t i = 0; i < formats.size(); ++i) {
-    formats2[i] = formats[i];
-  }
-  return writable::list({
-    "render"_nm = render_feature,
-    "format"_nm = formats2
-  });
-}
-
-[[cpp11::register]] std::vector<std::string> poppler_convert(
-                      const std::string &file_path,
-                      const std::string &format, const std::vector<int> &pages,
-                      const std::vector<std::string> &names, const double &dpi,
-                      const std::string & opw, const std::string &upw,
-                      const bool &antialiasing, const bool &text_antialiasing) {
-  auto doc = poppler::document::load_from_file(file_path, opw, upw);
-  for(size_t i = 0; i < pages.size(); i++){
-    int pagenum = pages[i];
-    std::string filename = names[i];
-    std::unique_ptr<poppler::page> p(doc->create_page(pagenum - 1));
-    if(!p)
-      throw std::runtime_error("Invalid page.");
-    poppler::page_renderer pr;
-    pr.set_render_hint(poppler::page_renderer::antialiasing, antialiasing);
-    pr.set_render_hint(poppler::page_renderer::text_antialiasing,
-                       text_antialiasing);
-    poppler::image img = pr.render_page(p.get(), dpi, dpi);
-    if(!img.is_valid())
-      throw std::runtime_error("PDF rendering failure.");
-    if(!img.save(filename, format, dpi))
-      throw std::runtime_error("Failed to save file" + filename);
-  }
-  return names;
 }

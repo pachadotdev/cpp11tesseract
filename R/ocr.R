@@ -41,7 +41,7 @@ ocr <- function(file, engine = tesseract("eng"), HOCR = FALSE, opw = "", upw = "
       magick::image_write(x, tmp, format = "PNG", density = "300x300")
       ocr(tmp, engine = engine, HOCR = HOCR)
     }, character(1))
-  } else if (isTRUE(is.character(file)) && isFALSE(is.pdf(file))) {
+  } else if (isTRUE(is.character(file))) {
     if (isFALSE(is.tiff(file))) {
       vapply(file, ocr_file, character(1), ptr = engine, HOCR = HOCR, USE.NAMES = FALSE)
     } else {
@@ -49,13 +49,6 @@ ocr <- function(file, engine = tesseract("eng"), HOCR = FALSE, opw = "", upw = "
     }
   } else if (isTRUE(is.raw(file))) {
     ocr_raw(file, engine, HOCR = HOCR)
-  } else if (isTRUE(is.pdf(file))) {
-    n <- n_pages(file, opw = opw, upw = upw)
-    fout <- pdf_convert(file, format = "png", pages = 1:n, opw = opw, upw = upw)
-    out <- vapply(fout, function(x) ocr(x, engine = engine, HOCR = HOCR), character(1))
-    unlink(fout)
-    names(out) <- NULL
-    out
   } else {
     stop("Argument 'file' must be file-path, url or raw vector")
   }

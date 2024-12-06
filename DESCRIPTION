@@ -39,7 +39,10 @@ Suggests:
     knitr,
     tibble,
     rmarkdown,
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    cpp11poppler
+Remotes: 
+    pachadotdev/cpp11poppler
 Encoding: UTF-8
 VignetteBuilder: knitr
 Language: en-US
