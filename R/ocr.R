@@ -6,6 +6,8 @@
 #' the package vignette for image preprocessing tips.
 #'
 #' The `ocr()` function returns plain text by default, or hOCR text if hOCR is set to `TRUE`.
+#' The `ocr_data()` function returns a data frame with a confidence rate and bounding box for
+#' each word in the text.
 #'
 #' @export
 #' @return character vector of text extracted from the file. If the file
@@ -13,8 +15,6 @@
 #'  number of pages.
 #' @family tesseract
 #' @param file file path or raw vector (png, tiff, jpeg, etc).
-#' @param pages a numeric vector of pages to extract text from. If `NULL` all
-#'  pages will be extracted.
 #' @param engine a tesseract engine created with [tesseract()]. Alternatively a
 #' language string which will be passed to [tesseract()].
 #' @param HOCR if `TRUE` return results as HOCR xml instead of plain text
@@ -26,57 +26,63 @@
 #' @references [Tesseract: Improving Quality](https://github.com/tesseract-ocr/tesseract/wiki/ImproveQuality)
 #' @examples
 #' # Simple example
-#' file <- system.file("examples", "oscarwilde.pdf", package = "readpdf")
+#' file <- system.file("examples", "testocr.png", package = "cpp11tesseract")
 #' text <- ocr(file)
 #' cat(text)
-ocr <- function(file, pages = NULL, engine = tesseract("eng"), HOCR = FALSE, opw = "", upw = "") {
-  if (is.character(engine)) { engine <- tesseract(engine) }
-  if (is.numeric(pages)) { pages <- as.integer(pages) }
+ocr <- function(file, engine = tesseract("eng"), HOCR = FALSE, opw = "", upw = "") {
+  if (is.character(engine)) {
+    engine <- tesseract(engine)
+  }
   stopifnot(inherits(engine, "externalptr"))
-  stopifnot(file.exists(file))
-  stopifnot(is.pdf(file))
-
-  if (is.null(pages)) { pages <- seq_len(n_pages(file, opw = opw, upw = upw)) }
-  fout <- pdf_convert(file, format = "png", pages = pages, opw = opw, upw = upw)
-  out <- vapply(fout, ocr_file, character(1), ptr = engine, HOCR = HOCR, USE.NAMES = FALSE)
-  unlink(fout)
-  out
+  if (isTRUE(inherits(file, "magick-image"))) {
+    vapply(file, function(x) {
+      tmp <- tempfile(fileext = ".png")
+      on.exit(unlink(tmp))
+      magick::image_write(x, tmp, format = "PNG", density = "300x300")
+      ocr(tmp, engine = engine, HOCR = HOCR)
+    }, character(1))
+  } else if (isTRUE(is.character(file)) && isFALSE(is.pdf(file))) {
+    if (isFALSE(is.tiff(file))) {
+      vapply(file, ocr_file, character(1), ptr = engine, HOCR = HOCR, USE.NAMES = FALSE)
+    } else {
+      ocr(tiff_convert(file), engine, HOCR = HOCR)
+    }
+  } else if (isTRUE(is.raw(file))) {
+    ocr_raw(file, engine, HOCR = HOCR)
+  } else if (isTRUE(is.pdf(file))) {
+    n <- n_pages(file, opw = opw, upw = upw)
+    fout <- pdf_convert(file, format = "png", pages = 1:n, opw = opw, upw = upw)
+    out <- vapply(fout, function(x) ocr(x, engine = engine, HOCR = HOCR), character(1))
+    unlink(fout)
+    names(out) <- NULL
+    out
+  } else {
+    stop("Argument 'file' must be file-path, url or raw vector")
+  }
 }
 
-is.pdf <- function(x) {
-  grepl("\\.pdf$", tolower(x))
-}
-
-pdf_convert <- function(pdf, format = "png", pages = NULL, dpi = 72,
-                        antialias = TRUE, opw = "", upw = "") {
-  config <- get_poppler_config()
-
-  if (isFALSE(config$render) || isFALSE(length(config$format) > 0)) {
-    stop("You version of libppoppler does not support rendering")
+#' @rdname ocr
+#' @export
+ocr_data <- function(file, engine = tesseract("eng")) {
+  if (is.character(engine)) {
+    engine <- tesseract(engine)
   }
-
-  format <- match.arg(format, config$format)
-
-  if (is.null(pages)) {
-    pages <- seq_len(n_pages(file, opw = opw, upw = upw))
+  stopifnot(inherits(engine, "externalptr"))
+  df_list <- if (inherits(file, "magick-image")) {
+    lapply(file, function(x) {
+      tmp <- tempfile(fileext = ".png")
+      on.exit(unlink(tmp))
+      magick::image_write(x, tmp, format = "PNG", density = "300x300")
+      ocr_data(tmp, engine = engine)
+    })
+  } else if (is.character(file)) {
+    lapply(file, function(im) {
+      ocr_file_data(im, ptr = engine)
+    })
+  } else if (is.raw(file)) {
+    list(ocr_raw_data(file, engine))
+  } else {
+    stop("Argument 'file' must be file-path, url or raw vector")
   }
-
-  if (isFALSE(is.numeric(pages)) || isFALSE(length(pages) > 0)) {
-    stop("Argument 'pages' must be a one-indexed vector of page numbers")
-  }
-
-  antialiasing <- isTRUE(antialias) || isTRUE(antialias == "draw")
-
-  text_antialiasing <- isTRUE(antialias) || isTRUE(antialias == "text")
-
-  dout <- tempdir()
-  suppressWarnings(try(dir.create(dout)))
-
-  filenames <- file.path(dout, sprintf(
-    "%s-%03d.%s",
-    tools::file_path_sans_ext(basename(pdf)),
-    pages, format
-  ))
-
-  poppler_convert(pdf, format, pages, filenames, dpi, opw, upw, antialiasing, text_antialiasing)
+  df_as_tibble(do.call(rbind.data.frame, unname(df_list)))
 }

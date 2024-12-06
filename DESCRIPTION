@@ -1,4 +1,4 @@
-Package: readpdf
+Package: cpp11tesseract
 Type: Package
 Title: Open Source OCR Engine
 Version: 5.3.4
@@ -18,18 +18,13 @@ Description: Bindings to 'Tesseract':
      100 languages. The engine is highly configurable in order to tune the
      detection algorithms and obtain the best possible results.
 License: Apache License (>= 2)
-URL: https://pacha.dev/readpdf/
-BugReports: https://github.com/pachadotdev/readpdf/issues
+URL: https://pacha.dev/cpp11tesseract/
+BugReports: https://github.com/pachadotdev/cpp11tesseract/issues
 SystemRequirements:
     Tesseract OCR (
         deb: tesseract-ocr libtesseract-dev libleptonica-dev,
         rpm: tesseract-devel leptonica-devel,
         brew: tesseract
-    ),
-    Poppler (
-        deb: libpoppler-cpp-dev,
-        rpm: poppler-cpp-devel,
-        brew: poppler-data
     )
 Imports:
     curl,

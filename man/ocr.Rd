@@ -2,22 +2,15 @@
 % Please edit documentation in R/ocr.R
 \name{ocr}
 \alias{ocr}
+\alias{ocr_data}
 \title{Tesseract OCR}
 \usage{
-ocr(
-  file,
-  pages = NULL,
-  engine = tesseract("eng"),
-  HOCR = FALSE,
-  opw = "",
-  upw = ""
-)
+ocr(file, engine = tesseract("eng"), HOCR = FALSE, opw = "", upw = "")
+
+ocr_data(file, engine = tesseract("eng"))
 }
 \arguments{
 \item{file}{file path or raw vector (png, tiff, jpeg, etc).}
-
-\item{pages}{a numeric vector of pages to extract text from. If \code{NULL} all
-pages will be extracted.}
 
 \item{engine}{a tesseract engine created with \code{\link[=tesseract]{tesseract()}}. Alternatively a
 language string which will be passed to \code{\link[=tesseract]{tesseract()}}.}
@@ -43,10 +36,12 @@ the package vignette for image preprocessing tips.
 }
 \details{
 The \code{ocr()} function returns plain text by default, or hOCR text if hOCR is set to \code{TRUE}.
+The \code{ocr_data()} function returns a data frame with a confidence rate and bounding box for
+each word in the text.
 }
 \examples{
 # Simple example
-file <- system.file("examples", "oscarwilde.pdf", package = "readpdf")
+file <- system.file("examples", "testocr.png", package = "cpp11tesseract")
 text <- ocr(file)
 cat(text)
 }

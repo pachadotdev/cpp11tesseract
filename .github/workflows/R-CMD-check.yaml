@@ -65,7 +65,6 @@ jobs:
         if: matrix.config.os == 'macos-13' || matrix.config.os == 'macos-14'
         run: |
           brew install tesseract
-          brew install poppler
 
       - name: Run on Ubuntu
         if: matrix.config.os == 'ubuntu-latest' || matrix.config.os == 'ubuntu-24.04' || matrix.config.os == 'ubuntu-22.04' || matrix.config.os == 'ubuntu-20.04'

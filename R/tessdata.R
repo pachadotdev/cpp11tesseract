@@ -35,14 +35,14 @@
 #'
 #' if (any("fra" %in% tesseract_info()$available)) {
 #'   french <- tesseract("fra")
-#'   file <- system.file("examples", "french.pdf", package = "readpdf")
+#'   file <- system.file("examples", "french.png", package = "cpp11tesseract")
 #'   text <- ocr(file, engine = french)
 #'   cat(text)
 #' }
 tesseract_download <- function(lang, datapath = NULL, model = c("fast", "best"), progress = interactive()) {
   stopifnot(is.character(lang))
   model <- match.arg(model)
-  if (is.null(length(datapath))) {
+  if (!length(datapath)) {
     warn_on_linux()
     datapath <- tesseract_info()$datapath
   }
@@ -85,7 +85,7 @@ tesseract_download <- function(lang, datapath = NULL, model = c("fast", "best"),
 #'
 #' if (any("grc_hist" %in% tesseract_info()$available)) {
 #'   greek <- tesseract("grc_hist")
-#'   file <- system.file("examples", "polytonicgreek.pdf", package = "readpdf")
+#'   file <- system.file("examples", "polytonicgreek.png", package = "cpp11tesseract")
 #'   text <- ocr(file, engine = greek)
 #'   cat(text)
 #' }

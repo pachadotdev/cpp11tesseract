@@ -6,7 +6,7 @@
 #' languages. The engine is highly configurable in order to tune the detection
 #' algorithms and obtain the best possible results.
 #'
-#' @name readpdf-package
+#' @name cpp11tesseract-package
 #' @importFrom tools R_user_dir
-#' @useDynLib readpdf, .registration = TRUE
+#' @useDynLib cpp11tesseract, .registration = TRUE
 "_PACKAGE"

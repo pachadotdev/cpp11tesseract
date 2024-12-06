@@ -13,17 +13,17 @@ knitr::opts_chunk$set(
 )
 ```
 
-# readpdf <img src="man/figures/logo.svg" align="right" height="139" alt="" />
+# cpp11tesseract <img src="man/figures/logo.svg" align="right" height="139" alt="" />
 
 > Bindings to [Tesseract-OCR](https://opensource.google/projects/tesseract): 
   a powerful optical character recognition (OCR) engine that supports over 100 languages.
   The engine is highly configurable in order to tune the detection algorithms and
   obtain the best possible results.
 
-[![R-CMD-check](https://github.com/pachadotdev/readpdf/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/pachadotdev/readpdf/actions/workflows/R-CMD-check.yaml)
-[![codecov](https://codecov.io/gh/pachadotdev/readpdf/graph/badge.svg?token=mWfiUCgfNu)](https://app.codecov.io/gh/pachadotdev/readpdf)
+[![R-CMD-check](https://github.com/pachadotdev/cpp11tesseract/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/pachadotdev/cpp11tesseract/actions/workflows/R-CMD-check.yaml)
+[![codecov](https://codecov.io/gh/pachadotdev/cpp11tesseract/graph/badge.svg?token=mWfiUCgfNu)](https://app.codecov.io/gh/pachadotdev/cpp11tesseract)
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
-[![CRAN status](https://www.r-pkg.org/badges/version/readpdf)](https://CRAN.R-project.org/package=readpdf)
+[![CRAN status](https://www.r-pkg.org/badges/version/cpp11tesseract)](https://CRAN.R-project.org/package=cpp11tesseract)
 [![BuyMeACoffee](https://raw.githubusercontent.com/pachadotdev/buymeacoffee-badges/main/bmc-donate-white.svg)](https://buymeacoffee.com/pacha)
 
  - Upstream Tesseract-OCR documentation: https://tesseract-ocr.github.io/tessdoc/

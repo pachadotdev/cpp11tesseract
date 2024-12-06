@@ -1,7 +1,7 @@
 #' Tesseract Engine
 #'
 #' Create an OCR engine for a given language and control parameters. This can be used by
-#' the [ocr] function to recognize text.
+#' the [ocr] and [ocr_data] functions to recognize text.
 #'
 #' Tesseract control parameters can be set either via a named list in the
 #' `options` parameter, or in a `config` file text file which contains the parameter name

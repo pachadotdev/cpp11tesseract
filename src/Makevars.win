@@ -1,37 +1,39 @@
-RWINLIB_TESSERACT=../windows/tesseract
-RWINLIB_POPPLER=../windows/poppler
-RWINLIB_HARFBUZZ=../windows/harfbuzz
-POPPLERDATA=share/poppler
+# Tesseract configuration
 
-PKG_CPPFLAGS = -I${RWINLIB_TESSERACT}/include -I${RWINLIB_TESSERACT}/include/leptonica -I${RWINLIB_POPPLER}/include/poppler/cpp -I${RWINLIB_POPPLER}/include/poppler -I${RWINLIB_HARFBUZZ}/include
+TESSERACT_RWINLIB = ../windows/tesseract
+PKG_CPPFLAGS += -I${TESSERACT_RWINLIB}/include -I${TESSERACT_RWINLIB}/include/leptonica
 
-PKG_CXXFLAGS = -Dpoppler_cpp_EXPORTS -DBUNDLE_POPPLER_DATA
+PKG_LIBS += \
+    -L${TESSERACT_RWINLIB}/lib${subst gcc,,${COMPILED_BY}}${R_ARCH} \
+    -L${TESSERACT_RWINLIB}/lib \
+    -ltesseract -lleptonica \
+    -ltiff -lopenjp2 -lwebp -lsharpyuv -ljpeg -lgif -lpng16 -lz \
+    -lws2_32
 
-PKG_LIBS = \
-	-L${RWINLIB_TESSERACT}/lib${subst gcc,,${COMPILED_BY}}${R_ARCH} \
-	-L${RWINLIB_TESSERACT}/lib \
-	-L${RWINLIB_POPPLER}/lib${subst gcc,,${COMPILED_BY}}${R_ARCH} \
-	-L${RWINLIB_POPPLER}/lib \
-	-L${RWINLIB_HARFBUZZ}/lib \
-	-ltesseract -lleptonica \
-	-ltiff -lopenjp2 -lwebp -lsharpyuv -ljpeg -lgif -lpng16 -lz \
-	-lws2_32 \
-	-lpoppler-cpp -lpoppler -llcms2 -ljpeg -lpng16 -ltiff -lopenjp2 \
-	-lfreetype -lfreetype -lbz2 -liconv -lz \
-	-lharfbuzz \
-	-lgdi32 -luuid -lusp10 -lrpcrt4
+# Poppler configuration
+
+POPPLERDATA = share/poppler
+POPPLER_RWINLIB = ../windows/poppler
+PKG_CXXFLAGS += -Dpoppler_cpp_EXPORTS -DBUNDLE_POPPLER_DATA
+PKG_CPPFLAGS += -I$(POPPLER_RWINLIB)/include/poppler/cpp \
+    -I$(POPPLER_RWINLIB)/include/poppler \
+    -DSTRICT_R_HEADERS -DR_NO_REMAP
+
+PKG_LIBS += \
+    -L$(POPPLER_RWINLIB)/lib${subst gcc,,${COMPILED_BY}}${R_ARCH} \
+    -L$(POPPLER_RWINLIB)/lib \
+    -lpoppler-cpp -lpoppler -llcms2 -ljpeg -lpng16 -ltiff -lopenjp2 \
+    -lfreetype -lfreetype -lbz2 -liconv -lz
+
+# Compile
 
 all: clean winlibs
 
-clean:
-	rm -f $(OBJECTS) $(SHLIB)
+clean: rm -f $(OBJECTS) $(SHLIB)
 
 winlibs:
-	"${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe" "../tools/winlibs.R"
-	cp -Rf ../windows/tessdata ../inst/
-	cp -Rf ${RWINLIB_TESSERACT}/share/tessdata ../inst/
-	rm -Rf ../inst/share && mkdir -p ../inst/share
-	cp -Rf $(RWINLIB_POPPLER)/$(POPPLERDATA) ../inst/share/poppler
+    "${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe" "../tools/winlibs.R"
+    rm -Rf ../inst/share && mkdir -p ../inst/share
+    cp -Rf $(POPPLER_RWINLIB)/$(POPPLERDATA) ../inst/share/poppler
 
 .PHONY: all winlibs clean
-

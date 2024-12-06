@@ -1,4 +1,4 @@
-#include "readpdf_types.h"
+#include "cpp11tesseract_types.h"
 
 #if TESSERACT_MAJOR_VERSION < 5
 #include <tesseract/genericvector.h>
@@ -8,12 +8,12 @@
 #endif
 
 #include <poppler-document.h>
-#include <poppler-image.h>
 #include <poppler-page.h>
+#include <poppler-image.h>
 #include <poppler-page-renderer.h>
 
-#include <list>
 #include <memory>
+#include <list>
 #include <string>
 #include <vector>
 
@@ -217,6 +217,15 @@ strings ocr_pix(tesseract::TessBaseAPI *api, Pix *image, bool HOCR) {
   return y;
 }
 
+[[cpp11::register]] strings ocr_raw(raws input, TessPtr ptr,
+                                    bool HOCR = false) {
+  tesseract::TessBaseAPI *api = get_engine(ptr);
+  const l_uint8 *data = reinterpret_cast<const l_uint8 *>(RAW(input));
+  Pix *image = pixReadMem(data, Rf_xlength(input));
+  if (!image) throw std::runtime_error("Failed to read image");
+  return ocr_pix(api, image, HOCR);
+}
+
 [[cpp11::register]] strings ocr_file(std::string file, TessPtr ptr,
                                      bool HOCR = false) {
   tesseract::TessBaseAPI *api = get_engine(ptr);
@@ -273,6 +282,22 @@ data_frame ocr_data_internal(tesseract::TessBaseAPI *api, Pix *image) {
                                "stringsAsFactors"_nm = false});
 }
 
+[[cpp11::register]] data_frame ocr_raw_data(raws input, TessPtr ptr) {
+  tesseract::TessBaseAPI *api = get_engine(ptr);
+  const l_uint8 *data = reinterpret_cast<const l_uint8 *>(RAW(input));
+  Pix *image = pixReadMem(data, Rf_xlength(input));
+  if (!image) throw std::runtime_error("Failed to read image");
+  return ocr_data_internal(api, image);
+}
+
+[[cpp11::register]] data_frame ocr_file_data(const std::string &file,
+                                             TessPtr ptr) {
+  tesseract::TessBaseAPI *api = get_engine(ptr);
+  Pix *image = pixRead(file.c_str());
+  if (!image) throw std::runtime_error("Failed to read image");
+  return ocr_data_internal(api, image);
+}
+
 [[cpp11::register]] int n_pages(const std::string &file_path,
                                 const std::string &opw,
                                 const std::string &upw) {
@@ -296,27 +321,33 @@ data_frame ocr_data_internal(tesseract::TessBaseAPI *api, Pix *image) {
   for (size_t i = 0; i < formats.size(); ++i) {
     formats2[i] = formats[i];
   }
-  return writable::list({"render"_nm = render_feature, "format"_nm = formats2});
+  return writable::list({
+    "render"_nm = render_feature,
+    "format"_nm = formats2
+  });
 }
 
 [[cpp11::register]] std::vector<std::string> poppler_convert(
-    const std::string &file_path, const std::string &format,
-    const std::vector<int> &pages, const std::vector<std::string> &names,
-    const double &dpi, const std::string &opw, const std::string &upw,
-    const bool &antialiasing, const bool &text_antialiasing) {
+                      const std::string &file_path,
+                      const std::string &format, const std::vector<int> &pages,
+                      const std::vector<std::string> &names, const double &dpi,
+                      const std::string & opw, const std::string &upw,
+                      const bool &antialiasing, const bool &text_antialiasing) {
   auto doc = poppler::document::load_from_file(file_path, opw, upw);
-  for (size_t i = 0; i < pages.size(); i++) {
+  for(size_t i = 0; i < pages.size(); i++){
     int pagenum = pages[i];
     std::string filename = names[i];
     std::unique_ptr<poppler::page> p(doc->create_page(pagenum - 1));
-    if (!p) throw std::runtime_error("Invalid page.");
+    if(!p)
+      throw std::runtime_error("Invalid page.");
     poppler::page_renderer pr;
     pr.set_render_hint(poppler::page_renderer::antialiasing, antialiasing);
     pr.set_render_hint(poppler::page_renderer::text_antialiasing,
                        text_antialiasing);
     poppler::image img = pr.render_page(p.get(), dpi, dpi);
-    if (!img.is_valid()) throw std::runtime_error("PDF rendering failure.");
-    if (!img.save(filename, format, dpi))
+    if(!img.is_valid())
+      throw std::runtime_error("PDF rendering failure.");
+    if(!img.save(filename, format, dpi))
       throw std::runtime_error("Failed to save file" + filename);
   }
   return names;

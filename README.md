@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# readpdf <img src="man/figures/logo.svg" align="right" height="139" alt="" />
+# cpp11tesseract <img src="man/figures/logo.svg" align="right" height="139" alt="" />
 
 > Bindings to
 > [Tesseract-OCR](https://opensource.google/projects/tesseract): a
@@ -9,13 +9,13 @@
 > 100 languages. The engine is highly configurable in order to tune the
 > detection algorithms and obtain the best possible results.
 
-[![R-CMD-check](https://github.com/pachadotdev/readpdf/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/pachadotdev/readpdf/actions/workflows/R-CMD-check.yaml)
-[![codecov](https://codecov.io/gh/pachadotdev/readpdf/graph/badge.svg?token=mWfiUCgfNu)](https://app.codecov.io/gh/pachadotdev/readpdf)
+[![R-CMD-check](https://github.com/pachadotdev/cpp11tesseract/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/pachadotdev/cpp11tesseract/actions/workflows/R-CMD-check.yaml)
+[![codecov](https://codecov.io/gh/pachadotdev/cpp11tesseract/graph/badge.svg?token=mWfiUCgfNu)](https://app.codecov.io/gh/pachadotdev/cpp11tesseract)
 [![Project Status: Active – The project has reached a stable, usable
 state and is being actively
 developed.](https://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
 [![CRAN
-status](https://www.r-pkg.org/badges/version/readpdf)](https://CRAN.R-project.org/package=readpdf)
+status](https://www.r-pkg.org/badges/version/cpp11tesseract)](https://CRAN.R-project.org/package=cpp11tesseract)
 [![BuyMeACoffee](https://raw.githubusercontent.com/pachadotdev/buymeacoffee-badges/main/bmc-donate-white.svg)](https://buymeacoffee.com/pacha)
 
   - Upstream Tesseract-OCR documentation:
@@ -46,14 +46,11 @@ package, which I need to comply with the Munk School IT standards. Using
 `cpp11` allows me to vendor the C++ headers into the package, and then I
 can conduct an offline installation in the Niagara Cluster.
 
-The documentation changed a bit. I tried to expand the documentation and
+The documentation changes a bit. I tried to expand the documentation and
 compare with Amazon Textract output.
 
 This package includes some changes requested by CRAN, and these are
-mostly about the package internals. For example, this version lists the
-dependencies to install in Linux and Mac, that you can install using
-apt/yum/brew, while the original package uses autobrew to install the
-Mac dependencies as binaries.
+mostly about the package internals.
 
 ## Installation
 
