@@ -4,11 +4,11 @@ TESSERACT_RWINLIB = ../windows/tesseract
 PKG_CPPFLAGS += -I${TESSERACT_RWINLIB}/include -I${TESSERACT_RWINLIB}/include/leptonica
 
 PKG_LIBS += \
-    -L${TESSERACT_RWINLIB}/lib${subst gcc,,${COMPILED_BY}}${R_ARCH} \
-    -L${TESSERACT_RWINLIB}/lib \
-    -ltesseract -lleptonica \
-    -ltiff -lopenjp2 -lwebp -lsharpyuv -ljpeg -lgif -lpng16 -lz \
-    -lws2_32
+	-L${TESSERACT_RWINLIB}/lib${subst gcc,,${COMPILED_BY}}${R_ARCH} \
+	-L${TESSERACT_RWINLIB}/lib \
+	-ltesseract -lleptonica \
+	-ltiff -lopenjp2 -lwebp -lsharpyuv -ljpeg -lgif -lpng16 -lz \
+	-lws2_32
 
 # Compile
 
@@ -17,7 +17,8 @@ all: clean winlibs
 clean: rm -f $(OBJECTS) $(SHLIB)
 
 winlibs:
-    "${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe" "../tools/winlibs.R"
-    rm -Rf ../inst/share && mkdir -p ../inst/share
+	"${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe" "../tools/winlibs.R"
+	rm -Rf ../inst/share && mkdir -p ../inst/share
 
 .PHONY: all winlibs clean
+
