@@ -21,7 +21,7 @@ jobs:
           - {os: macos-13,        r: 'release', name: 'MacOS 13 (release)'}
           - {os: macos-14,        r: 'release', name: 'MacOS 14 (release)'}
           - {os: windows-latest , r: 'release', name: 'Windows latest (release)'}
-          - {os: windows-latest,  r: '4.1',     name: 'Windows latest (4.1)'}
+          - {os: windows-latest,  r: '4.3',     name: 'Windows latest (oldrel)'}
           - {os: ubuntu-latest,   r: 'devel',   name: 'Ubuntu latest (devel)', http-user-agent: 'release'}
           - {os: ubuntu-24.04,    r: 'release', name: 'Ubuntu 24.04 (release)'}
           - {os: ubuntu-22.04,    r: 'release', name: 'Ubuntu 22.04 (release)'}
