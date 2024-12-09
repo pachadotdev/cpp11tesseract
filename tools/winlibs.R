@@ -4,8 +4,10 @@ if (!file.exists("../windows/tesseract/include/tesseract/baseapi.h")) {
     "https://github.com/pachadotdev/cpp11bundles/releases/download/tesseract-5.3.2/tesseract-ocr-5.3.2-clang-aarch64.tar.xz"
   } else if (grepl("clang", Sys.getenv("R_COMPILED_BY"))) {
     "https://github.com/pachadotdev/cpp11bundles/releases/download/tesseract-5.3.2/tesseract-ocr-5.3.2-clang-x86_64.tar.xz"
-  } else {
+  } else if(getRversion() >= "4.3") {
     "https://github.com/pachadotdev/cpp11bundles/releases/download/tesseract-5.3.2/tesseract-ocr-5.3.2-ucrt-x86_64.tar.xz"
+  } else {
+    "https://github.com/pachadotdev/cpp11bundles/releases/download/tesseract-5.3.2/tesseract-oldR-5.3.2.tar.gz"
   }
   download.file(url, basename(url), quiet = TRUE)
   untar(basename(url), exdir = "../windows", tar = "internal")
