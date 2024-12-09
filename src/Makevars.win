@@ -15,12 +15,11 @@ PKG_LIBS += \
 all: clean winlibs
 
 clean:
-	del /Q $(OBJECTS) $(SHLIB)
-
+	powershell -Command "Remove-Item -Force -Recurse $(OBJECTS), $(SHLIB)"
 
 winlibs:
 	"${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe" "../tools/winlibs.R"
-	rmdir /S /Q ../inst/share && mkdir ../inst/share
+	powershell -Command "Remove-Item -Force -Recurse ../inst/share; New-Item -ItemType Directory ../inst/share"
 
 .PHONY: all winlibs clean
 
