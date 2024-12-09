@@ -1,5 +1,5 @@
 if (!file.exists("../windows/tesseract/include/tesseract/baseapi.h")) {
-  unlink("../windows", recursive = TRUE)
+  unlink("../windows/tesseract", recursive = TRUE)
   url <- if (grepl("aarch", R.version$platform)) {
     "https://github.com/pachadotdev/cpp11bundles/releases/download/tesseract-5.3.2/tesseract-ocr-5.3.2-clang-aarch64.tar.xz"
   } else if (grepl("clang", Sys.getenv("R_COMPILED_BY"))) {
@@ -8,17 +8,16 @@ if (!file.exists("../windows/tesseract/include/tesseract/baseapi.h")) {
     "https://github.com/pachadotdev/cpp11bundles/releases/download/tesseract-5.3.2/tesseract-ocr-5.3.2-ucrt-x86_64.tar.xz"
   }
   download.file(url, basename(url), quiet = TRUE)
-  dir.create("../windows", showWarnings = FALSE)
   untar(basename(url), exdir = "../windows", tar = "internal")
+  file.rename(file.path("../windows", dir("../windows", pattern = "tesseract-")), "../windows/tesseract")
   unlink(basename(url))
   setwd("../windows")
-  file.rename(list.files(), "tesseract")
 }
 
 # Also download the english training data
-dir.create("../windows/tessdata", showWarnings = FALSE)
 if (!file.exists("../windows/tessdata/eng.traineddata")) {
   message("Downloading eng.traineddata...")
+  dir.create("../windows/tessdata", showWarnings = FALSE)
   download.file("https://github.com/tesseract-ocr/tessdata_fast/raw/4.1.0/eng.traineddata",
     "../windows/tessdata/eng.traineddata",
     mode = "wb", quiet = TRUE
