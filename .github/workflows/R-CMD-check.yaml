@@ -50,11 +50,6 @@ jobs:
         if: matrix.config.os == 'macos-13' || matrix.config.os == 'macos-14'
         run: R -e 'install.packages("pak", repos = "https://cloud.r-project.org")'
 
-      - name: Setup R dependencies
-        uses: r-lib/actions/setup-r-dependencies@v2
-        with:
-          extra-packages: any::rcmdcheck
-
       - name: Install system dependencies (Ubuntu)
         if: matrix.config.os == 'ubuntu-latest' || matrix.config.os == 'ubuntu-24.04' || matrix.config.os == 'ubuntu-22.04' || matrix.config.os == 'ubuntu-20.04'
         run: |
@@ -64,7 +59,12 @@ jobs:
       - name: Install system dependencies (MacOS)
         if: matrix.config.os == 'macos-13' || matrix.config.os == 'macos-14'
         run: |
-          brew install tesseract
+          brew install tesseract poppler
+
+      - name: Setup R dependencies
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: any::rcmdcheck
 
       - name: Run on Ubuntu
         if: matrix.config.os == 'ubuntu-latest' || matrix.config.os == 'ubuntu-24.04' || matrix.config.os == 'ubuntu-22.04' || matrix.config.os == 'ubuntu-20.04'
