@@ -62,27 +62,6 @@ else
 CXX11CPP=`${R_HOME}/bin/R CMD config CXXCPP`
 fi
 
-# Test configuration
-echo "Using CXX11CPP: ${CXX11CPP}"
-${CXX11CPP} ${CPPFLAGS} ${PKG_CFLAGS} tools/test.cpp >/dev/null 2>configure.log
-
-# Customize the error
-if [ $? -ne 0 ]; then
-  echo "--------------------------- [ANTICONF] --------------------------------"
-  echo "Configuration failed to find system libraries. Try installing:"
-  echo " * deb: $PKG_DEB_NAME (Debian, Ubuntu, etc)"
-  echo " * rpm: $PKG_RPM_NAME (Fedora, CentOS, RHEL)"
-  echo " * brew: $PKG_BREW_NAME (Mac OSX)"
-  echo "If the libraries are already installed, check that 'pkg-config' is in your"
-  echo "PATH and PKG_CONFIG_PATH contains the necessary .pc files. If pkg-config"
-  echo "is unavailable you can set INCLUDE_DIR and LIB_DIR manually via:"
-  echo "R CMD INSTALL --configure-vars='INCLUDE_DIR=... LIB_DIR=...'"
-  echo "-------------------------- [ERROR MESSAGE] ---------------------------"
-  cat configure.log
-  echo "--------------------------------------------------------------------"
-  exit 1
-fi
-
 # Create a temporary C++ file to test the compatibility with Tesseract
 cat <<EOF > conftest.cpp
 #include <tesseract/baseapi.h>
@@ -96,11 +75,21 @@ EOF
 # Tesseract enforces C++11
 if ! ${CXX11} -std=gnu++11 -c conftest.cpp -o conftest.o ${PKG_CFLAGS}
 then
-    echo "Tesseract is not compatible with the C++ compiler used by R."
+    echo "--------------------------- [ANTICONF] --------------------------------"
+    echo "Configuration failed to find system libraries. Try installing:"
+    echo " * deb: $PKG_DEB_NAME (Debian, Ubuntu, etc)"
+    echo " * rpm: $PKG_RPM_NAME (Fedora, CentOS, RHEL)"
+    echo " * brew: $PKG_BREW_NAME (Mac OSX)"
+    echo "If the libraries are already installed, check that 'pkg-config' is in your"
+    echo "PATH and PKG_CONFIG_PATH contains the necessary .pc files. If pkg-config"
+    echo "is unavailable you can set INCLUDE_DIR and LIB_DIR manually via:"
+    echo "R CMD INSTALL --configure-vars='INCLUDE_DIR=... LIB_DIR=...'"
+    echo "-------------------------- [ERROR MESSAGE] ---------------------------"
+    cat configure.log
+    echo "--------------------------------------------------------------------"
     rm -rf conftest.cpp conftest.o
     exit 1
 else
-    echo "Tesseract is compatible with the C++ compiler used by R."
     rm -rf conftest.cpp conftest.o
 fi
 
