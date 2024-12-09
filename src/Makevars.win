@@ -14,11 +14,13 @@ PKG_LIBS += \
 
 all: clean winlibs
 
-clean: rm -f $(OBJECTS) $(SHLIB)
+clean:
+	del /Q $(OBJECTS) $(SHLIB)
+
 
 winlibs:
 	"${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe" "../tools/winlibs.R"
-	rm -Rf ../inst/share && mkdir -p ../inst/share
+	rmdir /S /Q ../inst/share && mkdir ../inst/share
 
 .PHONY: all winlibs clean
 
