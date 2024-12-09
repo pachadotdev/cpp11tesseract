@@ -15,11 +15,13 @@ PKG_LIBS += \
 all: clean winlibs
 
 clean:
-	powershell -Command "Remove-Item -Force -Recurse $(OBJECTS), $(SHLIB)"
+	rm -Rf $(OBJECTS) $(SHLIB)
 
 winlibs:
-	"${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe" "../tools/winlibs.R"
-	powershell -Command "Remove-Item -Force -Recurse ../inst/share; New-Item -ItemType Directory ../inst/share"
+	mkdir -p ../inst
+	"${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe" "../tools/winlibs.R" ${VERSION}
+	cp -Rf ../windows/tessdata ../inst/
+	cp -Rf ${RWINLIB}/share/tessdata ../inst/
 
 .PHONY: all winlibs clean
 
