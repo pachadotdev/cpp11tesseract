@@ -3,12 +3,6 @@
 
 # cpp11tesseract <img src="man/figures/logo.svg" align="right" height="139" alt="" />
 
-> Bindings to
-> [Tesseract-OCR](https://opensource.google/projects/tesseract): a
-> powerful optical character recognition (OCR) engine that supports over
-> 100 languages. The engine is highly configurable in order to tune the
-> detection algorithms and obtain the best possible results.
-
 [![R-CMD-check](https://github.com/pachadotdev/cpp11tesseract/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/pachadotdev/cpp11tesseract/actions/workflows/R-CMD-check.yaml)
 [![codecov](https://codecov.io/gh/pachadotdev/cpp11tesseract/graph/badge.svg?token=mWfiUCgfNu)](https://app.codecov.io/gh/pachadotdev/cpp11tesseract)
 [![Project Status: Active – The project has reached a stable, usable
@@ -17,6 +11,13 @@ developed.](https://www.repostatus.org/badges/latest/active.svg)](http://www.rep
 [![CRAN
 status](https://www.r-pkg.org/badges/version/cpp11tesseract)](https://CRAN.R-project.org/package=cpp11tesseract)
 [![BuyMeACoffee](https://raw.githubusercontent.com/pachadotdev/buymeacoffee-badges/main/bmc-donate-white.svg)](https://buymeacoffee.com/pacha)
+
+`cpp11tesseract` is a fork of `tesseract` that uses `cpp11` for those
+that require it for licensing or security purposes. It provides bindings
+to [Tesseract-OCR](https://opensource.google/projects/tesseract), a
+powerful optical character recognition (OCR) engine that supports over
+100 languages. The engine is highly configurable in order to tune the
+detection algorithms and obtain the best possible results.
 
   - Upstream Tesseract-OCR documentation:
     <https://tesseract-ocr.github.io/tessdoc/>
@@ -46,11 +47,14 @@ package, which I need to comply with the Munk School IT standards. Using
 `cpp11` allows me to vendor the C++ headers into the package, and then I
 can conduct an offline installation in the Niagara Cluster.
 
-The documentation changes a bit. I tried to expand the documentation and
+The documentation changed a bit. I tried to expand the documentation and
 compare with Amazon Textract output.
 
 This package includes some changes requested by CRAN, and these are
-mostly about the package internals.
+mostly about the package internals. For example, this version lists the
+dependencies to install in Linux and Mac, that you can install using
+apt/yum/brew, while the original package uses autobrew to install the
+Mac dependencies as binaries.
 
 ## Installation
 
