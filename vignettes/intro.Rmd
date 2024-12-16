@@ -39,14 +39,14 @@ text from the image.
 OCR is the process of finding and recognizing text inside images, for example
 from a screenshot, scanned paper. The image below has some example text:
 
-![Image with eight lines of English text](../man/figures/testocr.png)
+![Image with eight lines of English text](../man/figures/wilde.jpg)
 
 The `ocr()` function extracts text from an image file. After indicating the
 engine for the language, it will return the text found in the image:
 
 ```{r}
 library(cpp11tesseract)
-file <- system.file("examples", "testocr.png", package = "cpp11tesseract")
+file <- system.file("examples", "wilde.jpg", package = "cpp11tesseract")
 eng <- tesseract("eng")
 text <- ocr(file, engine = eng)
 cat(text)
@@ -103,54 +103,6 @@ text2 <- readLines(
 cat(text2)
 ```
 
-## Preprocessing with Magick
-
-The accuracy of the OCR process depends on the quality of the input image. You
-can often improve results by properly scaling the image, removing noise and
-artifacts or cropping the area where the text exists.
-See [tesseract wiki: improve quality](https://tesseract-ocr.github.io/tessdoc/ImproveQuality)
-for important tips to improve the quality of your input image.
-
-The awesome [magick](https://cran.r-project.org/package=magick/vignettes/intro.html)
-R package has many useful functions that can be use for enhancing the quality of
-the image. Some things to try:
-
- - If your image is skewed, use `image_deskew()` and `image_rotate()` make the
-    text horizontal.
- - `image_trim()` crops out whitespace in the margins. Increase the `fuzz`
-    parameter to make it work for noisy whitespace.
- - Use `image_convert()` to turn the image into greyscale, which can reduce
-    artifacts and enhance actual text.
- - If your image is very large or small resizing with `image_resize()` can help
-    tesseract determine text size.
- - Use `image_modulate()` or `image_contrast()` or `image_contrast()` to tweak
-    brightness / contrast if this is an issue.
- - Try `image_reducenoise()` for automated noise removal. Your mileage may vary.
- - With `image_quantize()` you can reduce the number of colors in the image.
-    This can sometimes help with increasing contrast and reducing artifacts.
- - True imaging ninjas can use `image_convolve()` to use custom
-  [convolution methods](https://ropensci.org/technotes/2017/11/02/image-convolve/). 
-
-Below is an example OCR scan. The code converts it to black-and-white and
-resizes + crops the image before feeding it to tesseract to get more accurate OCR results.
-
-![The first page of 'The Importance of Being Earnest' by Oscar Wilde](../man/figures/wilde.jpg)
-
-```{r}
-library(magick)
-file <- system.file("examples", "wilde.jpg", package = "cpp11tesseract")
-input <- image_read(file)
-
-text <- input %>%
-  image_resize("2000x") %>%
-  image_convert(type = "Grayscale") %>%
-  image_trim(fuzz = 40) %>%
-  image_write(format = "png", density = "300x300") %>%
-  ocr()
-
-cat(text)
-```
-
 ## Read from PDF files
 
 If your images are stored in PDF files they first need to be converted to a
@@ -159,9 +111,21 @@ the `cpp11poppler` package. Use a high DPI to keep quality of the image.
 
 ```{r, eval=require(cpp11poppler)}
 library(cpp11poppler)
-file <- system.file("examples", "ocrscan.pdf", package = "cpp11tesseract")
+file <- system.file("examples", "bondargentina.pdf", package = "cpp11tesseract")
 pngfile <- pdf_convert(file, dpi = 600)
 text <- ocr(pngfile)
+cat(text)
+```
+
+## Read from TIFF files
+
+If your images are stored in PDF files they first need to be converted to a
+proper image format. We can do this in R using the `pdf_convert` function from
+the `cpp11poppler` package. Use a high DPI to keep quality of the image.
+
+```{r}
+file <- system.file("examples", "bondargentina.tiff", package = "cpp11tesseract")
+text <- ocr(file)
 cat(text)
 ```
 

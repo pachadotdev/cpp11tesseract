@@ -26,7 +26,7 @@
 #' @references [Tesseract: Improving Quality](https://github.com/tesseract-ocr/tesseract/wiki/ImproveQuality)
 #' @examples
 #' # Simple example
-#' file <- system.file("examples", "testocr.png", package = "cpp11tesseract")
+#' file <- system.file("examples", "wilde.jpg", package = "cpp11tesseract")
 #' text <- ocr(file)
 #' cat(text)
 ocr <- function(file, engine = tesseract("eng"), HOCR = FALSE, opw = "", upw = "") {
@@ -34,19 +34,8 @@ ocr <- function(file, engine = tesseract("eng"), HOCR = FALSE, opw = "", upw = "
     engine <- tesseract(engine)
   }
   stopifnot(inherits(engine, "externalptr"))
-  if (isTRUE(inherits(file, "magick-image"))) {
-    vapply(file, function(x) {
-      tmp <- tempfile(fileext = ".png")
-      on.exit(unlink(tmp))
-      magick::image_write(x, tmp, format = "PNG", density = "300x300")
-      ocr(tmp, engine = engine, HOCR = HOCR)
-    }, character(1))
-  } else if (isTRUE(is.character(file))) {
-    if (isFALSE(is.tiff(file))) {
-      vapply(file, ocr_file, character(1), ptr = engine, HOCR = HOCR, USE.NAMES = FALSE)
-    } else {
-      ocr(tiff_convert(file), engine, HOCR = HOCR)
-    }
+  if (isTRUE(is.character(file))) {
+    vapply(file, ocr_file, character(1), ptr = engine, HOCR = HOCR, USE.NAMES = FALSE)
   } else if (isTRUE(is.raw(file))) {
     ocr_raw(file, engine, HOCR = HOCR)
   } else {
@@ -61,14 +50,7 @@ ocr_data <- function(file, engine = tesseract("eng")) {
     engine <- tesseract(engine)
   }
   stopifnot(inherits(engine, "externalptr"))
-  df_list <- if (inherits(file, "magick-image")) {
-    lapply(file, function(x) {
-      tmp <- tempfile(fileext = ".png")
-      on.exit(unlink(tmp))
-      magick::image_write(x, tmp, format = "PNG", density = "300x300")
-      ocr_data(tmp, engine = engine)
-    })
-  } else if (is.character(file)) {
+  df_list <- if (is.character(file)) {
     lapply(file, function(im) {
       ocr_file_data(im, ptr = engine)
     })

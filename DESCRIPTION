@@ -17,7 +17,9 @@ Authors@R: c(person("Mauricio", "Vargas Sepulveda",
                     role = "fnd")
             )
 Description: Bindings to 'Tesseract': 
-     a powerful optical character recognition (OCR) engine that supports over
+     Tesseract
+     (<[https://github.com/tesseract-ocr/tesseract]https://github.com/tesseract-ocr/tesseract>)
+     is a powerful optical character recognition (OCR) engine that supports over
      100 languages. The engine is highly configurable in order to tune the
      detection algorithms and obtain the best possible results.
 License: Apache License (>= 2)
@@ -37,7 +39,6 @@ LinkingTo:
 RoxygenNote: 7.3.2
 Roxygen: list(markdown = TRUE)
 Suggests:
-    magick (>= 2.7),
     spelling,
     knitr,
     tibble,

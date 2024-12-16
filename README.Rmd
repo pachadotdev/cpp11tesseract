@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# cpp11tesseract <img src="man/figures/logo.svg" align="right" height="139" alt="" />
+# cpp11tesseract
 
 [![R-CMD-check](https://github.com/pachadotdev/cpp11tesseract/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/pachadotdev/cpp11tesseract/actions/workflows/R-CMD-check.yaml)
 [![codecov](https://codecov.io/gh/pachadotdev/cpp11tesseract/graph/badge.svg?token=mWfiUCgfNu)](https://app.codecov.io/gh/pachadotdev/cpp11tesseract)
@@ -36,9 +36,9 @@ obtain the best possible results.
 
 How to extract text from an image:
 
-```r
-# Simple example
-text <- ocr("inst/examples/figures/testocr.png")
+```{r}
+library(cpp11tesseract)
+text <- ocr("inst/examples/wilde.jpg")
 cat(text)
 ```
 

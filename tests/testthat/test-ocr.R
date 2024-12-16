@@ -16,15 +16,11 @@ test_that("ocr works", {
 
   expect_error(ocr(file, engine = "enochian"))
 
-  # pass a magick-image
-
-  img <- magick::image_read(file)
-  expect_output(cat(ocr(img)))
-
   # convert image to raw bytes
 
-  raw_bytes <- magick::image_write(img, format = "png")
-  expect_output(cat(ocr(raw_bytes)))
+  file <- system.file("examples", "receipt.jpg", package = "cpp11tesseract")
+  raw <- readBin(file, "raw", file.info(file)$size)
+  expect_output(cat(ocr(raw)))
 
   # pass null
 
