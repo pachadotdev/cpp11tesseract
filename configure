@@ -35,17 +35,6 @@ elif [ "$PKGCONFIG_CFLAGS_TESSERACT" ] || [ "$PKGCONFIG_LIBS_TESSERACT" ]; then
   echo "Found pkg-config cflags and libs!"
   PKG_CFLAGS="${PKGCONFIG_CFLAGS_TESSERACT}"
   PKG_LIBS="${PKGCONFIG_LIBS_TESSERACT}"
-elif [ `uname` = "Darwin" ]; then
-  test ! "$CI" && brew --version 2>/dev/null
-  if [ $? -eq 0 ]; then
-    BREWDIR=`brew --prefix`
-    PKG_CFLAGS="-I$BREWDIR/include/tesseract -I$BREWDIR/include/leptonica"
-    PKG_LIBS="-L$BREWDIR/lib $PKG_LIBS"
-  else
-    echo "Homebrew is not installed. Visit https://brew.sh/ for information on how to install it."
-    echo "Tesseract can be installed with 'brew install tesseract'."
-    exit 1
-  fi
 fi
 
 # For debugging

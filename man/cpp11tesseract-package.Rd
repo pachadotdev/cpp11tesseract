@@ -24,11 +24,13 @@ Useful links:
 
 Authors:
 \itemize{
-  \item Jeroen Ooms \email{jeroen@berkeley.edu} (\href{https://orcid.org/0000-0002-4035-0289}{ORCID})
+  \item Jeroen Ooms \email{jeroen@berkeley.edu} (\href{https://orcid.org/0000-0002-4035-0289}{ORCID}) (Author of tesseract R package)
 }
 
 Other contributors:
 \itemize{
+  \item HP (Author of tesseract) [copyright holder]
+  \item Google (Author of tesseract) [copyright holder]
   \item Munk School of Global Affairs and Public Policy [funder]
 }
 
