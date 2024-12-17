@@ -1,7 +1,7 @@
 Package: cpp11tesseract
 Type: Package
 Title: Open Source OCR Engine
-Version: 0.1.0
+Version: 5.3.4
 Authors@R: c(person("Mauricio", "Vargas Sepulveda",
                     role = c("aut", "cre"), 
                     email = "m.sepulveda@mail.utoronto.ca", 
@@ -16,12 +16,11 @@ Authors@R: c(person("Mauricio", "Vargas Sepulveda",
              person("Munk School of Global Affairs and Public Policy",
                     role = "fnd")
             )
-Description: Bindings to 'Tesseract': 
-     Tesseract
-     (<[https://github.com/tesseract-ocr/tesseract]https://github.com/tesseract-ocr/tesseract>)
-     is a powerful optical character recognition (OCR) engine that supports over
-     100 languages. The engine is highly configurable in order to tune the
-     detection algorithms and obtain the best possible results.
+Description: Bindings to 'tesseract': 
+     'tesseract' (<https://github.com/tesseract-ocr/tesseract>) is a powerful
+     optical character recognition (OCR) engine that supports over 100
+     languages. The engine is highly configurable in order to tune the detection
+     algorithms and obtain the best possible results.
 License: Apache License (>= 2)
 URL: https://pacha.dev/cpp11tesseract/
 BugReports: https://github.com/pachadotdev/cpp11tesseract/issues
@@ -43,10 +42,7 @@ Suggests:
     knitr,
     tibble,
     rmarkdown,
-    testthat (>= 3.0.0),
-    cpp11poppler
-Remotes: 
-    pachadotdev/cpp11poppler
+    testthat (>= 3.0.0)
 Encoding: UTF-8
 VignetteBuilder: knitr
 Language: en-US

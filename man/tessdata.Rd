@@ -60,7 +60,7 @@ and stores it in a the path on disk given by the \code{TESSDATA_PREFIX} variable
 \examples{
 # download the french training data
 \donttest{
-tesseract_download("fra", model = "best", datapath = tempdir())
+  tesseract_download("fra", model = "best", datapath = tempdir())
 }
 
 if (any("fra" \%in\% tesseract_info()$available)) {
@@ -71,7 +71,8 @@ if (any("fra" \%in\% tesseract_info()$available)) {
 }
 # download the polytonic greek training data
 \donttest{
-tesseract_contributed_download("grc_hist", model = "best", datapath = tempdir())
+  tesseract_contributed_download("grc_hist", model = "best",
+    datapath = tempdir())
 }
 
 if (any("grc_hist" \%in\% tesseract_info()$available)) {

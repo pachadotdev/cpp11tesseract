@@ -25,3 +25,5 @@ vignettes/.*\.png$
 ^dev$
 ^lib$
 ^\.covrignore$
+^vignettes/bondargentina_1\.png$
+^vignettes/bondargentina_2\.png$

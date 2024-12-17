@@ -40,8 +40,7 @@ The \code{ocr_data()} function returns a data frame with a confidence rate and b
 each word in the text.
 }
 \examples{
-# Simple example
-file <- system.file("examples", "wilde.jpg", package = "cpp11tesseract")
+file <- system.file("examples", "wilde.png", package = "cpp11tesseract")
 text <- ocr(file)
 cat(text)
 }

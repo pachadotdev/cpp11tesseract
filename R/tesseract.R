@@ -45,7 +45,8 @@ tesseract <- local({
 #' @return no return value, called for side effects
 #' @rdname tesseract
 #' @param filter only list parameters containing a particular string
-#' @examples tesseract_params("debug")
+#' @examples
+#' tesseract_params("smooth")
 tesseract_params <- function(filter = "") {
   tmp <- print_params(tempfile())
   on.exit(unlink(tmp))

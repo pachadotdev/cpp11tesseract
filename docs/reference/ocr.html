@@ -13,7 +13,7 @@ the package vignette for image preprocessing tips."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">cpp11tesseract</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">5.3.4</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -109,43 +109,21 @@ each word in the text.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Simple example</span></span></span>
-<span class="r-in"><span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"examples"</span>, <span class="st">"wilde.jpg"</span>, package <span class="op">=</span> <span class="st">"cpp11tesseract"</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"examples"</span>, <span class="st">"wilde.png"</span>, package <span class="op">=</span> <span class="st">"cpp11tesseract"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">text</span> <span class="op">&lt;-</span> <span class="fu">ocr</span><span class="op">(</span><span class="va">file</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Act One</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [The living room of Algernon Moncrieff's flat in Mayfair, London.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Lane is arranging afternoon tea on a table. Algemion enters}</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Algernon: Lane, have you made the cucumber sandwiches for</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Lady Bracknell’s tea?</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Lane: Yes, sir. [Handing them to Algernon on a silver tray]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Algernon: [Looking carefully at them, taking two and sitting down</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> on the sofa] Oh, by the way’, Lane, I looked at your notebook. |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> noticed that when Lord Shoreman and Mr Worthing dined with</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> me on Thursday night, eight bottles of champagne were drunk,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Lane: Yes, sir; eight bottles.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Algernon: Why is it that, in a bachelor’s home, the servants</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> always drink the champagne? I just ask because | am interested,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Lane.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Lane: I think that it is because the champagne is better in a</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> bachelor’s home. | have noticed that the champagne in married</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> people's homes is rarely very good.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Algernon: Good heavens*! Is marriage so depressing?</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Lane: | believe marriage is very pleasant, sir. | haven't had much</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> experience of it myself. [ have only been married once, and that</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> was because of a misunderstanding” between myself and a young</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> person.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Algernon: [Lazily, without interest] I am not very interested in</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> your family life, Lane.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Lane: No, sir; it is not a very interesting subject. I never think</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> of it myself.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Algernon: That is very understandable. Well, thank you, Lane.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [Lane goes off]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Algernon: [To himself] Lane’s views on marriage seem very casual.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Really, if the servants don’t set us a good example, what on earth</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> is the use of them? They seem to have no morals</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [Lane enters]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Lane: Mr Ernest Worthing is here, sir.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Complete Works</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> oF</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> OSCAR WILDE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> EDITED BY</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ROBERT ROSS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> MISCELLANIES</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ‘AUTHORIZED EDITION</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> THE WYMAN-FOGG COMPANY</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> BOSTON :: MASSACHUSETTS</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

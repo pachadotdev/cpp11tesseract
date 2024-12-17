@@ -1,4 +1,4 @@
-# 0.1.0
+# 5.3.3
 
 - This is a fork of the original tesseract package made by Jeroen Ooms. The
   differences are:

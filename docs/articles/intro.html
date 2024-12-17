@@ -26,7 +26,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">cpp11tesseract</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">5.3.4</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,7 +63,7 @@
 
       <h1>Using the Tesseract OCR engine in R</h1>
             
-            <h4 data-toc-skip class="date">2024-12-16</h4>
+            <h4 data-toc-skip class="date">2024-12-17</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/pachadotdev/cpp11tesseract/blob/HEAD/vignettes/intro.Rmd" class="external-link"><code>vignettes/intro.Rmd</code></a></small>
       <div class="d-none name"><code>intro.Rmd</code></div>
@@ -78,66 +78,52 @@
 </h2>
 <p>OCR is the process of finding and recognizing text inside images, for example from a screenshot, scanned paper. The image below has some example text:</p>
 <div class="figure">
-<img src="../reference/figures/wilde.jpg" alt=""><p class="caption">Image with eight lines of English text</p>
+<img src="../reference/figures/wilde.png" alt=""><p class="caption">Image with eight lines of English text</p>
 </div>
 <p>The <code><a href="../reference/ocr.html">ocr()</a></code> function extracts text from an image file. After indicating the engine for the language, it will return the text found in the image:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://pacha.dev/cpp11tesseract/" class="external-link">cpp11tesseract</a></span><span class="op">)</span></span>
-<span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"examples"</span>, <span class="st">"wilde.jpg"</span>, package <span class="op">=</span> <span class="st">"cpp11tesseract"</span><span class="op">)</span></span>
+<span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"examples"</span>, <span class="st">"wilde.png"</span>, package <span class="op">=</span> <span class="st">"cpp11tesseract"</span><span class="op">)</span></span>
 <span><span class="va">eng</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tesseract.html">tesseract</a></span><span class="op">(</span><span class="st">"eng"</span><span class="op">)</span></span>
 <span><span class="va">text</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ocr.html">ocr</a></span><span class="op">(</span><span class="va">file</span>, engine <span class="op">=</span> <span class="va">eng</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Act One</span></span>
-<span><span class="co">## [The living room of Algernon Moncrieff's flat in Mayfair, London.</span></span>
-<span><span class="co">## Lane is arranging afternoon tea on a table. Algemion enters}</span></span>
-<span><span class="co">## Algernon: Lane, have you made the cucumber sandwiches for</span></span>
-<span><span class="co">## Lady Bracknell’s tea?</span></span>
-<span><span class="co">## Lane: Yes, sir. [Handing them to Algernon on a silver tray]</span></span>
-<span><span class="co">## Algernon: [Looking carefully at them, taking two and sitting down</span></span>
-<span><span class="co">## on the sofa] Oh, by the way’, Lane, I looked at your notebook. |</span></span>
-<span><span class="co">## noticed that when Lord Shoreman and Mr Worthing dined with</span></span>
-<span><span class="co">## me on Thursday night, eight bottles of champagne were drunk,</span></span>
-<span><span class="co">## Lane: Yes, sir; eight bottles.</span></span>
-<span><span class="co">## Algernon: Why is it that, in a bachelor’s home, the servants</span></span>
-<span><span class="co">## always drink the champagne? I just ask because | am interested,</span></span>
-<span><span class="co">## Lane.</span></span>
-<span><span class="co">## Lane: I think that it is because the champagne is better in a</span></span>
-<span><span class="co">## bachelor’s home. | have noticed that the champagne in married</span></span>
-<span><span class="co">## people's homes is rarely very good.</span></span>
-<span><span class="co">## Algernon: Good heavens*! Is marriage so depressing?</span></span>
-<span><span class="co">## Lane: | believe marriage is very pleasant, sir. | haven't had much</span></span>
-<span><span class="co">## experience of it myself. [ have only been married once, and that</span></span>
-<span><span class="co">## was because of a misunderstanding” between myself and a young</span></span>
-<span><span class="co">## person.</span></span>
-<span><span class="co">## Algernon: [Lazily, without interest] I am not very interested in</span></span>
-<span><span class="co">## your family life, Lane.</span></span>
-<span><span class="co">## Lane: No, sir; it is not a very interesting subject. I never think</span></span>
-<span><span class="co">## of it myself.</span></span>
-<span><span class="co">## Algernon: That is very understandable. Well, thank you, Lane.</span></span>
-<span><span class="co">## [Lane goes off]</span></span>
-<span><span class="co">## Algernon: [To himself] Lane’s views on marriage seem very casual.</span></span>
-<span><span class="co">## Really, if the servants don’t set us a good example, what on earth</span></span>
-<span><span class="co">## is the use of them? They seem to have no morals</span></span>
-<span><span class="co">## [Lane enters]</span></span>
-<span><span class="co">## Lane: Mr Ernest Worthing is here, sir.</span></span></code></pre>
+<pre><code><span><span class="co">## Complete Works</span></span>
+<span><span class="co">## oF</span></span>
+<span><span class="co">## OSCAR WILDE</span></span>
+<span><span class="co">## EDITED BY</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## ROBERT ROSS</span></span>
+<span><span class="co">## MISCELLANIES</span></span>
+<span><span class="co">## ‘AUTHORIZED EDITION</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## THE WYMAN-FOGG COMPANY</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## BOSTON :: MASSACHUSETTS</span></span></code></pre>
 <p>The <code><a href="../reference/ocr.html">ocr_data()</a></code> function returns all words in the image along with a bounding box and confidence rate.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ocr.html">ocr_data</a></span><span class="op">(</span><span class="va">file</span>, engine <span class="op">=</span> <span class="va">eng</span><span class="op">)</span></span>
 <span><span class="va">results</span></span></code></pre></div>
-<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 273 × 4</span></span></span>
-<span><span class="co">##    word        confidence bbox          stringsAsFactors</span></span>
-<span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>           </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> Act               96.7 196,27,231,44 FALSE           </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> One               96.9 238,27,278,44 FALSE           </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> [The              68.0 8,70,38,84    FALSE           </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> living            96.7 46,70,81,87   FALSE           </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> room              96.1 88,75,120,84  FALSE           </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> of                96.1 128,70,143,87 FALSE           </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> Algernon          64.6 148,70,208,87 FALSE           </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> Moncrieff's       50.1 216,71,289,88 FALSE           </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> flat              96.1 296,71,318,88 FALSE           </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">10</span> in                92.1 325,73,337,85 FALSE           </span></span>
-<span><span class="co">## <span style="color: #949494;"># ℹ 263 more rows</span></span></span></code></pre>
+<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 18 × 4</span></span></span>
+<span><span class="co">##    word          confidence bbox            stringsAsFactors</span></span>
+<span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>           </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> Complete            96.5 159,48,304,79   FALSE           </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> Works               96.5 320,49,422,74   FALSE           </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> oF                  66.3 281,102,300,111 FALSE           </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> OSCAR               94.9 92,131,274,161  FALSE           </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> WILDE               96.6 308,132,490,167 FALSE           </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> EDITED              95.2 248,187,303,197 FALSE           </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> BY                  96.6 314,187,334,197 FALSE           </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> ROBERT              96.1 207,212,302,227 FALSE           </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> ROSS                96.1 318,212,373,227 FALSE           </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">10</span> MISCELLANIES        90.8 195,298,389,316 FALSE           </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">11</span> ‘AUTHORIZED         82.2 200,504,306,515 FALSE           </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">12</span> EDITION             96.8 315,503,382,514 FALSE           </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">13</span> THE                 93.2 144,664,184,677 FALSE           </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">14</span> WYMAN-FOGG          90.3 195,663,331,676 FALSE           </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">15</span> COMPANY             95.8 342,662,438,675 FALSE           </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">16</span> BOSTON              66.6 144,693,218,706 FALSE           </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">17</span> ::                  81.4 246,697,255,705 FALSE           </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">18</span> MASSACHUSETTS       90.9 279,691,438,704 FALSE</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="language-data">Language Data<a class="anchor" aria-label="anchor" href="#language-data"></a>
@@ -173,7 +159,7 @@
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Now load the dictionary</span></span>
 <span><span class="op">(</span><span class="va">simplified_chinese</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tesseract.html">tesseract</a></span><span class="op">(</span><span class="st">"chi_sim"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## &lt;pointer: 0x5793a35aeb80&gt;</span></span></code></pre>
+<pre><code><span><span class="co">## &lt;pointer: 0x5a5ffbf52a70&gt;</span></span></code></pre>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"examples"</span>, <span class="st">"chinese.jpg"</span>, package <span class="op">=</span> <span class="st">"cpp11tesseract"</span><span class="op">)</span></span>
 <span><span class="va">text</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ocr.html">ocr</a></span><span class="op">(</span><span class="va">file</span>, engine <span class="op">=</span> <span class="va">simplified_chinese</span><span class="op">)</span></span>
@@ -207,50 +193,46 @@
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://pacha.dev/cpp11poppler/" class="external-link">cpp11poppler</a></span><span class="op">)</span></span>
 <span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"examples"</span>, <span class="st">"bondargentina.pdf"</span>, package <span class="op">=</span> <span class="st">"cpp11tesseract"</span><span class="op">)</span></span>
-<span><span class="va">pngfile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/cpp11poppler/man/pdf_render_page.html" class="external-link">pdf_convert</a></span><span class="op">(</span><span class="va">file</span>, dpi <span class="op">=</span> <span class="fl">600</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Converting page 1 to bondargentina_1.png...</span></span></code></pre>
-<pre><code><span><span class="co">## done.</span></span></code></pre>
-<pre><code><span><span class="co">## Converting page 2 to bondargentina_2.png...</span></span></code></pre>
-<pre><code><span><span class="co">## done.</span></span></code></pre>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">text</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ocr.html">ocr</a></span><span class="op">(</span><span class="va">pngfile</span><span class="op">)</span></span>
+<span><span class="va">pngfile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/cpp11poppler/man/pdf_render_page.html" class="external-link">pdf_convert</a></span><span class="op">(</span><span class="va">file</span>, dpi <span class="op">=</span> <span class="fl">600</span><span class="op">)</span></span>
+<span><span class="va">text</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ocr.html">ocr</a></span><span class="op">(</span><span class="va">pngfile</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## _ LISTING PARTICULARS CONSISTING OF</span></span>
-<span><span class="co">## Pricing Supplement, Supplemental Information Memorandum and</span></span>
-<span><span class="co">## Supplemental Information Memorandum Addendum dated May 26, 1998</span></span>
-<span><span class="co">## AND</span></span>
-<span><span class="co">## Information Memorandum Addendum dated October 17, 1997 |</span></span>
-<span><span class="co">## ee .</span></span>
-<span><span class="co">## THE REPUBLIC OF ARGENTINA</span></span>
-<span><span class="co">## Euro 750,000,000 Interest Strip Notes due 2028</span></span>
-<span><span class="co">## issued under its</span></span>
-<span><span class="co">## U.S.$11,000,000,000</span></span>
-<span><span class="co">## EURO MEDIUM-TERM NOTE PROGRAMME |</span></span>
-<span><span class="co">## Issue Price: 100.835 per cent.</span></span>
-<span><span class="co">## Series No.: 61</span></span>
-<span><span class="co">## Tranche No.: 01 :</span></span>
-<span><span class="co">## Dealer</span></span>
-<span><span class="co">## ABN AMRO</span></span>
-<span><span class="co">## The date of these Listing Particulars is May 26, 1998.</span></span>
-<span><span class="co">##  The Republic has warranted to the Dealer that, inter alia, these Listing Particulars are true and</span></span>
-<span><span class="co">## accurate in all material respects, do not contain any untrue statement of material fact nor omit to state any</span></span>
-<span><span class="co">## material fact known to the Republic necessary to make statements herein not misleading and all reasonable</span></span>
-<span><span class="co">## enquiries have been made to ascertain such facts and to verify the accuracy of all such statements. The</span></span>
-<span><span class="co">## Republic accepts responsibility accordingly.</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## No person has been authorised to give any information or to make any representations, other than</span></span>
-<span><span class="co">## those contained in the Listing Particulars, in connection with the offering or sale of the Notes and, if given</span></span>
-<span><span class="co">## or made, such information or representations must not be relied upon as having been authorised by the .</span></span>
-<span><span class="co">## Republic or the Dealer. Neither the delivery of these Listing Particulars nor any sale made hereunder shall,</span></span>
-<span><span class="co">## under any circumstances, constitute a representation that there has been no change in the financial position</span></span>
-<span><span class="co">## or prospects of the Republic since the date hereof or the information contained herein is correct as of any</span></span>
-<span><span class="co">## time subsequent to the date hereof.</span></span></code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true"></a><span class="op">&gt;</span><span class="st"> </span><span class="kw">cat</span>(text)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true"></a>_ LISTING PARTICULARS CONSISTING OF</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true"></a>Pricing Supplement, Supplemental Information Memorandum and</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true"></a>Supplemental Information Memorandum Addendum dated May <span class="dv">26</span>, <span class="dv">1998</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true"></a>AND</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true"></a>Information Memorandum Addendum dated October <span class="dv">17</span>, <span class="dv">1997</span> <span class="op">|</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true"></a>ee .</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true"></a>THE REPUBLIC OF ARGENTINA</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true"></a>Euro <span class="dv">750</span>,<span class="dv">000</span>,<span class="dv">000</span> Interest Strip Notes due <span class="dv">2028</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true"></a>issued under its</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true"></a>U.S.<span class="op">$</span><span class="dv">11</span>,<span class="dv">000</span>,<span class="dv">000</span>,<span class="dv">000</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true"></a>EURO MEDIUM<span class="op">-</span>TERM NOTE PROGRAMME <span class="op">|</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true"></a>Issue Price<span class="op">:</span><span class="st"> </span><span class="fl">100.835</span> per cent.</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true"></a>Series No.<span class="op">:</span><span class="st"> </span><span class="dv">61</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true"></a>Tranche No.<span class="op">:</span><span class="st"> </span><span class="dv">01</span> <span class="op">:</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true"></a>Dealer</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true"></a>ABN AMRO</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true"></a>The date of these Listing Particulars is May <span class="dv">26</span>, <span class="fl">1998.</span></span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true"></a> The Republic has warranted to the Dealer that, inter alia, these Listing Particulars are true and</span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true"></a>accurate <span class="cf">in</span> all material respects, do not contain any untrue statement of material fact nor omit to state any</span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true"></a>material fact known to the Republic necessary to make statements herein not misleading and all reasonable</span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true"></a>enquiries have been made to ascertain such facts and to verify the accuracy of all such statements. The</span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true"></a>Republic accepts responsibility accordingly.</span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true"></a></span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true"></a>No person has been authorised to give any information or to make any representations, other than</span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true"></a>those contained <span class="cf">in</span> the Listing Particulars, <span class="cf">in</span> connection with the offering or sale of the Notes and, <span class="cf">if</span> given</span>
+<span id="cb15-27"><a href="#cb15-27" aria-hidden="true"></a>or made, such information or representations must not be relied upon as having been authorised by the .</span>
+<span id="cb15-28"><a href="#cb15-28" aria-hidden="true"></a>Republic or the Dealer. Neither the delivery of these Listing Particulars nor any sale made hereunder shall,</span>
+<span id="cb15-29"><a href="#cb15-29" aria-hidden="true"></a>under any circumstances, constitute a representation that there has been no change <span class="cf">in</span> the financial position</span>
+<span id="cb15-30"><a href="#cb15-30" aria-hidden="true"></a>or prospects of the Republic since the date hereof or the information contained herein is correct as of any</span>
+<span id="cb15-31"><a href="#cb15-31" aria-hidden="true"></a>time subsequent to the date hereof.</span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="read-from-tiff-files">Read from TIFF files<a class="anchor" aria-label="anchor" href="#read-from-tiff-files"></a>
 </h2>
 <p>If your images are stored in PDF files they first need to be converted to a proper image format. We can do this in R using the <code>pdf_convert</code> function from the <code>cpp11poppler</code> package. Use a high DPI to keep quality of the image.</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"examples"</span>, <span class="st">"bondargentina.tiff"</span>, package <span class="op">=</span> <span class="st">"cpp11tesseract"</span><span class="op">)</span></span>
 <span><span class="va">text</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ocr.html">ocr</a></span><span class="op">(</span><span class="va">file</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span></span></code></pre></div>
@@ -277,7 +259,7 @@
 <h2 id="tesseract-control-parameters">Tesseract Control Parameters<a class="anchor" aria-label="anchor" href="#tesseract-control-parameters"></a>
 </h2>
 <p>Tesseract supports hundreds of “control parameters” which alter the OCR engine Use <code><a href="../reference/tesseract.html">tesseract_params()</a></code> to list all parameters with their default value and a brief description. It also has a handy <code>filter</code> argument to quickly find parameters that match a particular string.</p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># List all parameters with *colour* in name or description</span></span>
 <span><span class="fu"><a href="../reference/tesseract.html">tesseract_params</a></span><span class="op">(</span><span class="st">"colour"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 2 × 3</span></span></span>
@@ -286,7 +268,7 @@
 <span><span class="co">## <span style="color: #BCBCBC;">1</span> editor_image_word_bb_color 7       Word bounding box colour</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">2</span> editor_image_blob_bb_color 4       Blob bounding box colour</span></span></code></pre>
 <p>Do note that some of the control parameters have changed between Tesseract engine 3 and 4.</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/tesseract.html">tesseract_info</a></span><span class="op">(</span><span class="op">)</span><span class="op">[</span><span class="st">"version"</span><span class="op">]</span></span></code></pre></div>
 <pre><code><span><span class="co">## $version</span></span>
 <span><span class="co">## [1] "5.4.1"</span></span></code></pre>
@@ -298,7 +280,7 @@
 <div class="figure">
 <img src="../reference/figures/receipt.jpg" alt=""><p class="caption">A receipt in English with food and toys for Mr. Duke</p>
 </div>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"examples"</span>, <span class="st">"receipt.jpg"</span>, package <span class="op">=</span> <span class="st">"cpp11tesseract"</span><span class="op">)</span></span>
 <span><span class="va">numbers</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tesseract.html">tesseract</a></span><span class="op">(</span>options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>tessedit_char_whitelist <span class="op">=</span> <span class="st">"-$.0123456789"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu"><a href="../reference/ocr.html">ocr</a></span><span class="op">(</span><span class="va">file</span>, engine <span class="op">=</span> <span class="va">numbers</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -331,7 +313,7 @@
 <span><span class="co">## </span></span>
 <span><span class="co">## $77.31</span></span></code></pre>
 <p>To test if this actually works, look at the output without the whitelist:</p>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu"><a href="../reference/ocr.html">ocr</a></span><span class="op">(</span><span class="va">file</span>, engine <span class="op">=</span> <span class="va">eng</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## DOG</span></span>
 <span><span class="co">## </span></span>
@@ -368,7 +350,7 @@
 <img src="../reference/figures/mrduke.jpg" alt=""><p class="caption">Mr. Duke, a dog of the Australian Sheppard kind</p>
 </div>
 <p>Here is the extracted text:</p>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"examples"</span>, <span class="st">"mrduke.jpg"</span>, package <span class="op">=</span> <span class="st">"cpp11tesseract"</span><span class="op">)</span></span>
 <span><span class="va">text</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ocr.html">ocr</a></span><span class="op">(</span><span class="va">file</span>, engine <span class="op">=</span> <span class="va">eng</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span></span></code></pre></div>
@@ -382,7 +364,7 @@
 <h2 id="best-versus-fast-models">Best versus Fast models<a class="anchor" aria-label="anchor" href="#best-versus-fast-models"></a>
 </h2>
 <p>In order to improve the OCR results, Tesseract has two variants of models that can be used. The <code><a href="../reference/tessdata.html">tesseract_download()</a></code> can download the ‘best’ (but slower) model, which increases the accuracy. The ‘fast’ (but less accurate) model is the default.</p>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"examples"</span>, <span class="st">"chinese.jpg"</span>, package <span class="op">=</span> <span class="st">"cpp11tesseract"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># download the best model (vertical script download is to avoid a warning)</span></span>
@@ -404,7 +386,7 @@
 <div class="figure">
 <img src="../reference/figures/polytonicgreek.png" alt=""><p class="caption">polytonicgreek</p>
 </div>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"examples"</span>, <span class="st">"polytonicgreek.png"</span>, package <span class="op">=</span> <span class="st">"cpp11tesseract"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># download the best models</span></span>
@@ -428,7 +410,7 @@
 <img src="../reference/figures/tealbook.png" alt=""><p class="caption">tealbook</p>
 </div>
 <p>Here is the first element of the list returned by Textract:</p>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># List of 13</span></span>
 <span><span class="co"># $ BlockType      : chr "TABLE"</span></span>
 <span><span class="co"># $ Confidence     : num 100</span></span>
@@ -448,7 +430,7 @@
 <span><span class="co"># $ SelectionStatus: chr(0)</span></span>
 <span><span class="co"># $ Page           : int 3</span></span></code></pre></div>
 <p>Here is Tesseract’s output:</p>
-<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"examples"</span>, <span class="st">"tealbook.png"</span>, package <span class="op">=</span> <span class="st">"cpp11tesseract"</span><span class="op">)</span></span>
 <span><span class="va">text</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ocr.html">ocr</a></span><span class="op">(</span><span class="va">file</span><span class="op">)</span></span>
 <span></span>
@@ -491,7 +473,7 @@
 <span><span class="co">## Unemployed " 3.9 3.5 3.6 3.6 3.4 3.2 3.1</span></span>
 <span><span class="co">## Unemployment rate (per cent) 5.2 4.6 4.8 4.7 4.4 4.2 4.0</span></span></code></pre>
 <p>One way to organize the output is to split the text before the first digit on each line.</p>
-<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">text</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/strsplit.html" class="external-link">strsplit</a></span><span class="op">(</span><span class="va">text</span>, <span class="st">"\n"</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
 <span><span class="va">text</span> <span class="op">&lt;-</span> <span class="va">text</span><span class="op">[</span><span class="fl">6</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span><span class="op">]</span></span>
 <span></span>

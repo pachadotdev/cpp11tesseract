@@ -39,14 +39,14 @@ text from the image.
 OCR is the process of finding and recognizing text inside images, for example
 from a screenshot, scanned paper. The image below has some example text:
 
-![Image with eight lines of English text](../man/figures/wilde.jpg)
+![Image with eight lines of English text](../man/figures/wilde.png)
 
 The `ocr()` function extracts text from an image file. After indicating the
 engine for the language, it will return the text found in the image:
 
 ```{r}
 library(cpp11tesseract)
-file <- system.file("examples", "wilde.jpg", package = "cpp11tesseract")
+file <- system.file("examples", "wilde.png", package = "cpp11tesseract")
 eng <- tesseract("eng")
 text <- ocr(file, engine = eng)
 cat(text)
@@ -109,12 +109,46 @@ If your images are stored in PDF files they first need to be converted to a
 proper image format. We can do this in R using the `pdf_convert` function from
 the `cpp11poppler` package. Use a high DPI to keep quality of the image.
 
-```{r, eval=require(cpp11poppler)}
+```r
 library(cpp11poppler)
 file <- system.file("examples", "bondargentina.pdf", package = "cpp11tesseract")
 pngfile <- pdf_convert(file, dpi = 600)
 text <- ocr(pngfile)
 cat(text)
+```
+
+```r
+> cat(text)
+_ LISTING PARTICULARS CONSISTING OF
+Pricing Supplement, Supplemental Information Memorandum and
+Supplemental Information Memorandum Addendum dated May 26, 1998
+AND
+Information Memorandum Addendum dated October 17, 1997 |
+ee .
+THE REPUBLIC OF ARGENTINA
+Euro 750,000,000 Interest Strip Notes due 2028
+issued under its
+U.S.$11,000,000,000
+EURO MEDIUM-TERM NOTE PROGRAMME |
+Issue Price: 100.835 per cent.
+Series No.: 61
+Tranche No.: 01 :
+Dealer
+ABN AMRO
+The date of these Listing Particulars is May 26, 1998.
+ The Republic has warranted to the Dealer that, inter alia, these Listing Particulars are true and
+accurate in all material respects, do not contain any untrue statement of material fact nor omit to state any
+material fact known to the Republic necessary to make statements herein not misleading and all reasonable
+enquiries have been made to ascertain such facts and to verify the accuracy of all such statements. The
+Republic accepts responsibility accordingly.
+
+No person has been authorised to give any information or to make any representations, other than
+those contained in the Listing Particulars, in connection with the offering or sale of the Notes and, if given
+or made, such information or representations must not be relied upon as having been authorised by the .
+Republic or the Dealer. Neither the delivery of these Listing Particulars nor any sale made hereunder shall,
+under any circumstances, constitute a representation that there has been no change in the financial position
+or prospects of the Republic since the date hereof or the information contained herein is correct as of any
+time subsequent to the date hereof.
 ```
 
 ## Read from TIFF files
