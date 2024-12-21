@@ -8,25 +8,27 @@
 \usage{
 tesseract_download(
   lang,
-  datapath = NULL,
   model = c("fast", "best"),
+  datapath = NULL,
   progress = interactive()
 )
 
 tesseract_contributed_download(
   lang,
-  datapath = NULL,
   model = c("fast", "best"),
+  datapath = NULL,
   progress = interactive()
 )
 }
 \arguments{
-\item{lang}{three letter code for language, see \href{https://github.com/tesseract-ocr/tessdata}{tessdata} repository.}
+\item{lang}{three letter code for language, see
+\href{https://github.com/tesseract-ocr/tessdata}{tessdata} repository.}
+
+\item{model}{either \code{fast} or \code{best} is currently supported. The latter
+downloads more accurate (but slower) trained models for Tesseract 4.0 or
+higher}
 
 \item{datapath}{destination directory where to download store the file}
-
-\item{model}{either \code{fast} or \code{best} is currently supported. The latter downloads
-more accurate (but slower) trained models for Tesseract 4.0 or higher}
 
 \item{progress}{print progress while downloading}
 }
@@ -37,49 +39,52 @@ no return value, called for side effects
 }
 \description{
 Helper function to download training data from the official
-\href{https://tesseract-ocr.github.io/tessdoc/Data-Files}{tessdata} repository. On Linux, the fast training data can be installed directly with
+\href{https://tesseract-ocr.github.io/tessdoc/Data-Files}{tessdata} repository.
+On Linux, the fast training data can be installed directly with
 \href{https://src.fedoraproject.org/rpms/tesseract}{yum} or
 \href{https://packages.debian.org/search?suite=stable&section=all&arch=any&searchon=names&keywords=tesseract-ocr-}{apt-get}.
 
 Helper function to download training data from the contributed
-\href{https://github.com/tesseract-ocr/tessdata_contrib}{tessdata_contrib} repository.
+\href{https://github.com/tesseract-ocr/tessdata_contrib}{tessdata_contrib}
+repository.
 }
 \details{
 Tesseract uses training data to perform OCR. Most systems default to English
-training data. To improve OCR performance for other languages you can to install the
-training data from your distribution. For example to install the spanish training data:
+training data. To improve OCR performance for other languages you can to
+install the training data from your distribution. For example to install the
+spanish training data:
 \itemize{
-\item \href{https://packages.debian.org/testing/tesseract-ocr-spa}{tesseract-ocr-spa} (Debian, Ubuntu)
+\item \href{https://packages.debian.org/testing/tesseract-ocr-spa}{tesseract-ocr-spa}
+(Debian, Ubuntu)
 \item \code{tesseract-langpack-spa} (Fedora, EPEL)
 }
 
-On Windows and MacOS you can install languages using the \link{tesseract_download} function
-which downloads training data directly from \href{https://github.com/tesseract-ocr/tessdata}{github}
+On Windows and MacOS you can install languages using the \link{tesseract_download}
+function which downloads training data directly from
+\href{https://github.com/tesseract-ocr/tessdata}{github}
 and stores it in a the path on disk given by the \code{TESSDATA_PREFIX} variable.
 }
 \examples{
 # download the french training data
+# this is wrapped around a \donttest{} block because otherwise the clang19
+# CRAN check will fail with a "> 5 seconds" message
 \donttest{
-  tesseract_download("fra", model = "best", datapath = tempdir())
+ dir <- tempdir()
+ tesseract_download("fra", model = "best", datapath = dir)
+ file <- system.file("examples", "french.png", package = "cpp11tesseract")
+ text <- ocr(file, engine = tesseract("fra", datapath = dir))
+ cat(text)
 }
-
-if (any("fra" \%in\% tesseract_info()$available)) {
-  french <- tesseract("fra")
-  file <- system.file("examples", "french.png", package = "cpp11tesseract")
-  text <- ocr(file, engine = french)
-  cat(text)
-}
-# download the polytonic greek training data
+# download the greek training data
+# this is wrapped around a \donttest{} block because otherwise the clang19
+# CRAN check will fail with a "> 5 seconds" message
 \donttest{
-  tesseract_contributed_download("grc_hist", model = "best",
-    datapath = tempdir())
-}
-
-if (any("grc_hist" \%in\% tesseract_info()$available)) {
-  greek <- tesseract("grc_hist")
-  file <- system.file("examples", "polytonicgreek.png", package = "cpp11tesseract")
-  text <- ocr(file, engine = greek)
-  cat(text)
+ dir <- tempdir()
+ tesseract_contributed_download("grc_hist", model = "best", datapath = dir)
+ file <- system.file("examples", "polytonicgreek.png",
+   package = "cpp11tesseract")
+ text <- ocr(file, engine = tesseract("grc_hist", datapath = dir))
+ cat(text)
 }
 }
 \references{

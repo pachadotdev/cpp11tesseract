@@ -12,5 +12,6 @@ test_that("tesseract_contributed_download works", {
 })
 
 test_that("tesseract_download fails with bad input", {
+  skip_on_cran()
   expect_error(tesseract_download("rou", datapath = tempdir(), model = "fast"))
 })

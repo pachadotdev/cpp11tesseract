@@ -31,41 +31,20 @@ How to extract text from an image:
 
 ``` r
 library(cpp11tesseract)
-text <- ocr("inst/examples/wilde.jpg")
+text <- ocr("inst/examples/wilde.png")
 cat(text)
-#> Act One
-#> [The living room of Algernon Moncrieff's flat in Mayfair, London.
-#> Lane is arranging afternoon tea on a table. Algemion enters}
-#> Algernon: Lane, have you made the cucumber sandwiches for
-#> Lady Bracknell’s tea?
-#> Lane: Yes, sir. [Handing them to Algernon on a silver tray]
-#> Algernon: [Looking carefully at them, taking two and sitting down
-#> on the sofa] Oh, by the way’, Lane, I looked at your notebook. |
-#> noticed that when Lord Shoreman and Mr Worthing dined with
-#> me on Thursday night, eight bottles of champagne were drunk,
-#> Lane: Yes, sir; eight bottles.
-#> Algernon: Why is it that, in a bachelor’s home, the servants
-#> always drink the champagne? I just ask because | am interested,
-#> Lane.
-#> Lane: I think that it is because the champagne is better in a
-#> bachelor’s home. | have noticed that the champagne in married
-#> people's homes is rarely very good.
-#> Algernon: Good heavens*! Is marriage so depressing?
-#> Lane: | believe marriage is very pleasant, sir. | haven't had much
-#> experience of it myself. [ have only been married once, and that
-#> was because of a misunderstanding” between myself and a young
-#> person.
-#> Algernon: [Lazily, without interest] I am not very interested in
-#> your family life, Lane.
-#> Lane: No, sir; it is not a very interesting subject. I never think
-#> of it myself.
-#> Algernon: That is very understandable. Well, thank you, Lane.
-#> [Lane goes off]
-#> Algernon: [To himself] Lane’s views on marriage seem very casual.
-#> Really, if the servants don’t set us a good example, what on earth
-#> is the use of them? They seem to have no morals
-#> [Lane enters]
-#> Lane: Mr Ernest Worthing is here, sir.
+#> Complete Works
+#> oF
+#> OSCAR WILDE
+#> EDITED BY
+#> 
+#> ROBERT ROSS
+#> MISCELLANIES
+#> ‘AUTHORIZED EDITION
+#> 
+#> THE WYMAN-FOGG COMPANY
+#> 
+#> BOSTON :: MASSACHUSETTS
 ```
 
 ## Differences with the original tesseract R package

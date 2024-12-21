@@ -38,7 +38,7 @@ How to extract text from an image:
 
 ```{r}
 library(cpp11tesseract)
-text <- ocr("inst/examples/wilde.jpg")
+text <- ocr("inst/examples/wilde.png")
 cat(text)
 ```
 
@@ -118,3 +118,12 @@ Alternatively you can manually download training data from [github](https://gith
 and store it in a path on disk that you pass in the `datapath` parameter or set a default path via the
 `TESSDATA_PREFIX` environment variable. Note that the Tesseract 4 and Tesseract 3 use different 
 training data format. Make sure to download training data from the branch that matches your libtesseract version.
+
+## Testing with docker (development)
+
+```
+mkdir check
+docker run -v `pwd`/check:/check ghcr.io/r-hub/containers/clang19:latest apt install apt-utils libcurl4-openssl-dev &\
+  R -q -e "install.packages(c('Rcpp', 'jsonlite', 'curl', 'httr', 'yaml', 'rex', 'digest', 'crayon', 'withr', 'cli', 'magick', 'processx', 'tibble', 'V8', 'testthat', 'mockery', 'whoami', 'covr', 'asciicast'), repos = 'https://cloud.r-project.org')" &\
+  r-check
+```

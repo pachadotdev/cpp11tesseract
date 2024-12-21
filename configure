@@ -13,7 +13,7 @@ PKG_RPM_NAME="tesseract-devel leptonica-devel"
 PKG_BREW_NAME="tesseract"
 PKG_TEST_HEADER_TESSERACT="<tesseract/baseapi.h>"
 PKG_CFLAGS="-I/usr/include/tesseract -I/usr/include/leptonica"
-PKG_LIBS="-ltesseract"
+PKG_LIBS="-ltesseract -larchive -lcurl"
 
 # Use pkg-config if available
 pkg-config --version >/dev/null 2>&1
@@ -23,6 +23,8 @@ if [ $? -eq 0 ]; then
 fi
 
 # Debugging information
+echo "CC: $CC"
+echo "CXX: $CXX"
 echo "PKGCONFIG_CFLAGS_TESSERACT: $PKGCONFIG_CFLAGS_TESSERACT"
 echo "PKGCONFIG_LIBS_TESSERACT: $PKGCONFIG_LIBS_TESSERACT"
 
@@ -35,6 +37,11 @@ elif [ "$PKGCONFIG_CFLAGS_TESSERACT" ] || [ "$PKGCONFIG_LIBS_TESSERACT" ]; then
   echo "Found pkg-config cflags and libs!"
   PKG_CFLAGS="${PKGCONFIG_CFLAGS_TESSERACT}"
   PKG_LIBS="${PKGCONFIG_LIBS_TESSERACT}"
+fi
+
+# Check if the compiler is clang
+if [ "$CC" = "clang" ] || [ "$CXX" = "clang++" ]; then
+  PKG_LIBS="$PKG_LIBS -stdlib=libc++"
 fi
 
 # For debugging
