@@ -12,8 +12,6 @@ PKG_DEB_NAME="tesseract-ocr libtesseract-dev libleptonica-dev"
 PKG_RPM_NAME="tesseract-devel leptonica-devel"
 PKG_BREW_NAME="tesseract"
 PKG_TEST_HEADER_TESSERACT="<tesseract/baseapi.h>"
-PKG_CFLAGS="-I/usr/include/tesseract -I/usr/include/leptonica"
-PKG_LIBS="-ltesseract -larchive -lcurl"
 
 # Use pkg-config if available
 pkg-config --version >/dev/null 2>&1
@@ -37,6 +35,18 @@ elif [ "$PKGCONFIG_CFLAGS_TESSERACT" ] || [ "$PKGCONFIG_LIBS_TESSERACT" ]; then
   echo "Found pkg-config cflags and libs!"
   PKG_CFLAGS="${PKGCONFIG_CFLAGS_TESSERACT}"
   PKG_LIBS="${PKGCONFIG_LIBS_TESSERACT}"
+else
+  echo "--------------------------- [ANTICONF] --------------------------------"
+  echo "Configuration failed to find system libraries. Try installing:"
+  echo " * deb: $PKG_DEB_NAME (Debian, Ubuntu, etc)"
+  echo " * rpm: $PKG_RPM_NAME (Fedora, CentOS, RHEL)"
+  echo " * brew: $PKG_BREW_NAME (Mac OSX)"
+  echo "If the libraries are already installed, check that 'pkg-config' is in your"
+  echo "PATH and PKG_CONFIG_PATH contains the necessary .pc files. If pkg-config"
+  echo "is unavailable you can set INCLUDE_DIR and LIB_DIR manually via:"
+  echo "R CMD INSTALL --configure-vars='INCLUDE_DIR=... LIB_DIR=...'"
+  echo "-------------------------- [ERROR MESSAGE] ---------------------------"
+  exit 1
 fi
 
 # Check if the compiler is clang
