@@ -8,9 +8,9 @@
 
 # Library settings
 PKG_CONFIG_NAME="tesseract"
-PKG_DEB_NAME="tesseract-ocr libtesseract-dev libleptonica-dev"
-PKG_RPM_NAME="tesseract-devel leptonica-devel"
-PKG_BREW_NAME="tesseract leptonica"
+PKG_DEB_NAME="libtesseract-dev libleptonica-dev libpoppler-cpp-dev"
+PKG_RPM_NAME="tesseract-devel leptonica-devel poppler-devel"
+PKG_BREW_NAME="tesseract leptonica poppler"
 PKG_CFLAGS="-I/usr/include/leptonica"
 PKG_LIBS="-ltesseract"
 
@@ -43,6 +43,10 @@ else
   echo "-------------------------- [ERROR MESSAGE] ---------------------------"
   exit 1
 fi
+
+# Print debug information
+echo "PKG_CFLAGS: $PKG_CFLAGS"
+echo "PKG_LIBS: $PKG_LIBS"
 
 # Check if the compiler is clang
 if [ "$CC" = "clang" ] || [ "$CXX" = "clang++" ]; then

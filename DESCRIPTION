@@ -26,9 +26,9 @@ URL: https://pacha.dev/cpp11tesseract/
 BugReports: https://github.com/pachadotdev/cpp11tesseract/issues
 SystemRequirements:
     Tesseract OCR (
-        deb: tesseract-ocr libtesseract-dev libleptonica-dev,
-        rpm: tesseract-devel leptonica-devel,
-        brew: tesseract leptonica
+        deb: libtesseract-dev libleptonica-dev libpoppler-cpp-dev,
+        rpm: tesseract-devel leptonica-devel poppler-devel,
+        brew: tesseract leptonica poppler
     )
 Imports:
     curl,
