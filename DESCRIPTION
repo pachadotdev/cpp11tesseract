@@ -28,7 +28,7 @@ SystemRequirements:
     Tesseract OCR (
         deb: tesseract-ocr libtesseract-dev libleptonica-dev,
         rpm: tesseract-devel leptonica-devel,
-        brew: tesseract
+        brew: tesseract leptonica
     )
 Imports:
     curl,

@@ -10,7 +10,7 @@
 PKG_CONFIG_NAME="tesseract"
 PKG_DEB_NAME="tesseract-ocr libtesseract-dev libleptonica-dev"
 PKG_RPM_NAME="tesseract-devel leptonica-devel"
-PKG_BREW_NAME="tesseract"
+PKG_BREW_NAME="tesseract leptonica"
 PKG_CFLAGS="-I/usr/include/leptonica"
 PKG_LIBS="-ltesseract"
 
