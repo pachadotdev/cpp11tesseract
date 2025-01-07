@@ -1,5 +1,5 @@
 #include <tesseract/baseapi.h> // tesseract
-#include <allheaders.h> // leptonica
+#include <leptonica/allheaders.h> // leptonica
 
 #include <cpp11.hpp>
 
