@@ -8,9 +8,9 @@
 
 # Library settings
 PKG_CONFIG_NAME="tesseract"
-PKG_DEB_NAME="libtesseract-dev libleptonica-dev libpoppler-cpp-dev"
-PKG_RPM_NAME="tesseract-devel leptonica-devel poppler-devel"
-PKG_BREW_NAME="tesseract leptonica poppler"
+PKG_DEB_NAME="libtesseract-dev libleptonica-dev"
+PKG_RPM_NAME="tesseract-devel leptonica-devel"
+PKG_BREW_NAME="tesseract leptonica"
 PKG_CFLAGS="-I/usr/include/leptonica"
 PKG_LIBS="-ltesseract"
 
