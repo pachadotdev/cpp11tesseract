@@ -28,7 +28,7 @@
 
     <a class="navbar-brand me-2" href="index.html">cpp11tesseract</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">5.3.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">5.3.5</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -107,30 +107,32 @@
 <div class="section level3">
 <h3 id="install-from-source">Install from source<a class="anchor" aria-label="anchor" href="#install-from-source"></a>
 </h3>
-<p>On Debian or Ubuntu install <a href="https://packages.debian.org/testing/libtesseract-dev" class="external-link">libtesseract-dev</a> and <a href="https://packages.debian.org/testing/libleptonica-dev" class="external-link">libleptonica-dev</a>. Also install <a href="https://packages.debian.org/testing/tesseract-ocr-eng" class="external-link">tesseract-ocr-eng</a> to run examples.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a>sudo apt<span class="op">-</span>get install <span class="op">-</span>y libtesseract<span class="op">-</span>dev libleptonica<span class="op">-</span>dev tesseract<span class="op">-</span>ocr<span class="op">-</span>eng</span></code></pre></div>
+<p>On Debian or Ubuntu install libtesseract-dev, libleptonica-dev, and tesseract-ocr-eng to run examples.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="fu">sudo</span> apt-get install -y libtesseract-dev libleptonica-dev tesseract-ocr-eng</span></code></pre></div>
 <p>On Ubuntu you can optionally use <a href="https://launchpad.net/~alex-p/+archive/ubuntu/tesseract-ocr-devel" class="external-link">this PPA</a> to get the latest version of Tesseract:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a>sudo add<span class="op">-</span>apt<span class="op">-</span>repository ppa<span class="op">:</span>alex<span class="op">-</span>p<span class="op">/</span>tesseract<span class="op">-</span>ocr<span class="op">-</span>devel</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a>sudo apt<span class="op">-</span>get install <span class="op">-</span>y libtesseract<span class="op">-</span>dev tesseract<span class="op">-</span>ocr<span class="op">-</span>eng</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="fu">sudo</span> add-apt-repository ppa:alex-p/tesseract-ocr-devel</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a><span class="fu">sudo</span> apt-get install -y libtesseract-dev tesseract-ocr-eng</span></code></pre></div>
 <p>On Fedora you need <a href="https://src.fedoraproject.org/rpms/tesseract" class="external-link">tesseract-devel</a> and <a href="https://src.fedoraproject.org/rpms/leptonica" class="external-link">leptonica-devel</a></p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a>sudo yum install tesseract<span class="op">-</span>devel leptonica<span class="op">-</span>devel</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="fu">sudo</span> yum install tesseract-devel leptonica-devel</span></code></pre></div>
 <p>On RHEL and CentOS you need <a href="https://src.fedoraproject.org/rpms/tesseract" class="external-link">tesseract-devel</a> and <a href="https://src.fedoraproject.org/rpms/leptonica" class="external-link">leptonica-devel</a> from EPEL</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a>sudo yum install epel<span class="op">-</span>release</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a>sudo yum install tesseract<span class="op">-</span>devel leptonica<span class="op">-</span>devel</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="fu">sudo</span> yum install epel-release</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a><span class="fu">sudo</span> yum install tesseract-devel leptonica-devel</span></code></pre></div>
 <p>On OS-X use <a href="https://github.com/Homebrew/homebrew-core/blob/master/Formula/tesseract.rb" class="external-link">tesseract</a> from Homebrew:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a>brew install tesseract</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="ex">brew</span> install tesseract</span></code></pre></div>
 <p>Tesseract uses training data to perform OCR. Most systems default to English training data. To improve OCR results for other languages you can to install the appropriate training data. On Windows and OSX you can do this in R using <code><a href="reference/tessdata.html">tesseract_download()</a></code>:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/tessdata.html">tesseract_download</a></span><span class="op">(</span><span class="st">'fra'</span><span class="op">)</span></span></code></pre></div>
-<p>On Linux you need to install the appropriate training data from your distribution. For example to install the spanish training data:</p>
-<ul>
-<li>
-<a href="https://packages.debian.org/testing/tesseract-ocr-spa" class="external-link">tesseract-ocr-spa</a> (Debian, Ubuntu)</li>
-<li>
-<a href="https://src.fedoraproject.org/rpms/tesseract-langpack" class="external-link">tesseract-langpack-spa</a> (Fedora, EPEL)</li>
-</ul>
+<p>On Linux you need to install the appropriate training data from your distribution. For example to install the spanish training data you need tesseract-ocr-spa (Debian, Ubuntu) or tesseract-langpack-spa (Fedora, EPEL).</p>
 <p>Alternatively you can manually download training data from <a href="https://github.com/tesseract-ocr/tessdata" class="external-link">github</a> and store it in a path on disk that you pass in the <code>datapath</code> parameter or set a default path via the <code>TESSDATA_PREFIX</code> environment variable. Note that the Tesseract 4 and Tesseract 3 use different training data format. Make sure to download training data from the branch that matches your libtesseract version.</p>
 </div>
+</div>
+<div class="section level2">
+<h2 id="testing-with-docker-development">Testing with docker (development)<a class="anchor" aria-label="anchor" href="#testing-with-docker-development"></a>
+</h2>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a><span class="fu">mkdir</span> check</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true"></a><span class="ex">docker</span> run -v <span class="kw">`</span><span class="bu">pwd</span><span class="kw">`</span>/check:/check ghcr.io/r-hub/containers/clang19:latest apt install apt-utils libcurl4-openssl-dev <span class="kw">&amp;\</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true"></a>  <span class="ex">R</span> -q -e <span class="st">"install.packages(c('Rcpp', 'jsonlite', 'curl', 'httr', 'yaml', 'rex', 'digest', 'crayon', 'withr', 'cli', 'magick', 'processx', 'tibble', 'V8', 'testthat', 'mockery', 'whoami', 'covr', 'asciicast'), repos = 'https://cloud.r-project.org')"</span> <span class="kw">&amp;\</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true"></a>  <span class="ex">r-check</span></span></code></pre></div>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
@@ -179,7 +181,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
     </footer>

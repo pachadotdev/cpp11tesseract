@@ -3,17 +3,15 @@
 #' Helper function to download training data from the official
 #' [tessdata](https://tesseract-ocr.github.io/tessdoc/Data-Files) repository.
 #' On Linux, the fast training data can be installed directly with
-#' [yum](https://src.fedoraproject.org/rpms/tesseract) or
-#' [apt-get](https://packages.debian.org/search?suite=stable&section=all&arch=any&searchon=names&keywords=tesseract-ocr-).
+#' yum or apt-get.
 #'
 #' Tesseract uses training data to perform OCR. Most systems default to English
 #' training data. To improve OCR performance for other languages you can to
 #' install the training data from your distribution. For example to install the
 #' spanish training data:
 #'
-#'  - [tesseract-ocr-spa](https://packages.debian.org/testing/tesseract-ocr-spa)
-#'    (Debian, Ubuntu)
-#'  - `tesseract-langpack-spa` (Fedora, EPEL)
+#'  - tesseract-ocr-spa (Debian, Ubuntu)
+#'  - tesseract-langpack-spa (Fedora, EPEL)
 #'
 #' On Windows and MacOS you can install languages using the [tesseract_download]
 #' function which downloads training data directly from

@@ -75,42 +75,47 @@ library (see below).
 
 ### Install from source
 
-On Debian or Ubuntu install
-[libtesseract-dev](https://packages.debian.org/testing/libtesseract-dev)
-and
-[libleptonica-dev](https://packages.debian.org/testing/libleptonica-dev).
-Also install
-[tesseract-ocr-eng](https://packages.debian.org/testing/tesseract-ocr-eng)
-to run examples.
+On Debian or Ubuntu install libtesseract-dev, libleptonica-dev, and
+tesseract-ocr-eng to run examples.
 
-    sudo apt-get install -y libtesseract-dev libleptonica-dev tesseract-ocr-eng
+``` bash
+sudo apt-get install -y libtesseract-dev libleptonica-dev tesseract-ocr-eng
+```
 
 On Ubuntu you can optionally use [this
 PPA](https://launchpad.net/~alex-p/+archive/ubuntu/tesseract-ocr-devel)
 to get the latest version of Tesseract:
 
-    sudo add-apt-repository ppa:alex-p/tesseract-ocr-devel
-    sudo apt-get install -y libtesseract-dev tesseract-ocr-eng
+``` bash
+sudo add-apt-repository ppa:alex-p/tesseract-ocr-devel
+sudo apt-get install -y libtesseract-dev tesseract-ocr-eng
+```
 
 On Fedora you need
 [tesseract-devel](https://src.fedoraproject.org/rpms/tesseract) and
 [leptonica-devel](https://src.fedoraproject.org/rpms/leptonica)
 
-    sudo yum install tesseract-devel leptonica-devel
+``` bash
+sudo yum install tesseract-devel leptonica-devel
+```
 
 On RHEL and CentOS you need
 [tesseract-devel](https://src.fedoraproject.org/rpms/tesseract) and
 [leptonica-devel](https://src.fedoraproject.org/rpms/leptonica) from
 EPEL
 
-    sudo yum install epel-release
-    sudo yum install tesseract-devel leptonica-devel
+``` bash
+sudo yum install epel-release
+sudo yum install tesseract-devel leptonica-devel
+```
 
 On OS-X use
 [tesseract](https://github.com/Homebrew/homebrew-core/blob/master/Formula/tesseract.rb)
 from Homebrew:
 
-    brew install tesseract
+``` bash
+brew install tesseract
+```
 
 Tesseract uses training data to perform OCR. Most systems default to
 English training data. To improve OCR results for other languages you
@@ -122,12 +127,9 @@ tesseract_download('fra')
 ```
 
 On Linux you need to install the appropriate training data from your
-distribution. For example to install the spanish training data:
-
-  - [tesseract-ocr-spa](https://packages.debian.org/testing/tesseract-ocr-spa)
-    (Debian, Ubuntu)
-  - [tesseract-langpack-spa](https://src.fedoraproject.org/rpms/tesseract-langpack)
-    (Fedora, EPEL)
+distribution. For example to install the spanish training data you need
+tesseract-ocr-spa (Debian, Ubuntu) or tesseract-langpack-spa (Fedora,
+EPEL).
 
 Alternatively you can manually download training data from
 [github](https://github.com/tesseract-ocr/tessdata) and store it in a
@@ -136,3 +138,12 @@ path via the `TESSDATA_PREFIX` environment variable. Note that the
 Tesseract 4 and Tesseract 3 use different training data format. Make
 sure to download training data from the branch that matches your
 libtesseract version.
+
+## Testing with docker (development)
+
+``` bash
+mkdir check
+docker run -v `pwd`/check:/check ghcr.io/r-hub/containers/clang19:latest apt install apt-utils libcurl4-openssl-dev &\
+  R -q -e "install.packages(c('Rcpp', 'jsonlite', 'curl', 'httr', 'yaml', 'rex', 'digest', 'crayon', 'withr', 'cli', 'magick', 'processx', 'tibble', 'V8', 'testthat', 'mockery', 'whoami', 'covr', 'asciicast'), repos = 'https://cloud.r-project.org')" &\
+  r-check
+```

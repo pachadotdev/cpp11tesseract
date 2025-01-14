@@ -41,8 +41,7 @@ no return value, called for side effects
 Helper function to download training data from the official
 \href{https://tesseract-ocr.github.io/tessdoc/Data-Files}{tessdata} repository.
 On Linux, the fast training data can be installed directly with
-\href{https://src.fedoraproject.org/rpms/tesseract}{yum} or
-\href{https://packages.debian.org/search?suite=stable&section=all&arch=any&searchon=names&keywords=tesseract-ocr-}{apt-get}.
+yum or apt-get.
 
 Helper function to download training data from the contributed
 \href{https://github.com/tesseract-ocr/tessdata_contrib}{tessdata_contrib}
@@ -54,9 +53,8 @@ training data. To improve OCR performance for other languages you can to
 install the training data from your distribution. For example to install the
 spanish training data:
 \itemize{
-\item \href{https://packages.debian.org/testing/tesseract-ocr-spa}{tesseract-ocr-spa}
-(Debian, Ubuntu)
-\item \code{tesseract-langpack-spa} (Fedora, EPEL)
+\item tesseract-ocr-spa (Debian, Ubuntu)
+\item tesseract-langpack-spa (Fedora, EPEL)
 }
 
 On Windows and MacOS you can install languages using the \link{tesseract_download}
