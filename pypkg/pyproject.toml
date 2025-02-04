@@ -1,0 +1,14 @@
+[build-system]
+requires = ["setuptools", "wheel", "pybind11"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cpp11tesseract"
+version = "2.1.0"
+description = "A package for cpp11tesseract data conversion"
+authors = [
+  { name="Mauricio Vargas Sepulveda", email="m.sepulveda@mail.utoronto.ca" }
+]
+dependencies = [
+  "requests"
+]

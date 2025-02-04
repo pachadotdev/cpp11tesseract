@@ -1,0 +1,2 @@
+include cpp11tesseract/*.so
+include cpp11tesseract/*.py

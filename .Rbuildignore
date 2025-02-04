@@ -27,3 +27,4 @@ vignettes/.*\.png$
 ^\.covrignore$
 ^vignettes/bondargentina_1\.png$
 ^vignettes/bondargentina_2\.png$
+^pypkg$

@@ -7,11 +7,6 @@
 #define GenericVector std::vector
 #endif
 
-#include <memory>
-#include <list>
-#include <string>
-#include <vector>
-
 [[cpp11::register]] int tesseract_major_version() {
   return TESSERACT_MAJOR_VERSION;
 }
@@ -129,7 +124,11 @@ tesseract::TessBaseAPI *get_engine(TessPtr engine) {
   writable::logicals out(params.size());
   STRING str;
   for (int i = 0; i < params.size(); i++)
+#if TESSERACT_MAJOR_VERSION >= 5
     out[i] = api->GetVariableAsString(std::string(params.at(i)).c_str(), &str);
+#else
+    out[i] = api->GetStringVariable(std::string(params.at(i)).c_str(), &str);
+#endif
   api->End();
   delete api;
   return out;
@@ -173,10 +172,11 @@ tesseract::TessBaseAPI *get_engine(TessPtr engine) {
   std::vector<std::string> values;
   for (int i = 0; i < params.size(); ++i) {
     STRING str;
-    if (api->GetVariableAsString(std::string(params.at(i)).c_str(), &str)) {
 #if TESSERACT_MAJOR_VERSION >= 5
+    if (api->GetVariableAsString(std::string(params.at(i)).c_str(), &str)) {
       values.push_back(str);
 #else
+    if (api->GetStringVariable(std::string(params.at(i)).c_str(), &str)) {
       values.push_back(str.string());
 #endif
     } else {

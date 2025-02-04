@@ -1,6 +1,11 @@
 #include <tesseract/baseapi.h> // tesseract
 #include <allheaders.h> // leptonica
 
+#include <memory>
+#include <list>
+#include <string>
+#include <vector>
+
 #include <cpp11.hpp>
 
 inline void tess_finalizer(tesseract::TessBaseAPI* engine) {
