@@ -4,13 +4,13 @@ on:
   pull_request:
     branches: [main, master]
 
-name: "clang19-rhub"
+name: "gcc14-rhub"
 
 jobs:
   check:
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/r-hub/containers/clang19:latest
+      image: ghcr.io/r-hub/containers/gcc14:latest
 
     steps:
     - uses: actions/checkout@v4

@@ -124,7 +124,8 @@ tesseract::TessBaseAPI *get_engine(TessPtr engine) {
   writable::logicals out(params.size());
   STRING str;
   for (int i = 0; i < params.size(); i++) {
-#if TESSERACT_MAJOR_VERSION >= 5
+#if defined(TESSERACT_HAS_GETVARIABLEASSTRING)
+    // Use the newer API
     out[i] = api->GetVariableAsString(std::string(params.at(i)).c_str(), &str);
 #else
     const char *value =
@@ -175,7 +176,8 @@ tesseract::TessBaseAPI *get_engine(TessPtr engine) {
   std::vector<std::string> values;
   for (int i = 0; i < params.size(); ++i) {
     STRING str;
-#if TESSERACT_MAJOR_VERSION >= 5
+#if defined(TESSERACT_HAS_GETVARIABLEASSTRING)
+    // Use the newer API
     if (api->GetVariableAsString(std::string(params.at(i)).c_str(), &str)) {
       values.push_back(str);
 #else

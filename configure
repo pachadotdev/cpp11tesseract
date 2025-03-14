@@ -65,7 +65,27 @@ else
 CXX11CPP=`${R_HOME}/bin/R CMD config CXXCPP`
 fi
 
-# Create a temporary C++ file to test the compatibility with Tesseract
+# Create temporary C++ files to test the compatibility with Tesseract
+cat <<EOF > conftest.cpp
+#include <tesseract/baseapi.h>
+#include <string>
+
+int main() {
+  tesseract::TessBaseAPI api;
+  std::string val;
+  // This fails to link on older Tesseract
+  api.GetVariableAsString("test", &val);
+  return 0;
+}
+EOF
+
+if ${CXX11} -std=gnu++11 -c conftest.cpp -o conftest.o ${PKG_CFLAGS}; then
+  CXXFLAGS="$CXXFLAGS -DTESSERACT_HAS_GETVARIABLEASSTRING"
+  echo "Using GetVariableAsString()"
+else
+  echo "Using GetStringVariable()"
+fi
+
 cat <<EOF > conftest.cpp
 #include <tesseract/baseapi.h>
 #include <allheaders.h>
