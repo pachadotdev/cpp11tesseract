@@ -123,12 +123,15 @@ tesseract::TessBaseAPI *get_engine(TessPtr engine) {
   tesseract::TessBaseAPI *api = make_analyze_api();
   writable::logicals out(params.size());
   STRING str;
-  for (int i = 0; i < params.size(); i++)
+  for (int i = 0; i < params.size(); i++) {
 #if TESSERACT_MAJOR_VERSION >= 5
     out[i] = api->GetVariableAsString(std::string(params.at(i)).c_str(), &str);
 #else
-    out[i] = api->GetStringVariable(std::string(params.at(i)).c_str(), &str);
+    const char *value =
+        api->GetStringVariable(std::string(params.at(i)).c_str());
+    out[i] = (value != nullptr);
 #endif
+  }
   api->End();
   delete api;
   return out;
@@ -176,8 +179,10 @@ tesseract::TessBaseAPI *get_engine(TessPtr engine) {
     if (api->GetVariableAsString(std::string(params.at(i)).c_str(), &str)) {
       values.push_back(str);
 #else
-    if (api->GetStringVariable(std::string(params.at(i)).c_str(), &str)) {
-      values.push_back(str.string());
+    const char *value =
+        api->GetStringVariable(std::string(params.at(i)).c_str());
+    if (value) {
+      values.push_back(value);
 #endif
     } else {
       values.push_back("");
