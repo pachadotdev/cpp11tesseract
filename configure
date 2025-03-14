@@ -50,7 +50,9 @@ echo "PKG_LIBS: $PKG_LIBS"
 
 # Check if the compiler is clang
 if [ "$CC" = "clang" ] || [ "$CXX" = "clang++" ]; then
-  PKG_LIBS="$PKG_LIBS -stdlib=libc++"
+  CXX=clang++ -stdlib=libstdc++
+  CXXFLAGS += -stdlib=libstdc++
+  LDFLAGS += -stdlib=libstdc++
 fi
 
 # Tesseract 4 enforces C++11 in the headers but R does not have CXX11CPP
