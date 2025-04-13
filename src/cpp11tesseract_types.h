@@ -1,4 +1,18 @@
-#include <allheaders.h>         // leptonica
+// Try multiple include paths for better cross-platform compatibility
+#if __APPLE__
+// On macOS, try multiple include paths
+#if __has_include(<leptonica/allheaders.h>)
+#include <leptonica/allheaders.h>
+#elif __has_include(<allheaders.h>)
+#include <allheaders.h>
+#else
+#error "Could not find allheaders.h"
+#endif
+#else
+// On other platforms
+#include <allheaders.h>  // leptonica
+#endif
+
 #include <tesseract/baseapi.h>  // tesseract
 
 #include <cpp11.hpp>
@@ -7,7 +21,7 @@
 #include <string>
 #include <vector>
 
-#include "tesseract_config.h"  // Auto-generated config with correct API detection
+#include "tesseract_config.h"
 
 inline void tess_finalizer(tesseract::TessBaseAPI* engine) {
   engine->End();

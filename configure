@@ -61,24 +61,69 @@ else
   fi
 fi
 
+# Clean up PKG_CFLAGS and PKG_LIBS - remove newlines and ensure proper escaping
+PKG_CFLAGS=$(echo "$PKG_CFLAGS" | tr '\n' ' ')
+PKG_LIBS=$(echo "$PKG_LIBS" | tr '\n' ' ')
+
 # Check if shared libraries are available
 TESSERACT_LIB_PATH=$(echo $PKG_LIBS | grep -o -- "-L[^ ]*" | sed 's/-L//')
 FOUND_SHARED_LIB=0
-if [ -n "$TESSERACT_LIB_PATH" ]; then
-  if [ -f "${TESSERACT_LIB_PATH}/libtesseract.so" ] || [ -f "${TESSERACT_LIB_PATH}/libtesseract.dylib" ]; then
-    echo "Found shared tesseract library in ${TESSERACT_LIB_PATH}"
-    FOUND_SHARED_LIB=1
+
+# For MacOS, find Homebrew's installation directly if needed
+if [ $(uname) = "Darwin" ]; then
+  # Add explicit Leptonica include path for macOS
+  if echo "$PKG_CFLAGS" | grep -q "/include/leptonica"; then
+    echo "Leptonica include path already present"
+  else
+    if [ -d "/opt/homebrew/include/leptonica" ]; then
+      echo "Adding explicit Leptonica include path for macOS ARM"
+      PKG_CFLAGS="$PKG_CFLAGS -I/opt/homebrew/include/leptonica"
+    elif [ -d "/usr/local/include/leptonica" ]; then
+      echo "Adding explicit Leptonica include path for macOS Intel"
+      PKG_CFLAGS="$PKG_CFLAGS -I/usr/local/include/leptonica"
+    fi
+  fi
+  
+  # Find Homebrew's Cellar directly
+  if [ -d "/opt/homebrew/Cellar/tesseract" ]; then
+    TESSERACT_PATH=$(ls -d /opt/homebrew/Cellar/tesseract/* | sort -V | tail -1)
+    LEPTONICA_PATH=$(ls -d /opt/homebrew/Cellar/leptonica/* | sort -V | tail -1)
     
-    # Force use of .so or .dylib
-    if [ $(uname) = "Darwin" ]; then
-      PKG_LIBS=$(echo "$PKG_LIBS" | sed 's/libtesseract\.a/libtesseract.dylib/g')
-    else
-      PKG_LIBS=$(echo "$PKG_LIBS" | sed 's/libtesseract\.a/libtesseract.so/g')
+    if [ -n "$TESSERACT_PATH" ] && [ -n "$LEPTONICA_PATH" ]; then
+      echo "Using Homebrew tesseract at $TESSERACT_PATH"
+      echo "Using Homebrew leptonica at $LEPTONICA_PATH"
+      
+      # Use specific Homebrew Cellar paths
+      PKG_CFLAGS="-I$TESSERACT_PATH/include -I$TESSERACT_PATH/include/tesseract -I$LEPTONICA_PATH/include -I$LEPTONICA_PATH/include/leptonica"
+      PKG_LIBS="-L$TESSERACT_PATH/lib -ltesseract -L$LEPTONICA_PATH/lib -lleptonica"
+      
+      # Check for shared library
+      if [ -f "$TESSERACT_PATH/lib/libtesseract.dylib" ]; then
+        echo "Found shared tesseract library in $TESSERACT_PATH/lib"
+        FOUND_SHARED_LIB=1
+      fi
+    fi
+  fi
+  
+  # Check for shared library in standard path
+  if [ -n "$TESSERACT_LIB_PATH" ] && [ $FOUND_SHARED_LIB -eq 0 ]; then
+    if [ -f "${TESSERACT_LIB_PATH}/libtesseract.dylib" ]; then
+      echo "Found shared tesseract library in ${TESSERACT_LIB_PATH}"
+      FOUND_SHARED_LIB=1
+    fi
+  fi
+else
+  # Linux/other OS
+  if [ -n "$TESSERACT_LIB_PATH" ]; then
+    if [ -f "${TESSERACT_LIB_PATH}/libtesseract.so" ]; then
+      echo "Found shared tesseract library in ${TESSERACT_LIB_PATH}"
+      FOUND_SHARED_LIB=1
     fi
   fi
 fi
 
-if [ $FOUND_SHARED_LIB -eq 0 ]; then
+# If not found yet on Linux, check standard system paths
+if [ $FOUND_SHARED_LIB -eq 0 ] && [ $(uname) != "Darwin" ]; then
   # Common locations for shared libraries on Linux
   for LIB_DIR in /usr/lib/x86_64-linux-gnu /usr/lib /usr/lib64 /lib/x86_64-linux-gnu
   do
@@ -100,6 +145,8 @@ if [ $FOUND_SHARED_LIB -eq 0 ]; then
   # For distributions like Ubuntu, try to suggest the exact package
   if [ -f "/etc/lsb-release" ] && grep -q "Ubuntu" /etc/lsb-release; then
     echo "On Ubuntu, try: sudo apt-get install libtesseract-dev"
+  elif [ $(uname) = "Darwin" ]; then
+    echo "On macOS, try: brew install tesseract"
   fi
 fi
 
@@ -123,13 +170,19 @@ fi
 
 # Ensure we're using shared libraries not static ones
 # Replace any static library references with dynamic ones
-PKG_LIBS=$(echo "$PKG_LIBS" | sed 's/\.a/.so/g')
-
-# For Mac, ensure we're getting the right compiler flags for linking
 if [ $(uname) = "Darwin" ]; then
-  # Use dylib instead of .so on macOS
+  PKG_LIBS=$(echo "$PKG_LIBS" | sed 's/\.a/.dylib/g')
   PKG_LIBS=$(echo "$PKG_LIBS" | sed 's/\.so/.dylib/g')
-  PKG_LIBS="$PKG_LIBS -Wl,-rpath,$(dirname $(echo $PKG_LIBS | grep -o '\-L[^ ]*' | sed 's/-L//g'))"
+  
+  # Add rpath for dylib on macOS
+  LIB_PATH=$(echo $PKG_LIBS | grep -o '\-L[^ ]*' | head -1 | sed 's/-L//')
+  if [ -n "$LIB_PATH" ]; then
+    if ! echo "$PKG_LIBS" | grep -q '\-Wl,-rpath'; then
+      PKG_LIBS="$PKG_LIBS -Wl,-rpath,$LIB_PATH"
+    fi
+  fi
+else
+  PKG_LIBS=$(echo "$PKG_LIBS" | sed 's/\.a/.so/g')
 fi
 
 # Check if the compiler is clang
@@ -183,8 +236,18 @@ EOF
 
 # Test Tesseract C++11 compatibility
 cat <<EOF > conftest.cpp
+#if __APPLE__
+  #if __has_include(<leptonica/allheaders.h>)
+    #include <leptonica/allheaders.h>
+  #elif __has_include(<allheaders.h>)
+    #include <allheaders.h>
+  #else
+    #error "Could not find allheaders.h"
+  #endif
+#else
+  #include <allheaders.h>
+#endif
 #include <tesseract/baseapi.h>
-#include <allheaders.h>
 int main() {
     tesseract::TessBaseAPI api;
     return 0;
@@ -201,9 +264,26 @@ else
     rm -rf conftest.cpp conftest.o
 fi
 
-# Write to Makevars
-sed -e "s|@cflags@|$PKG_CFLAGS|" -e "s|@libs@|$PKG_LIBS|" src/Makevars.in > src/Makevars
+# Also create a compatible version of cpp11tesseract_types.h with conditional includes
+cat <<EOF > src/allheaders_include.h
+// Auto-generated by configure
+#if __APPLE__
+  #if __has_include(<leptonica/allheaders.h>)
+    #include <leptonica/allheaders.h>
+  #elif __has_include(<allheaders.h>)
+    #include <allheaders.h>
+  #else
+    #error "Could not find allheaders.h"
+  #endif
+#else
+  #include <allheaders.h>
+#endif
+EOF
 
+# Write to Makevars - use printf to avoid issues with special characters
+rm -f src/Makevars
+printf "PKG_CPPFLAGS=%s\n" "$PKG_CFLAGS" > src/Makevars
+printf "PKG_LIBS=%s\n\n" "$PKG_LIBS" >> src/Makevars
 echo "CXX_STD = CXX11" >> src/Makevars
 
 # Success
