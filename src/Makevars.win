@@ -6,17 +6,21 @@ PKG_CPPFLAGS = -I${RWINLIB}/include -I${RWINLIB}/include/leptonica -fvisibility=
 PKG_LIBS = -L${RWINLIB}/lib${subst gcc,,${COMPILED_BY}}${R_ARCH} \
 	-L${RWINLIB}/lib \
 	-Wl,--whole-archive \
-	-ltesseract -lleptonica \
+	-ltesseract \
 	-Wl,--no-whole-archive \
-	-ltiff -lopenjp2 -lwebp -lsharpyuv -ljpeg -lgif -lpng16 -lz \
-	-lws2_32 \
+	-lleptonica \
+	-ltiff -lopenjp2 -lwebp -lwebpmux -lwebpdemux -lsharpyuv -ljpeg -lgif -lpng16 -lz \
+	-lws2_32 -lgdi32 \
 	-Wl,--exclude-all-symbols \
 	-static-libgcc -static-libstdc++
 
-# For R 4.5.0 compatibility
+# For R 4.5.0 compatibility - using --version-script for symbol control
 ifeq ($(shell ${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe -e 'cat(as.numeric(R.version$$major) + as.numeric(R.version$$minor)/10)'),4.5)
 	PKG_LIBS += -Wl,--version-script=../tools/exports.map
 endif
+
+# Set C++11 standard as required by Tesseract
+CXX_STD = CXX11
 
 # Compile
 all: clean winlibs exports.map
@@ -30,8 +34,8 @@ exports.map: clean
 winlibs:
 	mkdir -p ../inst
 	"${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe" "../tools/winlibs.R" ${VERSION}
-	cp -Rf ../windows/tessdata ../inst/
-	cp -Rf ${RWINLIB}/share/tessdata ../inst/
+	cp -Rf ../windows/tessdata ../inst/ || true
+	cp -Rf ${RWINLIB}/share/tessdata ../inst/ || true
 
 $(SHLIB): $(OBJECTS)
 
