@@ -1,6 +1,6 @@
 # Tesseract configuration
 RWINLIB = ../windows/tesseract
-PKG_CPPFLAGS = -I${RWINLIB}/include -I${RWINLIB}/include/leptonica -fvisibility=hidden
+PKG_CPPFLAGS = -I${RWINLIB}/include -I${RWINLIB}/include/leptonica -fvisibility=hidden -fvisibility-inlines-hidden
 
 # Basic library configuration
 PKG_LIBS = -L${RWINLIB}/lib${subst gcc,,${COMPILED_BY}}${R_ARCH} \
@@ -8,10 +8,9 @@ PKG_LIBS = -L${RWINLIB}/lib${subst gcc,,${COMPILED_BY}}${R_ARCH} \
 
 # R 4.5.0 requires special handling for symbol visibility
 ifeq ($(shell ${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe -e 'cat(as.numeric(R.version$$major) + as.numeric(R.version$$minor)/10)'),4.5)
-	# For R 4.5.0, use explicit DEF file and extra symbol hiding
 	PKG_LIBS += -ltesseract -lleptonica -ltiff -lopenjp2 -lwebp -lwebpmux -lwebpdemux -lsharpyuv -ljpeg -lgif -lpng16 -lz \
 	-lws2_32 -lgdi32 -Wl,--exclude-all-symbols -static-libgcc -static-libstdc++ \
-	-Wl,--output-def,cpp11tesseract.def
+	-Wl,--output-def,cpp11tesseract.def -Wl,--no-undefined -Wl,--kill-at -Wl,--enable-runtime-pseudo-reloc
 else
 	# For earlier R versions, use the standard approach
 	PKG_LIBS += -Wl,--whole-archive -ltesseract -Wl,--no-whole-archive \
