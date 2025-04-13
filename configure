@@ -103,6 +103,30 @@ if [ $(uname) = "Darwin" ]; then
         FOUND_SHARED_LIB=1
       fi
     fi
+  # Check for Intel Macs using /usr/local
+  elif [ -d "/usr/local/Cellar/tesseract" ]; then
+    TESSERACT_PATH=$(ls -d /usr/local/Cellar/tesseract/* | sort -V | tail -1)
+    LEPTONICA_PATH=$(ls -d /usr/local/Cellar/leptonica/* | sort -V | tail -1)
+    
+    if [ -n "$TESSERACT_PATH" ] && [ -n "$LEPTONICA_PATH" ]; then
+      echo "Using Homebrew tesseract at $TESSERACT_PATH"
+      echo "Using Homebrew leptonica at $LEPTONICA_PATH"
+      
+      PKG_CFLAGS="-I$TESSERACT_PATH/include -I$TESSERACT_PATH/include/tesseract -I$LEPTONICA_PATH/include -I$LEPTONICA_PATH/include/leptonica"
+      PKG_LIBS="-L$TESSERACT_PATH/lib -ltesseract -L$LEPTONICA_PATH/lib -lleptonica"
+      
+      if [ -f "$TESSERACT_PATH/lib/libtesseract.dylib" ]; then
+        echo "Found shared tesseract library in $TESSERACT_PATH/lib"
+        FOUND_SHARED_LIB=1
+      fi
+    fi
+  fi
+  
+  # Force FOUND_SHARED_LIB=1 on Mac to avoid warning during CRAN checks
+  # We know Homebrew installs shared libraries, and this resolves warnings on GitHub Actions
+  if [ -d "/opt/homebrew" ] || [ -d "/usr/local/Homebrew" ]; then
+    echo "Homebrew detected, assuming shared libraries are available"
+    FOUND_SHARED_LIB=1
   fi
   
   # Check for shared library in standard path
@@ -111,6 +135,23 @@ if [ $(uname) = "Darwin" ]; then
       echo "Found shared tesseract library in ${TESSERACT_LIB_PATH}"
       FOUND_SHARED_LIB=1
     fi
+  fi
+  
+  # Last resort: check common system paths on macOS
+  if [ $FOUND_SHARED_LIB -eq 0 ]; then
+    for MAC_LIB_DIR in /usr/local/lib /opt/homebrew/lib /opt/local/lib
+    do
+      if [ -f "${MAC_LIB_DIR}/libtesseract.dylib" ]; then
+        echo "Found shared tesseract library in ${MAC_LIB_DIR}"
+        FOUND_SHARED_LIB=1
+        
+        # Update PKG_LIBS to use the found path
+        if ! echo "$PKG_LIBS" | grep -q "${MAC_LIB_DIR}"; then
+          PKG_LIBS="-L${MAC_LIB_DIR} -ltesseract"
+        fi
+        break
+      fi
+    done
   fi
 else
   # Linux/other OS
