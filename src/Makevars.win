@@ -1,24 +1,31 @@
 # Tesseract configuration
-
 RWINLIB = ../windows/tesseract
 PKG_CPPFLAGS = -I${RWINLIB}/include -I${RWINLIB}/include/leptonica -fvisibility=hidden
 
-# Exclude unwanted symbols from DLL 
+# Exclude unwanted symbols from DLL using more aggressive approach
 PKG_LIBS = -L${RWINLIB}/lib${subst gcc,,${COMPILED_BY}}${R_ARCH} \
 	-L${RWINLIB}/lib \
+	-Wl,--whole-archive \
 	-ltesseract -lleptonica \
+	-Wl,--no-whole-archive \
 	-ltiff -lopenjp2 -lwebp -lsharpyuv -ljpeg -lgif -lpng16 -lz \
 	-lws2_32 \
-	-Wl,--exclude-all-symbols
+	-Wl,--exclude-all-symbols \
+	-static-libgcc -static-libstdc++
 
-# CRAN note: consistent C++11 standard usage
-CXX_STD = CXX11
+# For R 4.5.0 compatibility
+ifeq ($(shell ${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe -e 'cat(as.numeric(R.version$$major) + as.numeric(R.version$$minor)/10)'),4.5)
+	PKG_LIBS += -Wl,--version-script=../tools/exports.map
+endif
 
 # Compile
-all: clean winlibs
+all: clean winlibs exports.map
 
 clean:
-	rm -Rf $(OBJECTS) $(SHLIB)
+	rm -Rf $(OBJECTS) $(SHLIB) exports.map cpp11tesseract.def
+
+exports.map: clean
+	@echo "{ global: R_init_cpp11tesseract; local: *; };" > ../tools/exports.map
 
 winlibs:
 	mkdir -p ../inst
@@ -26,12 +33,6 @@ winlibs:
 	cp -Rf ../windows/tessdata ../inst/
 	cp -Rf ${RWINLIB}/share/tessdata ../inst/
 
-# Create DEF file to control exports
-$(SHLIB): $(OBJECTS) cpp11tesseract.def
-
-cpp11tesseract.def:
-	echo EXPORTS > cpp11tesseract.def
-	${DLLTOOL} --input-def cpp11tesseract.def --kill-at --output-lib cpp11tesseract.a $(OBJECTS)
+$(SHLIB): $(OBJECTS)
 
 .PHONY: all winlibs clean
-

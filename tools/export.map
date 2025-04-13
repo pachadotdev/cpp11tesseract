@@ -1,0 +1,6 @@
+{
+  global:
+    R_init_cpp11tesseract;
+  local:
+    *;
+};
