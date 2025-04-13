@@ -21,7 +21,7 @@ clean:
 	rm -Rf $(OBJECTS) $(SHLIB)
 
 winlibs:
-  	  mkdir -p ../inst
+	mkdir -p ../inst
 	"${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe" "../tools/winlibs.R" ${VERSION}
 	cp -Rf ../windows/tessdata ../inst/
 	cp -Rf ${RWINLIB}/share/tessdata ../inst/
