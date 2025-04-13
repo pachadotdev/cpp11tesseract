@@ -2,34 +2,31 @@
 RWINLIB = ../windows/tesseract
 PKG_CPPFLAGS = -I${RWINLIB}/include -I${RWINLIB}/include/leptonica -fvisibility=hidden
 
-# Exclude unwanted symbols from DLL using more aggressive approach
+# Basic library configuration
 PKG_LIBS = -L${RWINLIB}/lib${subst gcc,,${COMPILED_BY}}${R_ARCH} \
-	-L${RWINLIB}/lib \
-	-Wl,--whole-archive \
-	-ltesseract \
-	-Wl,--no-whole-archive \
-	-lleptonica \
-	-ltiff -lopenjp2 -lwebp -lwebpmux -lwebpdemux -lsharpyuv -ljpeg -lgif -lpng16 -lz \
-	-lws2_32 -lgdi32 \
-	-Wl,--exclude-all-symbols \
-	-static-libgcc -static-libstdc++
+	-L${RWINLIB}/lib 
 
-# For R 4.5.0 compatibility - using --version-script for symbol control
+# R 4.5.0 requires special handling for symbol visibility
 ifeq ($(shell ${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe -e 'cat(as.numeric(R.version$$major) + as.numeric(R.version$$minor)/10)'),4.5)
-	PKG_LIBS += -Wl,--version-script=../tools/exports.map
+	# For R 4.5.0, use explicit DEF file and extra symbol hiding
+	PKG_LIBS += -ltesseract -lleptonica -ltiff -lopenjp2 -lwebp -lwebpmux -lwebpdemux -lsharpyuv -ljpeg -lgif -lpng16 -lz \
+	-lws2_32 -lgdi32 -Wl,--exclude-all-symbols -static-libgcc -static-libstdc++ \
+	-Wl,--output-def,cpp11tesseract.def
+else
+	# For earlier R versions, use the standard approach
+	PKG_LIBS += -Wl,--whole-archive -ltesseract -Wl,--no-whole-archive \
+	-lleptonica -ltiff -lopenjp2 -lwebp -lwebpmux -lwebpdemux -lsharpyuv -ljpeg -lgif -lpng16 -lz \
+	-lws2_32 -lgdi32 -Wl,--exclude-all-symbols -static-libgcc -static-libstdc++
 endif
 
 # Set C++11 standard as required by Tesseract
 CXX_STD = CXX11
 
 # Compile
-all: clean winlibs exports.map
+all: clean winlibs
 
 clean:
-	rm -Rf $(OBJECTS) $(SHLIB) exports.map cpp11tesseract.def
-
-exports.map: clean
-	@echo "{ global: R_init_cpp11tesseract; local: *; };" > ../tools/exports.map
+	rm -f $(OBJECTS) $(SHLIB) cpp11tesseract.def cpp11tesseract.exp
 
 winlibs:
 	mkdir -p ../inst
@@ -37,6 +34,12 @@ winlibs:
 	cp -Rf ../windows/tessdata ../inst/ || true
 	cp -Rf ${RWINLIB}/share/tessdata ../inst/ || true
 
-$(SHLIB): $(OBJECTS)
+# Special handling for R 4.5.0
+$(SHLIB): $(OBJECTS) exports.def
+
+exports.def:
+	@echo EXPORTS > exports.def
+	@echo R_init_cpp11tesseract >> exports.def
 
 .PHONY: all winlibs clean
+
