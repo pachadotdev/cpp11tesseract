@@ -3,11 +3,19 @@
 RWINLIB = ../windows/tesseract
 PKG_CPPFLAGS = -I${RWINLIB}/include -I${RWINLIB}/include/leptonica
 
+# CRAN note: add --exclude-libs,ALL flag hides all symbols from static
+# libraries, which prevents functions like std::cerr, std::cout, abort(), etc.
+# from being exposed in the DLL
+
 PKG_LIBS = -L${RWINLIB}/lib${subst gcc,,${COMPILED_BY}}${R_ARCH} \
 	-L${RWINLIB}/lib \
 	-ltesseract -lleptonica \
 	-ltiff -lopenjp2 -lwebp -lsharpyuv -ljpeg -lgif -lpng16 -lz \
-	-lws2_32
+	-lws2_32 \
+	-Wl,--exclude-libs,ALL
+
+# CRAN note: consistent C++11 standard usage
+CXX_STD = CXX11
 
 # Compile
 

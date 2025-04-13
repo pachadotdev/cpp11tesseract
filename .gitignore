@@ -13,3 +13,4 @@ src/Makevars
 configure.log
 \.vscode
 README.html
+tesseract-training

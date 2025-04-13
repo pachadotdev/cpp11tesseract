@@ -14,39 +14,123 @@ PKG_BREW_NAME="tesseract leptonica"
 PKG_CFLAGS="-I/usr/include/leptonica"
 PKG_LIBS="-ltesseract"
 
-# Use pkg-config if available
-pkg-config --version >/dev/null 2>&1
-if [ $? -eq 0 ]; then
-  PKGCONFIG_CFLAGS=`pkg-config --cflags --silence-errors ${PKG_CONFIG_NAME}`
-  PKGCONFIG_LIBS=`pkg-config --libs ${PKG_CONFIG_NAME}`
-fi
-
-# Note that cflags may be empty in case of success
+# Check for custom locations
 if [ "$INCLUDE_DIR" ] || [ "$LIB_DIR" ]; then
   echo "Found INCLUDE_DIR and/or LIB_DIR!"
   PKG_CFLAGS="-I$INCLUDE_DIR $PKG_CFLAGS"
   PKG_LIBS="-L$LIB_DIR $PKG_LIBS"
-elif [ "$PKGCONFIG_CFLAGS" ] || [ "$PKGCONFIG_LIBS" ]; then
-  echo "Found pkg-config cflags and libs!"
-  PKG_CFLAGS="${PKGCONFIG_CFLAGS}"
-  PKG_LIBS="${PKGCONFIG_LIBS}"
+  
+# Use pkg-config if available
 else
+  pkg-config --version >/dev/null 2>&1
+  if [ $? -eq 0 ]; then
+    # Request shared libraries specifically
+    PKGCONFIG_CFLAGS=`pkg-config --cflags --silence-errors ${PKG_CONFIG_NAME}`
+    PKGCONFIG_LIBS=`pkg-config --libs --silence-errors ${PKG_CONFIG_NAME}`
+    
+    if [ "$PKGCONFIG_CFLAGS" ] || [ "$PKGCONFIG_LIBS" ]; then
+      echo "Found pkg-config cflags and libs!"
+      PKG_CFLAGS="${PKGCONFIG_CFLAGS}"
+      PKG_LIBS="${PKGCONFIG_LIBS}"
+    fi
+  fi
+  
+  # If pkg-config failed, try OS-specific fallbacks
+  if [ -z "$PKG_LIBS" ] || [ "$PKG_LIBS" = "-ltesseract" ]; then
+    # For MacOS, check common Homebrew and Macports locations
+    if [ $(uname) = "Darwin" ]; then
+      echo "Checking MacOS-specific paths..."
+      
+      # Homebrew ARM64 location (Apple Silicon)
+      if [ -d "/opt/homebrew/include/tesseract" ] && [ -d "/opt/homebrew/lib" ]; then
+        echo "Found Tesseract in Homebrew (ARM64)"
+        PKG_CFLAGS="-I/opt/homebrew/include -I/opt/homebrew/include/leptonica"
+        PKG_LIBS="-L/opt/homebrew/lib -ltesseract -llept"
+      # Homebrew Intel location
+      elif [ -d "/usr/local/include/tesseract" ] && [ -d "/usr/local/lib" ]; then
+        echo "Found Tesseract in Homebrew (Intel)"
+        PKG_CFLAGS="-I/usr/local/include -I/usr/local/include/leptonica"
+        PKG_LIBS="-L/usr/local/lib -ltesseract -llept"
+      # MacPorts location
+      elif [ -d "/opt/local/include/tesseract" ] && [ -d "/opt/local/lib" ]; then
+        echo "Found Tesseract in MacPorts"
+        PKG_CFLAGS="-I/opt/local/include -I/opt/local/include/leptonica"
+        PKG_LIBS="-L/opt/local/lib -ltesseract -llept"
+      fi
+    fi
+  fi
+fi
+
+# Check if shared libraries are available
+TESSERACT_LIB_PATH=$(echo $PKG_LIBS | grep -o -- "-L[^ ]*" | sed 's/-L//')
+FOUND_SHARED_LIB=0
+if [ -n "$TESSERACT_LIB_PATH" ]; then
+  if [ -f "${TESSERACT_LIB_PATH}/libtesseract.so" ] || [ -f "${TESSERACT_LIB_PATH}/libtesseract.dylib" ]; then
+    echo "Found shared tesseract library in ${TESSERACT_LIB_PATH}"
+    FOUND_SHARED_LIB=1
+    
+    # Force use of .so or .dylib
+    if [ $(uname) = "Darwin" ]; then
+      PKG_LIBS=$(echo "$PKG_LIBS" | sed 's/libtesseract\.a/libtesseract.dylib/g')
+    else
+      PKG_LIBS=$(echo "$PKG_LIBS" | sed 's/libtesseract\.a/libtesseract.so/g')
+    fi
+  fi
+fi
+
+if [ $FOUND_SHARED_LIB -eq 0 ]; then
+  # Common locations for shared libraries on Linux
+  for LIB_DIR in /usr/lib/x86_64-linux-gnu /usr/lib /usr/lib64 /lib/x86_64-linux-gnu
+  do
+    if [ -f "${LIB_DIR}/libtesseract.so" ]; then
+      echo "Found shared tesseract library in ${LIB_DIR}"
+      FOUND_SHARED_LIB=1
+      
+      # Update PKG_LIBS to use the found path
+      PKG_LIBS="-L${LIB_DIR} -ltesseract"
+      break
+    fi
+  done
+fi
+
+if [ $FOUND_SHARED_LIB -eq 0 ]; then
+  echo "Warning: Shared tesseract library not found, attempting to use static library"
+  echo "If compilation fails with PIC errors, please install the shared version of tesseract"
+  
+  # For distributions like Ubuntu, try to suggest the exact package
+  if [ -f "/etc/lsb-release" ] && grep -q "Ubuntu" /etc/lsb-release; then
+    echo "On Ubuntu, try: sudo apt-get install libtesseract-dev"
+  fi
+fi
+
+echo "Using PKG_CFLAGS=${PKG_CFLAGS}"
+echo "Using PKG_LIBS=${PKG_LIBS}"
+
+# If we still haven't found the libraries, error out
+if [ -z "$PKG_LIBS" ] || [ "$PKG_LIBS" = "-ltesseract" ]; then
   echo "--------------------------- [ANTICONF] --------------------------------"
-  echo "Configuration failed to find system libraries. Try installing:"
+  echo "Configuration failed to find tesseract library. Try installing:"
   echo " * deb: $PKG_DEB_NAME (Debian, Ubuntu, etc)"
   echo " * rpm: $PKG_RPM_NAME (Fedora, CentOS, RHEL)"
   echo " * brew: $PKG_BREW_NAME (Mac OSX)"
-  echo "If the libraries are already installed, check that 'pkg-config' is in your"
-  echo "PATH and PKG_CONFIG_PATH contains the necessary .pc files. If pkg-config"
+  echo "If tesseract is already installed, check that 'pkg-config' is in your"
+  echo "PATH and PKG_CONFIG_PATH contains the tesseract.pc file. If pkg-config"
   echo "is unavailable you can set INCLUDE_DIR and LIB_DIR manually via:"
   echo "R CMD INSTALL --configure-vars='INCLUDE_DIR=... LIB_DIR=...'"
   echo "-------------------------- [ERROR MESSAGE] ---------------------------"
   exit 1
 fi
 
-# Print debug information
-echo "PKG_CFLAGS: $PKG_CFLAGS"
-echo "PKG_LIBS: $PKG_LIBS"
+# Ensure we're using shared libraries not static ones
+# Replace any static library references with dynamic ones
+PKG_LIBS=$(echo "$PKG_LIBS" | sed 's/\.a/.so/g')
+
+# For Mac, ensure we're getting the right compiler flags for linking
+if [ $(uname) = "Darwin" ]; then
+  # Use dylib instead of .so on macOS
+  PKG_LIBS=$(echo "$PKG_LIBS" | sed 's/\.so/.dylib/g')
+  PKG_LIBS="$PKG_LIBS -Wl,-rpath,$(dirname $(echo $PKG_LIBS | grep -o '\-L[^ ]*' | sed 's/-L//g'))"
+fi
 
 # Check if the compiler is clang
 if [ "$CC" = "clang" ] || [ "$CXX" = "clang++" ]; then
@@ -59,13 +143,15 @@ fi
 CPPFLAGS=`${R_HOME}/bin/R CMD config CPPFLAGS`
 CXX11STD=`${R_HOME}/bin/R CMD config CXX11STD`
 if [ $? -eq 0 ]; then
-CXX11=`${R_HOME}/bin/R CMD config CXX11`
-CXX11CPP="$CXX11 -E $CXX11STD"
+  CXX11=`${R_HOME}/bin/R CMD config CXX11`
+  CXX11CPP="$CXX11 -E $CXX11STD"
+  echo "Using CXX11CPP: ${CXX11CPP}"
 else
-CXX11CPP=`${R_HOME}/bin/R CMD config CXXCPP`
+  CXX11CPP=`${R_HOME}/bin/R CMD config CXXCPP`
+  echo "Using CXX11CPP: ${CXX11CPP}"
 fi
 
-# Create temporary C++ files to test the compatibility with Tesseract
+# Create test file to check which API to use
 cat <<EOF > conftest.cpp
 #include <tesseract/baseapi.h>
 #include <string>
@@ -73,19 +159,29 @@ cat <<EOF > conftest.cpp
 int main() {
   tesseract::TessBaseAPI api;
   std::string val;
-  // This fails to link on older Tesseract
   api.GetVariableAsString("test", &val);
   return 0;
 }
 EOF
 
-if ${CXX11} -std=gnu++11 -c conftest.cpp -o conftest.o ${PKG_CFLAGS}; then
-  CXXFLAGS="$CXXFLAGS -DTESSERACT_HAS_GETVARIABLEASSTRING"
-  echo "Using GetVariableAsString()"
+# Set default to not using GetVariableAsString
+HAS_GET_VARIABLE_AS_STRING="#undef TESSERACT_HAS_GETVARIABLEASSTRING"
+
+if ${CXX11} -std=gnu++11 -c conftest.cpp -o conftest.o ${PKG_CFLAGS} 2>/dev/null; then
+  # If compilation succeeded, GetVariableAsString is available
+  HAS_GET_VARIABLE_AS_STRING="#define TESSERACT_HAS_GETVARIABLEASSTRING 1"
+  echo "Using GetVariableAsString() API"
 else
-  echo "Using GetStringVariable()"
+  echo "Using GetStringVariable() API (older version)"
 fi
 
+# Create the tesseract config header
+cat <<EOF > src/tesseract_config.h
+// Auto-generated by configure
+${HAS_GET_VARIABLE_AS_STRING}
+EOF
+
+# Test Tesseract C++11 compatibility
 cat <<EOF > conftest.cpp
 #include <tesseract/baseapi.h>
 #include <allheaders.h>
@@ -97,8 +193,7 @@ EOF
 
 # Test Tesseract
 # Tesseract enforces C++11
-if ! ${CXX11} -std=gnu++11 -c conftest.cpp -o conftest.o ${PKG_CFLAGS}
-then
+if ! ${CXX11} -std=gnu++11 -c conftest.cpp -o conftest.o ${PKG_CFLAGS} 2>/dev/null; then
     echo "Tesseract requires C++11 support"
     rm -rf conftest.cpp conftest.o
     exit 1
@@ -108,6 +203,8 @@ fi
 
 # Write to Makevars
 sed -e "s|@cflags@|$PKG_CFLAGS|" -e "s|@libs@|$PKG_LIBS|" src/Makevars.in > src/Makevars
+
+echo "CXX_STD = CXX11" >> src/Makevars
 
 # Success
 exit 0

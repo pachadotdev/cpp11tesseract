@@ -1,2 +1,7 @@
 PKG_CPPFLAGS=@cflags@
-PKG_LIBS=@libs@
+
+# Force shared library linking by explicitly changing .a to .so
+PKG_LIBS=$(subst .a,.so,@libs@)
+
+# Set C++11 standard for compatibility
+CXX_STD=CXX11

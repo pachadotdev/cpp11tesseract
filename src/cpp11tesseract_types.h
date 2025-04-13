@@ -1,12 +1,13 @@
-#include <tesseract/baseapi.h> // tesseract
-#include <allheaders.h> // leptonica
+#include <allheaders.h>         // leptonica
+#include <tesseract/baseapi.h>  // tesseract
 
-#include <memory>
+#include <cpp11.hpp>
 #include <list>
+#include <memory>
 #include <string>
 #include <vector>
 
-#include <cpp11.hpp>
+#include "tesseract_config.h"  // Auto-generated config with correct API detection
 
 inline void tess_finalizer(tesseract::TessBaseAPI* engine) {
   engine->End();
