@@ -1,17 +1,9 @@
-#include <cpp11.hpp>
+// Windows-specific symbol fixes
+#include "win_symbol_fixes.h"
 
-// Define R_NO_REMAP to prevent conflicts with cpp11
-#define R_NO_REMAP
-#define STRICT_R_HEADERS
-
-// include R headers if needed
-#ifdef _WIN32
-#include <R.h>
-#include <Rinternals.h>
-#endif
-
-// On macOS, try multiple include paths
+// Try multiple include paths for better cross-platform compatibility
 #if __APPLE__
+// On macOS, try multiple include paths
 #if __has_include(<leptonica/allheaders.h>)
 #include <leptonica/allheaders.h>
 #elif __has_include(<allheaders.h>)
@@ -26,21 +18,13 @@
 
 #include <tesseract/baseapi.h>  // tesseract
 
+#include <cpp11.hpp>
 #include <list>
 #include <memory>
 #include <string>
 #include <vector>
 
 #include "tesseract_config.h"
-
-// Simple redirection for std::cerr and std::cout on Windows
-// This is much less intrusive but still helps with the CRAN check
-#ifdef _WIN32
-#define cerr \
-  if (0) std::cerr
-#define cout \
-  if (0) std::cout
-#endif
 
 inline void tess_finalizer(tesseract::TessBaseAPI* engine) {
   engine->End();
