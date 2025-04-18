@@ -1,6 +1,3 @@
-// Windows-specific symbol fixes
-#include "win_symbol_fixes.h"
-
 // Try multiple include paths for better cross-platform compatibility
 #if __APPLE__
 // On macOS, try multiple include paths
