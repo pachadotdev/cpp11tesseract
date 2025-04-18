@@ -1,39 +1,59 @@
-// bypass C++ functions that are not CRAN-compliant
-#ifndef SYMBOL_INTERCEPTORS_H
-#define SYMBOL_INTERCEPTORS_H
+// Include R's C API for Windows to intercept problematic symbols
+#ifdef _WIN32
+// Include R headers first
+#include <R.h>
+#include <Rinternals.h>
 
-// Only apply these redirections when building for Windows
-#if defined(_WIN32)
+// Use a namespace to avoid conflicts
+namespace tesseract_r_wrapper {
+// Safe versions that don't terminate R
+inline void safe_abort() {
+  REprintf("Internal error detected in tesseract (abort call intercepted)\n");
+}
 
+inline void safe_exit(int status) {
+  REprintf("Exit requested with status %d (intercepted)\n", status);
+}
+
+inline int safe_rand() { return 0; }
+inline void safe_srand(unsigned int seed) {}
+}  // namespace tesseract_r_wrapper
+
+// Only include the C++ header interceptors after defining our safe functions
 #include <cstdlib>
 #include <iostream>
 
+// Override problematic functions after including standard headers
+#ifdef abort
+#undef abort
+#endif
+#define abort tesseract_r_wrapper::safe_abort
+
+#ifdef exit
+#undef exit
+#endif
+#define exit(x) tesseract_r_wrapper::safe_exit(x)
+
+#ifdef rand
+#undef rand
+#endif
+#define rand tesseract_r_wrapper::safe_rand
+
+#ifdef srand
+#undef srand
+#endif
+#define srand(x) tesseract_r_wrapper::safe_srand(x)
+
+// Redirect cout/cerr
 #define cerr \
   if (0) std::cerr
 #define cout \
   if (0) std::cout
 
-inline void R_friendly_abort() {
-  Rprintf("Internal error detected (abort intercepted)\n");
-}
-inline void R_friendly_exit(int status) {
-  Rprintf("Exit requested with status %d (intercepted)\n", status);
-}
+#endif  // _WIN32
 
-#define abort R_friendly_abort
-#define exit(x) R_friendly_exit(x)
-
-inline int R_friendly_rand() { return 0; }
-inline void R_friendly_srand(unsigned int seed) {}
-#define rand R_friendly_rand
-#define srand(x) R_friendly_srand(x)
-
-#endif
-#endif
-
-// Try multiple include paths for better cross-platform compatibility
-#if __APPLE__
 // On macOS, try multiple include paths
+#if __APPLE__
 #if __has_include(<leptonica/allheaders.h>)
 #include <leptonica/allheaders.h>
 #elif __has_include(<allheaders.h>)
