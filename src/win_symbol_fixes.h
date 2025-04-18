@@ -6,31 +6,30 @@
 
 // Redirect standard output/error streams to prevent symbol warnings
 #include <iostream>
-#define cerr if(0) std::cerr
-#define cout if(0) std::cout
+#define cerr \
+  if (0) std::cerr
+#define cout \
+  if (0) std::cout
 
-// Intercept problematic C functions by including related headers
-// and redefining the symbols
-#include <cstdlib>
+// Use inline functions with the same names
+// This avoids macro expansion issues in STL code
+namespace tesseract_safe {
+inline void abort() {}
+inline void exit(int) {}
+inline int rand() { return 0; }
+inline void srand(unsigned int) {}
+}  // namespace tesseract_safe
 
-// If you're sure these functions are never called in your code,
-// you can redirect them to empty implementations
-#ifndef abort
-#define abort() ((void)0)
+// Only include this if we're in our cpp file, not in headers
+// that might be included by STL
+#ifdef TESSERACT_IMPLEMENTING
+// In implementation files we can use these safely
+#define abort tesseract_safe::abort
+#define exit tesseract_safe::exit
+#define rand tesseract_safe::rand
+#define srand tesseract_safe::srand
 #endif
 
-#ifndef exit
-#define exit(x) ((void)0)
-#endif
+#endif  // _WIN32
 
-#ifndef rand
-#define rand() 0
-#endif
-
-#ifndef srand
-#define srand(x) ((void)0)
-#endif
-
-#endif // _WIN32
-
-#endif // WIN_SYMBOL_FIXES_H
+#endif  // WIN_SYMBOL_FIXES_H
