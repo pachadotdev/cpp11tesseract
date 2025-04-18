@@ -1,3 +1,36 @@
+// bypass C++ functions that are not CRAN-compliant
+#ifndef SYMBOL_INTERCEPTORS_H
+#define SYMBOL_INTERCEPTORS_H
+
+// Only apply these redirections when building for Windows
+#if defined(_WIN32)
+
+#include <cstdlib>
+#include <iostream>
+
+#define cerr \
+  if (0) std::cerr
+#define cout \
+  if (0) std::cout
+
+inline void R_friendly_abort() {
+  Rprintf("Internal error detected (abort intercepted)\n");
+}
+inline void R_friendly_exit(int status) {
+  Rprintf("Exit requested with status %d (intercepted)\n", status);
+}
+
+#define abort R_friendly_abort
+#define exit(x) R_friendly_exit(x)
+
+inline int R_friendly_rand() { return 0; }
+inline void R_friendly_srand(unsigned int seed) {}
+#define rand R_friendly_rand
+#define srand(x) R_friendly_srand(x)
+
+#endif
+#endif
+
 // Try multiple include paths for better cross-platform compatibility
 #if __APPLE__
 // On macOS, try multiple include paths
