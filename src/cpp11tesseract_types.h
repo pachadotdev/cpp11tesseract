@@ -1,56 +1,14 @@
-// Include R's C API for Windows to intercept problematic symbols
+#include <cpp11.hpp>
+
+// Define R_NO_REMAP to prevent conflicts with cpp11
+#define R_NO_REMAP
+#define STRICT_R_HEADERS
+
+// include R headers if needed
 #ifdef _WIN32
-// Include R headers first
 #include <R.h>
 #include <Rinternals.h>
-
-// Use a namespace to avoid conflicts
-namespace tesseract_r_wrapper {
-// Safe versions that don't terminate R
-inline void safe_abort() {
-  REprintf("Internal error detected in tesseract (abort call intercepted)\n");
-}
-
-inline void safe_exit(int status) {
-  REprintf("Exit requested with status %d (intercepted)\n", status);
-}
-
-inline int safe_rand() { return 0; }
-inline void safe_srand(unsigned int seed) {}
-}  // namespace tesseract_r_wrapper
-
-// Only include the C++ header interceptors after defining our safe functions
-#include <cstdlib>
-#include <iostream>
-
-// Override problematic functions after including standard headers
-#ifdef abort
-#undef abort
 #endif
-#define abort tesseract_r_wrapper::safe_abort
-
-#ifdef exit
-#undef exit
-#endif
-#define exit(x) tesseract_r_wrapper::safe_exit(x)
-
-#ifdef rand
-#undef rand
-#endif
-#define rand tesseract_r_wrapper::safe_rand
-
-#ifdef srand
-#undef srand
-#endif
-#define srand(x) tesseract_r_wrapper::safe_srand(x)
-
-// Redirect cout/cerr
-#define cerr \
-  if (0) std::cerr
-#define cout \
-  if (0) std::cout
-
-#endif  // _WIN32
 
 // On macOS, try multiple include paths
 #if __APPLE__
@@ -68,13 +26,21 @@ inline void safe_srand(unsigned int seed) {}
 
 #include <tesseract/baseapi.h>  // tesseract
 
-#include <cpp11.hpp>
 #include <list>
 #include <memory>
 #include <string>
 #include <vector>
 
 #include "tesseract_config.h"
+
+// Simple redirection for std::cerr and std::cout on Windows
+// This is much less intrusive but still helps with the CRAN check
+#ifdef _WIN32
+#define cerr \
+  if (0) std::cerr
+#define cout \
+  if (0) std::cout
+#endif
 
 inline void tess_finalizer(tesseract::TessBaseAPI* engine) {
   engine->End();
